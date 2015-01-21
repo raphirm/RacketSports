@@ -1,0 +1,22 @@
+'use strict';
+
+module.exports = function(app) {
+	var users = require('../../app/controllers/users.server.controller');
+	var leagues = require('../../app/controllers/leagues.server.controller');
+
+	// Leagues Routes
+	app.route('/leagues')
+		.get(leagues.list)
+		.post(users.requiresLogin, leagues.create);
+
+	app.route('/leagues/:leagueId')
+		.get(leagues.read)
+		.put(users.requiresLogin, leagues.hasAuthorization, leagues.update)
+		.delete(users.requiresLogin, leagues.hasAuthorization, leagues.delete);
+	app.route('/leagues/:leagueId/join')
+		.get(users.requiresLogin, leagues.hasAuthorization, leagues.join);
+	app.route('/leagues/:leagueId/leave')
+		.get(users.requiresLogin, leagues.hasAuthorization, leagues.leave);
+	// Finish by binding the League middleware
+	app.param('leagueId', leagues.leagueByID);
+};

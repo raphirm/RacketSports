@@ -1,0 +1,28 @@
+<section data-ng-controller="LeaguesController" data-ng-init="findOne()">
+	<div class="page-header">
+		<h1 data-ng-bind="league.name"></h1>
+		<p data-ng-bind="league.sport"></p>
+
+	</div>
+	<div class="pull-right">
+			<a data-ng-show="!joinStatus()" class="btn btn-primary" ng-click="joinLeague()">
+			<i class="glyphicon glyphicon-ok"></i>
+		</a>
+		<a data-ng-show="joinStatus()" class="btn btn-primary" ng-click="leaveLeague()">
+			<i class="glyphicon glyphicon-remove"></i>
+		</a>
+		<a class="btn btn-primary" href="/#!/leagues/{{league._id}}/edit">
+			<i class="glyphicon glyphicon-edit"></i>
+		</a>
+		<a class="btn btn-primary" data-ng-click="remove();">
+			<i class="glyphicon glyphicon-trash"></i>
+		</a>
+	</div>
+	<div class="center-block" >
+		<div class="list-group" ng-repeat="user in league.users">
+			{{user.user.username}} - {{user.points}}
+		</div>
+	</div>
+
+
+</section>

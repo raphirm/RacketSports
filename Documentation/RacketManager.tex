@@ -1,0 +1,120 @@
+\documentclass[12pt,a4paper,openany,ngerman,plainfootsepline,plainheadsepline]{scrbook}
+% Change "article" to "report" to get rid of page number on title page
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{Tabbing}
+\usepackage{lastpage}
+\usepackage[backend=biber,citestyle=verbose-note]{biblatex}
+\addbibresource{bib/verzeichnis1.bib}
+\usepackage{here} 
+\usepackage{tocbasic}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{pifont}
+
+
+\usepackage[automark,						%Automatische Kopfzeile
+						%headtopline,				%Linie über dem Seitenkopf
+						%plainheadtopline,	%Plain, Linie über dem Seitenkopf
+						headsepline,				%Linie zwischen Kopf und Textkörper
+						%plainheadsepline,	%Plain, Linie zwischen Kopf und Textkörper
+						footsepline,				%Linie zwischen Textkörper und Fuß
+						plainfootsepline,   %Plain, Linie zwischen Textkörper und Fuß
+						%footbotline,				%Linie unter dem Fuß
+						%plainfootbotline   %Plain, Linie unter dem Fuß
+						]{scrpage2}
+\usepackage{graphicx,wrapfig}
+\usepackage[ansinew]{inputenc}
+\usepackage[ngerman]{babel}
+
+\usepackage[hidelinks]{hyperref}
+
+
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+%\pdfliteral direct {/Interpolate true}
+%\special {pdf:direct: /Interpolate true }
+% Homework Specific Information
+\newcommand{\hmwkTitle}{Racketsports Manager}
+\newcommand{\hmwkClass}{Semesterarbeit ZHAW}
+\newcommand{\hmwkAuthorName}{Raphael Marques}
+\newcommand{\hmwkTeacherName}{Michael Reiser}
+
+
+                                   %
+\clearscrplain		
+%Alte Plain-Formatierung entfernen
+\cehead{\headmark}    % Chaper auf geraden Seiten (links) in Kopfzeile
+\cohead{\headmark}
+\rehead{\includegraphics[width=25pt]{Graphics/zhaw.jpg}}    % Section auf ungeraden Seiten (rechts) in Kopfzeile
+\rohead{\includegraphics[width=25pt]{Graphics/zhaw.jpg}} 
+\lehead{\hmwkTitle}    % Section auf ungeraden Seiten (rechts) in Kopfzeile
+\lohead{\hmwkTitle} 
+\refoot{\hmwkAuthorName}    % Chaper auf geraden Seiten (links) in Kopfzeile
+\rofoot{\hmwkAuthorName}
+\lofoot{Page\ \thepage\ of\ \pageref{LastPage}}    % Chaper auf geraden Seiten (links) in Kopfzeile
+\lefoot{Page\ \thepage\ of\ \pageref{LastPage}}
+\setheadsepline{0.4pt}   
+\setfootsepline{0.4pt}                                  %
+\pagestyle{scrheadings}
+\automark[section]{chapter}
+ % Seitenstil aktivieren
+\renewcommand{\chapterpagestyle}{scrheadings}
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+\pdfpxdimen=1in
+
+\divide\pdfpxdimen by 800
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{1in}\textmd{\textbf{\ \hmwkTitle}}
+\\\normalsize \vspace{0.1in} \large{\hmwkClass} \vspace{0.5in}
+\\\includegraphics[width=300pt]{Graphics/title.png}
+\vspace{0.1in}\large{\textit{}}\vspace{0.2in}
+\author{\textbf{Autor: \hmwkAuthorName}
+\\\textbf{ Betreuer: \hmwkTeacherName}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+\nocite{*}
+\begin{spacing}{1.1}
+
+\maketitle
+\newpage
+% Uncomment the \tableofcontents and \newpage lines to get a Contents page
+% Uncomment the \setcounter line as well if you do NOT want subsections
+%       listed in Contents
+%\setcounter{tocdepth}{1}
+%\tableofcontents
+%\newpage
+
+% When problems are long, it may be desirable to put a \newpage or a
+% \clearpage before each homeworkProblem envirosnment
+
+\clearpage
+\begin{normalsize}
+\setcounter{tocdepth}{2}
+\tableofcontents
+\input{Library/1-MS}
+\input{Library/2-Projekt}
+\input{Library/3-Analyse}
+\input{Library/4-Konzept}
+\input{Library/5-Implementation}
+\end{normalsize}
+
+\listoffigures
+
+\printbibliography
+\end{spacing}
+\end{document}

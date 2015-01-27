@@ -1,0 +1,9 @@
+[1] Config.pm:321> INFO - This is Biber 1.9
+[2] Config.pm:324> INFO - Logfile is 'RacketManager.blg'
+[63] biber:277> INFO - === Die Jan 27, 2015, 09:18:12
+[63] Biber.pm:334> INFO - Reading 'RacketManager.bcf'
+[145] Biber.pm:633> INFO - Using all citekeys in bib section 0
+[166] Biber.pm:3052> INFO - Processing section 0
+[188] Biber.pm:3190> INFO - Looking for bibtex format file 'bib/verzeichnis1.bib' for section 0
+[189] Utils.pm:160> ERROR - Can't read bib/verzeichnis1.bib
+[189] Biber.pm:111> INFO - ERRORS: 1

@@ -1,0 +1,40 @@
+\chapter{Definition Ausspähen}
+\section{Definition}
+Ausspähen bedeutet Informationen über ein Ziel sammeln. 
+
+In der IT ist Ausspähen eine Voraussetzung um Informationen zu entwenden und oder einen Angriff gegen ein IT-System zu starten. Ausspähen kann auch benutzt werden, um den Urheber hinter einem IT-System zu finden. 
+
+Die IT-Sicherheit definiert Ausspähen in dem CIA Paradigma \footcite{cia} unter dem Begriff "Confidentiality" (auf deutsch Vertraulichkeit). 
+
+In dieser Arbeit wird grob in drei verschiedene Arten unterschieden. Diese Arten unterscheiden sich in der Aggressivität, um an Informationen zu kommen. Später im Dokument werden alle Techniken in diese Arten aufgegliedert. Viele Techniken können nicht eindeutig auf eine Art zugeordnet werden und bestehen je nach Anwendung aus einer Mischung von verschiedenen "'Aggressivität Level"'.
+
+\subsection{Footprinting}
+Footprinting beschreibt Technologien, welche unauffällig oder teilweise ohne Kontakt zum Ziel agieren. Diese Technologien greifen zum Beispiel auf öffentliche Quellen zu oder prüfen nur die Existenz oder den Weg zum Ziel. Footprinting sammelt generelle Informationen des Ziels, die für irgendwelche (nicht zwangsläufig kriminelle) Zwecke weiterverwendet werden können.
+
+\subsection{Vulnerability Scanning}
+Vulnerability Scanning späht spezifisch Schwachstellen (engl. Vulnerabilities) aus. Diese Informationen können benutzt werden, um Zugang zu fremden Systemen oder Firmen zu bekommen. Bei Vulnerability Scanning werden meist Versionen von Programmen und Systemen aufgerufen und aufgrund dessen Informationen bekannte Schwachstellen zugeordnet. Bei Vulnerability Scans wird meist die Schwachstelle nicht ausgenutzt, sondern nur Informationen darüber gesammelt. 
+
+\subsection{Penetration}
+Penetration Testing geht einen Schritt weiter als Vulnerability Scanning. Neben bekannten Schwachstellen werden auch sogenannte "'generische"' Schwachstellen (z.B. Cross Site Scripting oder SQL Injuctions) gesucht und auch missbraucht, um herauszufinden, was für Auswirkungen die Schwachstelle auf das System hat und welche Rechteeskalation anschliessend möglich ist.
+
+Als Beispiel für den Unterschied zwischen Penetration Testing und Vulnerability Scanning: Benutzt eine Webseite ein Content Management System (z.B. Joomla),  so sucht der Vulnerability Scan die Version heraus und benutzt Datenbanken, die Schwachstellen protokollieren, um herauszufinden welche Schwachstellen für die jeweilige Version vorhanden ist. Der Penetration Test im Gegensatz versucht z.B. die Tabellen im Hintergrund mit speziellen SQL Befehlen über GET und POSTS zu hacken oder mit Cross Site Scripts den Prozess hinter der Webseite zu hacken.
+
+\section{Ziele}
+\subsection{Personen und Unternehmen}
+In diesem Dokument wird zwischen zwei verschiedenen Zielen unterschieden. Wenn das Ziel Personen und Unternehmen sind, geht es primär nicht darum, eine IT-Infrastruktur auszuspähen, sondern mithilfe von IT-Hilfsmitteln eine Person auszuspionieren. Es werden meistens logische Schwachstellen im Internet benutzt, um mehr über eine bestimmte Person oder ein bestimmtes Unternehmen zu erfahren. (Ein perfektes Beispiel war vor ein paar Jahren die Zugriffsberechtigungen von Facebook, mit welchen man das ganze Beziehungsnetz inklusive Fotos und weiteren Informationen von unbekannten ausspähen konnte.)
+
+\subsection{IT-Systeme}
+Wenn man ein IT-System als Ziel hat, ist die Person dahinter meistens nicht im Mittelpunkt. (Mindestens für die unmittelbare Methode, für einen ganzheitlichen Angriff ist die Person möglicherweise dennoch interessant.) Bei einer Informationsbeschaffung von IT-Systemen versucht man herauszufinden, was das System freiwillig von sich preis gibt. Die Erfahrung zeigt, dass IT-Systeme gerne viel mitteilen. Auch andere unbeteiligte Systeme können technische Informationen des Zielsystems enthalten. 
+
+\section{Techniken}
+\subsection{Passives Ausspähen}
+Passives Ausspähen heisst, der Spion hat keinen direkten Kontakt mit dem Ziel. Der Vorteil von passivem Ausspähen ist, dass das Ziel nahezu keine Chance hat ein solcher Spionageversuch aufzudecken oder zu detektieren. 
+
+\subsection{Aktives Ausspähen}
+Aktives Ausspähen ist das genaue Gegenteil. Hier interagiert man mit dem Ziel. Das Risiko entdeckt zu werden ist bei aktivem Ausspähen erheblich grösser, dafür kann man sehr viel mehr Informationen erhalten.
+
+\subsection{Beispiel zur Unterscheidung}
+Auf den ersten Blick ist der Unterschied von aktivem und passivem Ausspähen schwer ersichtlich. Darum gibt es hier ein einfaches Beispiel:
+Ausgangslage: Man will über sein Ziel wissen, welche Produkte das Ziel über die Homepage vertreibt.  
+Aktives Ausspähen: Man besucht die Homepage d.h. man interagiert mit dem Webserver des Ziels. 
+Passives Ausspähen: Man benutzt den Cache von Google und interagiert mit Google anstatt mit dem Ziel.

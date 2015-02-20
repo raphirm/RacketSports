@@ -51,10 +51,10 @@ angular.module('leagues').controller('LeaguesController', ['$http', '$scope', '$
 			$http.get("/leagues/"+league._id+"/leave");
 			location.reload();
 		};
-		$scope.joinStatus = function(league) {
-			var league = $scope.league;
+		$scope.joinStatus = function(leagueid) {
+
 			var existing = false;
-			league.users.forEach(function(user){
+			leagueid.users.forEach(function(user){
 				if($scope.authentication.user._id == user.user._id){
 					existing = true;
 				}

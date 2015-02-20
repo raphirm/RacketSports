@@ -8,7 +8,8 @@ module.exports = function(app) {
 	app.route('/leagues')
 		.get(leagues.list)
 		.post(users.requiresLogin, leagues.create);
-
+    app.route('/leagues/me')
+        .get(users.requiresLogin, leagues.listMyLeagues)
 	app.route('/leagues/:leagueId')
 		.get(leagues.read)
 		.put(users.requiresLogin, leagues.hasAuthorization, leagues.update)

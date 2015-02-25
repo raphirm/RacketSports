@@ -17,8 +17,6 @@
 		"postinstall": "bower install --config.interactive=false"
 	},
 	"dependencies": {
-		"grunt-daemon" : "*",
-		"grunt-contrib-connect": "*",
 		"express": "~4.10.1",
 		"express-session": "~1.9.1",
 		"body-parser": "~1.9.0",

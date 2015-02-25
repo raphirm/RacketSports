@@ -4,9 +4,13 @@
 	"version": "0.0.1",
 	"author": "Raphael Marques",
 	"engines": {
-		"node": "0.10.x",
+		"node": "*",
 		"npm": "1.4.x"
 	},
+	"repository": {
+  "type": "git",
+  "url": "git://github.com/raphirm/RacketSports.git"
+},
 	"scripts": {
 		"start": "grunt",
 		"test": "grunt test",

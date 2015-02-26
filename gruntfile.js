@@ -128,6 +128,10 @@ module.exports = function(grunt) {
 			secure: {
 				NODE_ENV: 'secure'
 			}
+				production: {
+				NODE_ENV: 'production'
+				src: '../../RacketSport_SecureGruntEnv.json'
+			}
 		},
 		mochaTest: {
 			src: watchFiles.mochaTests,
@@ -175,5 +179,5 @@ module.exports = function(grunt) {
 
 	// Test task.
 	grunt.registerTask('test', ['env:test', 'mochaTest', 'karma:unit']);
-	grunt.registerTask('server', ['connect', 'daemonize']);
+	grunt.registerTask('prod',  ['env:production', 'lint', 'concurrent:default']);
 };

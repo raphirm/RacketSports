@@ -129,7 +129,7 @@ module.exports = function(grunt) {
 				NODE_ENV: 'secure'
 			}
 				production: {
-				NODE_ENV: 'production'
+				NODE_ENV: 'production',
 				src: '../../RacketSport_SecureGruntEnv.json'
 			}
 		},

@@ -1,0 +1,38 @@
+% Erste Formatvorlage für eine Presentation mit Latex
+% 
+% Erstellt von: Mathias Weigert
+%                     ZHAW - i10b
+%
+% Version: 0.1 (29. April 2013)
+
+\documentclass{beamer}
+\usepackage{beamerthemeshadow}
+
+\input{conf/packages}								% lade ausgelagerte Packages
+
+\input{meta}		
+%\usetheme{Rochester}
+
+\begin{document}
+
+%=================================Inhaltsverzeichnis===============================================
+
+\frame{\titlepage}
+\frame{\frametitle{Inhaltsverzeichnis}
+\tableofcontents[hideallsubsections]
+}
+
+%===================================Begin Slides===========================================
+
+\input{doc/Ausgangslage}
+\input{doc/Ziele}
+\input{doc/Aufgabenstellung}
+\input{doc/Grobplanung}
+
+\frame{\frametitle{Fragen}
+	\begin{center}
+	\includegraphics[scale=0.75]{pic/ask}
+	\end{center}
+}
+
+\end{document}

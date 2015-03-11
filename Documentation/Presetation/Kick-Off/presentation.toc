@@ -1,0 +1,10 @@
+\beamer@endinputifotherversion {3.33pt}
+\beamer@sectionintoc {1}{Ausgangslage}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Racket Sport}{3}{0}{1}
+\beamer@sectionintoc {2}{Ziele}{6}{0}{2}
+\beamer@subsectionintoc {2}{1}{Use Cases}{6}{0}{2}
+\beamer@subsectionintoc {2}{2}{Programm}{7}{0}{2}
+\beamer@sectionintoc {3}{Aufgabenstellung}{10}{0}{3}
+\beamer@subsectionintoc {3}{1}{Vorgehen}{10}{0}{3}
+\beamer@sectionintoc {4}{Grobplanung}{14}{0}{4}
+\beamer@subsectionintoc {4}{1}{Plan}{14}{0}{4}

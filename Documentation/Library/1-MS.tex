@@ -2,14 +2,93 @@
 
 
 \chapter{Inhalt der Arbeit}
+Racket-Sportarten haben ein Problem. Man muss die richtige Zeit und den richtigen Partner finden. Die Applikation, welche ich für die Semester-Arbeit erstelle sollte dieses Problem lösen. Durch einen "Doodle-Style"-Termin und Spieler-Finder sowie eine Liga-Verwaltung werden die Teilnehmenden motiviert, öfters zu squashen.
 
-\section{Motivation}
+\section{Ausgangslage}
+Einen Partner für Racket-Sportarten zu finden, ist nicht immer sehr einfach. Wenn man schliesslich jemanden gefunden hat, ist es immer schwer, einen Termin zu finden. Spielt man regelmässig gegen die gleiche Person, stellt man sich oft auf diese ein und lernt mit der Zeit nur noch wenig dazu. 
 
+Diese App sollte diese Probleme lösen, indem man einfach miteinander Termine vereinbaren kann und das Termine vom System für die User automatisch generiert werden.
 
 \section{Aufgabenstellung}
+Um die Ziele zu erreichen, muss methodisch vorgegangen werden. In der Dokumentation müssen angewendete Technologien begründet werden sowie Konzepte und Architekturen der Applikation festgehalten werden.
+\begin{enumerate}
+\itemsep-0.7em
+\item Informieren über den momentanen Markt und Organisation rund um Racketsport
+\begin{itemize}
+	\itemsep-0.7em
+	\item Andere Applikationen rund um Racketsport identifizieren
+	\item Eine Umfrage erstellen, wie sich Racket-Sportler für Spiele verabreden
+\end{itemize} 
+\item  	Anforderungsanalyse, welche Funktionalitäten dem Nutzer einen echten Mehrwert bieten
+\begin{itemize}
+	\itemsep-0.7em
+	\item Basierend auf (1) eine Anforderungsanalyse erstellen
+	\item User Stories erstellen
+	\item Sprints planen
+\end{itemize} 
+\item Konzeption der App, Technologien wählen
+\begin{itemize}
+	\itemsep-0.7em
+	\item Entscheidungsmatrix, welche Technologien verwendet werden
+	\item DB Design
+	\item Klassen-Diagramm
+	\item GUI-Entwurf
+\end{itemize}
+\item Die Applikation umsetzen
+\begin{itemize}
+	\itemsep-0.7em
+	\item Applikation programmieren 
+	\item Unit Tests erstellen/ausführen
+\end{itemize}
+\item Systemtests durchführen
+\begin{itemize}
+	\itemsep-0.7em
+	\item Systemstests konzipieren
+	\item Systemtests durchführen
+	\item End-to-End Testing
+\end{itemize}
+\item Benutzertests durchführen
+\begin{itemize}
+		\itemsep-0.7em
+	 \item Benutzer einladen für Alpha-Test
+	\item Feedback von Benutzer verlangen
+\end{itemize}
+\end{enumerate}
 
-
-\section{Vorgehen}
-
+\section{Erwartete Resultat}
+Folgende Resultate werden erwartet:
+\begin{itemize}
+	\itemsep-0.7em
+\item Marktanalyse \& Benutzerverhaltensanalyse zur vereinbarung von Spielen
+\item Anforderungsanalyse
+\item Recherche für einzusetzende Techniken
+\item Konzepte und Implementationstechniken 
+\item User Stories und Projektplanung
+\item Android App und Webapplikation
+\item Testplan und Umsetzung
+\item Benutzerfeedback des Alpha-Tests
+\item Fazit
+\end{itemize}
 
 \section{Zielsetzung der Arbeit}
+Ziel der Arbeit ist eine WebApplikation sowie eine Android App mit bestimmten Funktionalitäten zu erstellen. Der Autor der Arbeit soll so Zugang zu neuen Technologien im Webbereich erhalten und Erfahrung in der Webapplikations-Programmierung sammeln.
+
+
+Aufgabenstellung:
+\begin{itemize}
+	\itemsep-0.7em
+\item Dokumentation über Entscheidungen und Implementationstechniken
+\item Webapplikation mit folgender Funktionalität:
+\begin{itemize}
+	\itemsep-0.7em
+	\item RestAPI um alle untenstehenden Funktionalitäten
+	\item Liga erstellen und löschen
+	\item Einer Liga beitreten und eine Liga verlassen
+	\item Spiel vereinbaren
+	\item Termin für Spiel finden
+	\item Spielresultat eintragen
+	\item Rangliste der Liga berechnen
+	\item Automatische Spielvorschläge innerhalb der Liga (z.B. jeder Spieler \item spielt jede zweite Woche ein Spiel)
+\end{itemize}
+\item Android App, welche auf die WebAPI zugreift mit gleicher Funktionalität wie WebApplikation
+\end{itemize}

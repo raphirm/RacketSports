@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/Debian) (preloaded format=pdflatex 2014.10.24)  10 MAR 2015 08:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.3.24)  24 MAR 2015 13:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **RacketManager.tex
 (./RacketManager.tex
-LaTeX2e <2014/05/01>
-Babel <3.9k> and hyphenation patterns for 79 languages loaded.
+LaTeX2e <2011/06/27>
+Babel <3.9k> and hyphenation patterns for 74 languages loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/koma-script/scrbook.cls
 Document Class: scrbook 2013/12/19 v3.12 KOMA-Script document class (book)
 (/usr/share/texlive/texmf-dist/tex/latex/koma-script/scrkbase.sty
@@ -17,7 +17,7 @@ Package: scrbase 2013/12/19 v3.12 KOMA-Script package (KOMA-Script-independent
 basics and keyval usage)
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
-Package: keyval 2014/05/08 v1.15 key=value parser (DPC)
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
 )
 (/usr/share/texlive/texmf-dist/tex/latex/koma-script/scrlfile.sty
@@ -199,10 +199,10 @@ Package: Tabbing 1997/12/18 v1.0 Tabbing environment (JPFD)
 Package: lastpage 2013/01/28 v1.2l Refers to last page's name (HMM; JPG)
 )
 (/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex.sty
-Package: biblatex 2014/06/25 v2.9a programmable bibliographies (PK/JW/AB)
+Package: biblatex 2013/11/25 v2.8a programmable bibliographies (PK/JW/AB)
 
 (/usr/share/texlive/texmf-dist/tex/latex/biblatex/biblatex2.sty
-Package: biblatex2 2014/06/25 v2.9a programmable bibliographies (biber) (PK/JW/
+Package: biblatex2 2013/11/25 v2.8a programmable bibliographies (biber) (PK/JW/
 AB)
 
 (/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
@@ -292,12 +292,13 @@ Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 \blx@sectionciteorder@0=\count141
 \labelnumberwidth=\skip54
 \labelalphawidth=\skip55
-\biblabelsep=\skip56
-\bibitemsep=\skip57
-\bibnamesep=\skip58
-\bibinitsep=\skip59
-\bibparsep=\skip60
-\bibhang=\skip61
+\shorthandwidth=\skip56
+\biblabelsep=\skip57
+\bibitemsep=\skip58
+\bibnamesep=\skip59
+\bibinitsep=\skip60
+\bibparsep=\skip61
+\bibhang=\skip62
 \blx@bcfin=\read1
 \blx@bcfout=\write3
 \c@mincomprange=\count142
@@ -341,12 +342,12 @@ Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
 \c@savednameb=\count172
 \c@namec=\count173
 \c@savednamec=\count174
-\c@translator=\count175
-\c@savedtranslator=\count176
-\c@shortauthor=\count177
-\c@savedshortauthor=\count178
-\c@shorteditor=\count179
-\c@savedshorteditor=\count180
+\c@shortauthor=\count175
+\c@savedshortauthor=\count176
+\c@shorteditor=\count177
+\c@savedshorteditor=\count178
+\c@translator=\count179
+\c@savedtranslator=\count180
 \c@labelname=\count181
 \c@savedlabelname=\count182
 \c@institution=\count183
@@ -377,17 +378,11 @@ Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
 \c@savedlanguage=\count208
 \c@pageref=\count209
 \c@savedpageref=\count210
-\shorthandwidth=\skip62
-\shortjournalwidth=\skip63
-\shortserieswidth=\skip64
-\shorttitlewidth=\skip65
-\shortauthorwidth=\skip66
-\shorteditorwidth=\skip67
 Package biblatex Info: Trying to load compatibility code...
 Package biblatex Info: ... file 'blx-compat.def' found.
 
 (/usr/share/texlive/texmf-dist/tex/latex/biblatex/blx-compat.def
-File: blx-compat.def 2014/06/25 v2.9a biblatex compatibility (PK/JW/AB)
+File: blx-compat.def 2013/11/25 v2.8a biblatex compatibility (PK/JW/AB)
 )
 Package biblatex Info: Trying to load generic definitions...
 Package biblatex Info: ... file 'biblatex.def' found.
@@ -406,12 +401,12 @@ Package biblatex Info: Trying to load bibliography style 'numeric'...
 Package biblatex Info: ... file 'numeric.bbx' found.
 
 (/usr/share/texlive/texmf-dist/tex/latex/biblatex/bbx/numeric.bbx
-File: numeric.bbx 2014/06/25 v2.9a biblatex bibliography style (PK/JW/AB)
+File: numeric.bbx 2013/11/25 v2.8a biblatex bibliography style (PK/JW/AB)
 Package biblatex Info: Trying to load bibliography style 'standard'...
 Package biblatex Info: ... file 'standard.bbx' found.
 
 (/usr/share/texlive/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
-File: standard.bbx 2014/06/25 v2.9a biblatex bibliography style (PK/JW/AB)
+File: standard.bbx 2013/11/25 v2.8a biblatex bibliography style (PK/JW/AB)
 \c@bbx:relatedcount=\count218
 \c@bbx:relatedtotal=\count219
 ))
@@ -419,7 +414,7 @@ Package biblatex Info: Trying to load citation style 'verbose-note'...
 Package biblatex Info: ... file 'verbose-note.cbx' found.
 
 (/usr/share/texlive/texmf-dist/tex/latex/biblatex/cbx/verbose-note.cbx
-File: verbose-note.cbx 2014/06/25 v2.9a biblatex citation style (PK/JW/AB)
+File: verbose-note.cbx 2013/11/25 v2.8a biblatex citation style (PK/JW/AB)
 Package biblatex Info: Redefining '\cite'.
 Package biblatex Info: Redefining '\parencite'.
 Package biblatex Info: Redefining '\footcite'.
@@ -444,12 +439,12 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@floatcapt=\box30
 )
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
-Package: color 2014/04/23 v1.1a Standard LaTeX Color (DPC)
+Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
 
 (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
-Package color Info: Driver file: pdftex.def on input line 137.
+Package color Info: Driver file: pdftex.def on input line 130.
 
 (/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
 File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
@@ -497,7 +492,7 @@ Package: scrpage2 2013/12/19 v3.12 KOMA-Script package (page head and foot)
 LaTeX Info: Redefining \pagemark on input line 174.
 )
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 2014/04/25 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
@@ -522,12 +517,12 @@ Package graphics Info: Driver file: pdftex.def on input line 91.
 Package: wrapfig 2003/01/31  v 3.6
 )
 (/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
-Package: inputenc 2014/04/30 v1.2b Input encoding file
+Package: inputenc 2008/03/30 v1.1d Input encoding file
 \inpenc@prehook=\toks30
 \inpenc@posthook=\toks31
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ansinew.def
-File: ansinew.def 2014/04/30 v1.2b Input encoding file
+File: ansinew.def 2008/03/30 v1.1d Input encoding file
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
 Package: babel 2014/03/24 3.9k The Babel package
@@ -647,18 +642,18 @@ Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
 )
-\Hy@SectionHShift=\skip68
+\Hy@SectionHShift=\skip63
 )
 Package biblatex Info: Trying to load language 'ngerman'...
 Package biblatex Info: ... file 'ngerman.lbx' found.
 
 (/usr/share/texlive/texmf-dist/tex/latex/biblatex/lbx/ngerman.lbx
-File: ngerman.lbx 2014/06/25 v2.9a biblatex localization (PK/JW/AB)
+File: ngerman.lbx 2013/11/25 v2.8a biblatex localization (PK/JW/AB)
 Package biblatex Info: Trying to load language 'german'...
 Package biblatex Info: ... file 'german.lbx' found.
 
 (/usr/share/texlive/texmf-dist/tex/latex/biblatex/lbx/german.lbx
-File: german.lbx 2014/06/25 v2.9a biblatex localization (PK/JW/AB)
+File: german.lbx 2013/11/25 v2.8a biblatex localization (PK/JW/AB)
 ))
 
 Package biblatex Warning: 'babel/polyglossia' detected but 'csquotes' missing.
@@ -782,15 +777,16 @@ Package babel Info: Redefining ngerman shorthand "~
 
 
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./Graphics/title.png>] (./
-RacketManager.toc)
+{/usr/share/texlive/texmf-dist/fonts/map/pdftex/updmap/pdftex.map} <./Graphics/
+title.png>]
+(./RacketManager.toc)
 \tf@toc=\write5
 \openout5 = `RacketManager.toc'.
 
-(./Library/1-MS.tex <Graphics/zhaw.jpg, id=145, 501.875pt x 501.875pt>
+ (./Library/1-MS.tex
+<Graphics/zhaw.jpg, id=145, 501.875pt x 501.875pt>
 File: Graphics/zhaw.jpg Graphic file (type jpg)
-
-<use Graphics/zhaw.jpg>
+ <use Graphics/zhaw.jpg>
 Package pdftex.def Info: Graphics/zhaw.jpg used on input line 4.
 (pdftex.def)             Requested size: 25.0pt x 24.99565pt.
 
@@ -830,21 +826,47 @@ Class scrbook Warning: \float@addtolists detected!
 (scrbook)              deprecated \float@addtolist interface .
 
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 6.
+(babel)             in language  on input line 7.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 6.
-Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 9.
-Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 9.
+(babel)             in language  on input line 7.
 Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 12.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 12.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 19.
+(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 19.
+File: Graphics/zhaw.jpg Graphic file (type jpg)
+
+<use Graphics/zhaw.jpg>
+Package pdftex.def Info: Graphics/zhaw.jpg used on input line 42.
+(pdftex.def)             Requested size: 25.0pt x 24.99565pt.
+
+Overfull \vbox (11.65572pt too high) has occurred while \output is active []
+
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 15.
+(babel)             in language  on input line 42.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 15.
+(babel)             in language  on input line 42.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 42.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 42.
+
+[3
+
+]
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 58.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 58.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 73.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 73.
 ) (./Library/2-Analysis.tex
 File: Graphics/zhaw.jpg Graphic file (type jpg)
  <use Graphics/zhaw.jpg>
@@ -862,9 +884,7 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 2.
 
-[3
-
-]
+[4]
 Kapitel 2.
 Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 2.
@@ -899,7 +919,7 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 2.
 
-[4
+[5
 
 ]
 Kapitel 3.
@@ -932,7 +952,7 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 2.
 
-[5
+[6
 
 ]
 Kapitel 4.
@@ -973,7 +993,7 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 2.
 
-[6
+[7
 
 ]
 Kapitel 5.
@@ -1010,7 +1030,7 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 2.
 
-[7
+[8
 
 ]
 Kapitel 6.
@@ -1047,7 +1067,7 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 2.
 
-[8
+[9
 
 ]
 Kapitel 7.
@@ -1072,7 +1092,7 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 118.
 
-[9
+[10
 
 ] (./RacketManager.lof)
 \tf@lof=\write6
@@ -1100,7 +1120,7 @@ Package babel Info: Redefining ngerman shorthand "|
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 122.
 
-[10
+[11
 
 ]
 Package babel Info: Redefining ngerman shorthand "|
@@ -1113,7 +1133,7 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 122.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 122.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 122.
 Package rerunfilecheck Info: File `RacketManager.out' has not changed.
-(rerunfilecheck)             Checksum: B2CE69FB3366301E18CA416BEFFEF6C1;1500.
+(rerunfilecheck)             Checksum: 40515CCE98E76FED0D78D6EC292D5E4E;1512.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
@@ -1131,22 +1151,23 @@ Package logreq Info: Writing requests to 'RacketManager.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 15047 strings out of 493104
- 238790 string characters out of 6136931
- 720639 words of memory out of 5000000
- 18213 multiletter control sequences out of 15000+600000
- 13377 words of font info for 50 fonts, out of 8000000 for 9000
- 1145 hyphenation exceptions out of 8191
- 56i,14n,55p,840b,1691s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 15005 strings out of 493342
+ 237560 string characters out of 6141540
+ 719287 words of memory out of 5000000
+ 18147 multiletter control sequences out of 15000+600000
+ 13684 words of font info for 51 fonts, out of 8000000 for 9000
+ 957 hyphenation exceptions out of 8191
+ 56i,14n,55p,840b,1703s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb>
-Output written on RacketManager.pdf (10 pages, 251826 bytes).
+f-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on RacketManager.pdf (11 pages, 266277 bytes).
 PDF statistics:
- 228 PDF objects out of 1000 (max. 8388607)
- 205 compressed objects within 3 object streams
- 39 named destinations out of 1000 (max. 500000)
+ 244 PDF objects out of 1000 (max. 8388607)
+ 219 compressed objects within 3 object streams
+ 46 named destinations out of 1000 (max. 500000)
  219 words of extra memory for PDF output out of 10000 (max. 10000000)
 

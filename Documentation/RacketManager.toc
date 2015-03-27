@@ -16,9 +16,11 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {2.1}Marktumfeld}{5}{section.2.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.2}Verhalten Spieler bei Terminfindung}{5}{section.2.2}
+\contentsline {section}{\numberline {2.2}Benutzergruppen}{5}{section.2.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.3}Anforderungsanalyse}{5}{section.2.3}
+\contentsline {section}{\numberline {2.3}Use Cases}{5}{section.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.4}Anforderungsanalyse}{5}{section.2.4}
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {3}Projektmanagement}{6}{chapter.3}
 \defcounter {refsection}{0}\relax 

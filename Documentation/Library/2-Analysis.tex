@@ -1,6 +1,6 @@
 % !TeX spellcheck = de_CH
 \chapter{Analyse}
-Das Ziel der Software ist, den User in der Terminfindung, Protokollierung und Partnerfindung optimal zu unterstützen. Dieser Teil der Dokumentation dient zur Findung exakter Anforderungen an die Software die den User optimal unterstützen. Zusätzlich wird Anfangs untersucht wie das Marktumfeld rund um die geplante Applikation aussieht um einen möglichen Erfolg einer solchen Applikation zu schätzen, sowie mögliche Synergieeffekte zu identifizieren. 
+Das Ziel der Software ist, den User in der Terminfindung, Protokollierung und Partnerfindung optimal zu unterstützen. Dieser Teil der Dokumentation dient zur Findung exakter Anforderungen an die Software die den User optimal unterstützen. Zusätzlich wird Anfangs untersucht wie das Marktumfeld rund um die geplante Applikation aussieht, um einen möglichen Erfolg einer solchen Applikation zu schätzen sowie mögliche Synergieeffekte zu identifizieren. 
 
 \section{Marktumfeld}
 Um mögliche Synergien oder Wettbewerber zu identifizieren, müssen zuerst die geplanten Basis Funktionalitäten aufgelistet werden:
@@ -14,31 +14,85 @@ Um mögliche Synergien oder Wettbewerber zu identifizieren, müssen zuerst die gep
 \end{itemize}
 
 \subsection{Identifizierung von Partnern}
-\textbf{GlobalTennisNetwork.com}
-\textbf{Spontacts}
-\textbf{sport42.com}
-\textbf{sportpartner.com}
-
-
+\textbf{GlobalTennisNetwork.com} ist eine Community zur Identifizierung von Tennispartnern. Die Website ist fokussiert auf Tennis. Andere Racket Sportarten werden nicht behandelt. Dadurch sieht der Autor dieser Service nicht als direkte Konkurrenz. Eine Verbindung mit dem Service um eine Grössere Population von Potenziellen Tennispartnern zu erreichen wäre vorstellbar.
+\\
+\textbf{Spontacts} ist eine Android Applikation, welche Spontane Terminvereinbarungen ermöglicht. Es kann zusätzlich als Identifizierung von Partnern für jegliche Freizeitaktivitäten dienen. Es gibt jedoch keine Fokussierung auf Racket Sport. Nichts desto trotz kann Spontacts als konkurrenz zu der geplanten Applikation angesehen werden, da zwei Funktionalitäten (auch wenn der Fokus nicht auf Sport liegt teilweise abgedeckt werden können. Jedoch 
+wird die Konkurrenz nicht als erheblich eingeschätzt. 
+\\
+\textbf{sport42.com} bietet auch eine Möglichkeit zur Identifizerung eines Portenziellen Sportpartners. Racket Sportarten werden hier auch abgedeckt. Nach Recherchen stellte sich jedoch heraus, das der Fokus der Applikation auf dem US Markt liegt. Bei einer potenziellen Expansion der geplanten Applikation müsse die Konkurrenz neu evaluiert werden. Da der Fokus jedoch im Moment auf den deutschsprachigen Raum gerichtet ist, wird dieser Service nicht als Konkurrenz eingeschätzt. 
+\\
+\textbf{sportpartner.com} ist ein auf Sport fokussierter Service um Partner zu identifizieren. Der Service deckt auch Racketsportarten wie Tennis, Squash sowie Badminton ab. Bis jetzt gibt es allerdings nur wenig aktive Spieler in Europa.
+\\
 \subsection{Terminvereinbarung}
- \textbf{Doodle}
+ \textbf{Doodle} ist der bekannteste Terminvereinbarungs Service. Ein ähnlicher Algorithmus, welcher in der geplanten Applikation verwendet wird, wurde von den Ersteller dieser Applikation entwickelt. Jedoch gibt es bei Doodle keinerlei Fokus auf Inhalt zum Termin. Es ist möglich Business wie auch Freizeit Termine zu erstellen. Die geplante Applikation kann davon Profitieren einen ähnlichen, auf Sport Termine fokussierte Terminvereinbarungs Algorithmus zu entwickeln. Sollte dieser genügend intuitiv Umgesetzt sein, wird Doodle nicht als Konkurrenz betrachtet. \\
+ \textbf{Moreganize.ch} wie Doodle benützt auch Moreganize einen Terminvereinbarungs Algorithmus. 
  
 
 \subsection{Amateur-Liga Management}
+\textbf{LeagueManager Wordpress Plugin} ist eine Zusatzsoftware für Wordpress, mit welchen man Teams und Matches zusammenstellen kann und so Ligen erstellen kann. Der Fokus liegt hier grösstenteils auf Teamsports.
+
+\textbf{Excel} von Microsoft wird oft als Tracking und Organisation für Ligen verwendet. Die Einfachheit und das breite Skillset spricht für diese Lösung. Jedoch ist Zusammenarbeit und Organisation umständlich.
 
 \subsection{Protokollierung eines Spiels}
+\textbf{Excel} von Microsoft wird oft als Tracking und Organisation für Ligen verwendet. Die Einfachheit und das breite Skillset spricht für diese Lösung. Jedoch ist Zusammenarbeit und Organisation umständlich. Als alternative, welche die Zusammenarbeit vereinfacht bietet sich auch \textbf{Google Docs} an.
+
 
 \section{Benutzergruppen}
+Die geplante Applikation wird nicht für alle Benutzergruppen interessant sein. Um das Zielklientel zu finden wird  erstellt diese Kapitel eine Kategorisierung in verschiedene Benutzergruppen. Anschliessend wird abgeschätzt, wie welche Benutzergruppe von der Applikation profitieren kann. 
 
 \subsection{Gelegenheitsspieler}
+\subsubsection{Analyse}
+Gelegenheitsspieler spielen nicht regelmässig (wöchentlich) Racketsport. Sie vereinbaren mit - meistens wenige Personen in engem oder erweitertem privaten Umfeld - unregelmässig Spiele. Oft pausieren Gelegenheitsspieler mehrere Monate und haben anschliessend intensivere Phasen mit mehreren Spielen innerhalb wenigen Wochen. Der Aufwand um ein Spiel zu vereinbaren und einen passenden Court zu finden ist dementsprechend gross. Viel fehlt auch an einem passenden Partner im privaten Umfeld, insbesondere wenn der Spieler Ambitionen hegt sich zu verbessern. Schlussendlich ist die Motivation zu einer \glqq gewissen Regelmässigkeit \grqq nicht hoch, da die Vereinbarung eines Spieles aufwändig ist, sowie eine Verbesserung des Spiels gegenüber anderen Spielern nicht schnell ersichtlich ist.\\
+Zusammengefasst lassen Sich folgende Charakteristiken zusammenfassen:
+\begin{itemize}[nosep]
+	\item Einzelne oder wenige Partner im privatem Umfeld
+	\item Oft längere Pausen gefolgt von intensiveren Phasen
+	\item Grosse Aufwand um Spiel zu vereinbaren
+	\item Fehlende Partner bei gewollter Verbesserung im Spiel
+	\item Fehlende Vergleichsmöglichkeiten, da wenige Partner und meist keine Protokollierung der Ergebnisse
+	\item Wenig Anreize um nächstes Spiel zu organisieren
+\end{itemize}
+\subsubsection{Use Cases}
+Gelegenheitsspieler können ausserordentlich von der geplante Applikation profitieren. \\
+Neue \textbf{Partner} in der Nähe können unkompliziert mit der Applikation identifiziert werden. So ist es möglich längere Pausen, wenn der originale Partner in den Ferien ist oder schlicht verhindert ist, zu verhindern.
+\\
+\textbf{Courts und Spielzeiten} können schnell vereinbart werden. Dies verringert den Aufwand um ein Spiel durchzuführen und erhöht somit die Motivation öfters Squash zu spielen.
+Spiele können \textbf{protokolliert} werden und so kann eine Statistik erstellt werden, welche wiederum als Anreiz dienen kann um besser zu werden.\\
+Durch ein \textbf{Liga Management} können zusätzliche Anreize, neue Partner sowie eine Regelmässigkeit gefunden werden. Möglicherweise sind ein Grossteil der Gelegenheitsspieler nicht an einer solchen Liga interessiert, jedoch gibt es ein gewisses Potenzial dafür.
+
+
 
 \subsection{Regelmässige Spieler}
+\subsubsection{Analyse}
+Regelmässige Spieler spielen regelmässig zu einem vereinbarten Termin mit einem oder mehreren Partner einen Racketsport. Meist werden genannte vereinbarte Termine mit den gleichen Partnern ausgetragen. Bei den vereinbarten Terminen gibt es gewisse Variationen. So kann der Zeitpunkt und auch der Wochentag variieren. 
+
+Zusätzlich zu den regelmässigen Terminen, kommen  meist noch unregelmässige Termine in der Charakteristik der Gelegenheitsspieler hinzu. 
+
+Durch die Regelmässigkeit ist diese Spielergruppe meist einiges ambitionierter als Gelegenheitsspieler. Dadurch das Sie regelmässig mit den gleichen Spielern spielen, wollen Sie besser sein als die anderen. Da Sie jedoch nicht in einer Liga spielen gibt es meist kein Protokoll der Resultate oder ein Ranking.
+
+\subsubsection{Use Cases}
+Regelmässige Spieler können durch die geplante Applikation sehr unkompliziert ihre Spiele \textbf{protokollieren}. 
+\\
+Eine \textbf{Liga} kann zwischen mehreren regelmässigen Spielern arrangiert werden. Diese kann durch regelmässige \textbf{Terminvereinbarungen vom System} dazu beitragen das es keine Pausen gibt bei Krankheit oder Abwesenheit. Spieler die ausserhalb der eigenen Stammgruppe spielen wollen, können gleichzeitig bei \textbf{öffentlichen Ligen} weitere Erfahrungen sammeln.
+
+
 
 \subsection{Clubmitglieder}
+\subsubsection{Analyse}
+Clubmitglieder Spielen regelmässig und haben dafür fix Vereinbarte Clubtrainings. Diese sind nicht flexibel. Zusätzlich besteht auch eine Infrastruktur für Ranking über die Liga sowie eine Protokollierung von Spielen in den meisten Fällen.	Clubmitglieder sind somit nicht im Hauptfokus dieser Applikation. Höchstens Ausserhalb des Clublebens ist es gut möglich das ein Clubmitglied diese Applikation braucht um neue Spiele zu vereinbaren oder in einer privaten Liga mitzuspielen. 
+
+\subsubsection{Use Cases}
+Neue Clubs ohne Infrastruktur könnten diese Applikation für ihre Administration verwenden.
 
 \section{Use Cases}
 
 \subsection{Identifizierung von Partnern}
+\begin{figure}[ht]
+	\centering
+	\includegraphics{Graphics/UC1.png}
+	\caption{Grobplanung für Applikation}
+	\label{fig1}
+\end{figure}
 
 \subsection{Terminvereinbarung}
 \subsubsection{Gelegenheitspiele}

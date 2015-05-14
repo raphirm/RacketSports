@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/Debian) (preloaded format=pdflatex 2014.10.24)  11 MAR 2015 15:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2015.3.24)  28 APR 2015 08:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **presentation.tex
 (./presentation.tex
-LaTeX2e <2014/05/01>
-Babel <3.9k> and hyphenation patterns for 79 languages loaded.
+LaTeX2e <2011/06/27>
+Babel <3.9k> and hyphenation patterns for 74 languages loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamer.cls
 (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasercs.sty
 Package: beamerbasercs 2013/12/25 (rcs-revision 31cc758a62ae)
@@ -77,7 +77,7 @@ Package ifpdf Info: pdfTeX in PDF mode is detected.
 Package: beamerbaseoptions 2013/03/10 (rcs-revision 47431932db0d)
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
-Package: keyval 2014/05/08 v1.15 key=value parser (DPC)
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
 ))
 \beamer@paperwidth=\skip42
@@ -111,7 +111,7 @@ File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 (/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 2014/04/25 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
@@ -733,7 +733,7 @@ Package: beamerfontthemestructurebold 2010/06/17  (rcs-revision d02a7cf4d8ae)
 (/usr/share/texlive/texmf-dist/tex/generic/german/ngerman.sty v2.5e 1998-07-08
 Package: ngerman 1998/07/08 v2.5e Support for writing german texts (br)
 \grmnU@D=\dimen188
-ngerman -- \language number for naustrian undefined, default 46 used.
+ngerman -- \language number for naustrian undefined, default 70 used.
 ) (/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 
@@ -742,12 +742,12 @@ File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
-Package: inputenc 2014/04/30 v1.2b Input encoding file
+Package: inputenc 2008/03/30 v1.1d Input encoding file
 \inpenc@prehook=\toks43
 \inpenc@posthook=\toks44
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ansinew.def
-File: ansinew.def 2014/04/30 v1.2b Input encoding file
+File: ansinew.def 2008/03/30 v1.1d Input encoding file
 ))
 (./conf/rgbcolor.tex) (./conf/code.tex
 (/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
@@ -792,15 +792,13 @@ Package: libertine 2014/02/19 (Bob Tennent) Supports Libertine and Biolinum fon
 ts for all LaTeX engines.
 
 (/usr/share/texlive/texmf-dist/tex/latex/xkeyval/xkeyval.sty
-Package: xkeyval 2014/05/25 v2.7 package option processing (HA)
+Package: xkeyval 2012/10/14 v2.6b package option processing (HA)
 
 (/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkeyval.tex
-(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkvutils.tex
 \XKV@toks=\toks46
 \XKV@tempa@toks=\toks47
-)
 \XKV@depth=\count161
-File: xkeyval.tex 2014/05/25 v2.7 key=value parser (HA)
+File: xkeyval.tex 2012/10/14 v2.6b key=value parser (HA)
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty
 Package: textcomp 2005/09/27 v1.99g Standard LaTeX package
@@ -1136,17 +1134,17 @@ LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/b/n' will be
 (Font)              scaled to size 4.0pt on input line 20.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
 (Font)              scaled to size 4.0pt on input line 20.
- [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+ [1{/usr/share/texlive/texmf-dist/fonts/map/pdftex/updmap/pdftex.map}
 
-] (./presentation.toc
+]
+(./presentation.toc
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/bx/n' in size <8> not ava
 ilable
 (Font)              Font shape `T1/LinuxBiolinumT-TLF/b/n' tried instead on inp
 ut line 2.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/b/n' will be
 (Font)              scaled to size 8.0pt on input line 2.
-)
-[2
+) [2
 
 ] (./doc/Ausgangslage.tex [3
 
@@ -1157,12 +1155,12 @@ LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
 
 ] [5
 
-]) (./doc/Ziele.tex [6
+]) (./doc/Ziele.tex
+[6
 
 ] [7
 
-]
-<pic/api.png, id=302, 597.73312pt x 845.40843pt>
+] <pic/api.png, id=302, 597.73312pt x 845.40843pt>
 File: pic/api.png Graphic file (type png)
  <use pic/api.png>
 Package pdftex.def Info: pic/api.png used on input line 40.
@@ -1175,18 +1173,7 @@ Overfull \vbox (135.88531pt too high) detected at line 40
 
  <./pic/api.png>] [9
 
-]) (./doc/Aufgabenstellung.tex
-LaTeX Font Info:    Try loading font information for TS1+LinuxBiolinumT-TLF on 
-input line 16.
-
-(/usr/share/texlive/texmf-dist/tex/latex/libertine/TS1LinuxBiolinumT-TLF.fd
-File: TS1LinuxBiolinumT-TLF.fd 2012/11/26 (autoinst) Font definitions for TS1/L
-inuxBiolinumT-TLF.
-)
-LaTeX Font Info:    Font shape `TS1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 10.95pt on input line 16.
-
-[10
+]) (./doc/Aufgabenstellung.tex [10
 
 ] [11
 
@@ -1194,8 +1181,9 @@ LaTeX Font Info:    Font shape `TS1/LinuxBiolinumT-TLF/m/n' will be
 
 ] [13
 
-]) (./doc/Grobplanung.tex
-<pic/Grobplanung.png, id=494, 1592.95125pt x 623.32875pt>
+])
+(./doc/Grobplanung.tex
+<pic/Grobplanung.png, id=493, 1592.95125pt x 623.32875pt>
 File: pic/Grobplanung.png Graphic file (type png)
 
 <use pic/Grobplanung.png>
@@ -1210,7 +1198,7 @@ Overfull \hbox (11.29474pt too wide) in paragraph at lines 9--9
 
  <./pic/Grobplanung.png>] [15
 
-]) <pic/ask.jpg, id=557, 240.9pt x 205.2468pt>
+]) <pic/ask.jpg, id=556, 240.9pt x 205.2468pt>
 File: pic/ask.jpg Graphic file (type jpg)
 
 <use pic/ask.jpg>
@@ -1238,21 +1226,20 @@ Package rerunfilecheck Info: File `presentation.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 38.
  ) 
 Here is how much of TeX's memory you used:
- 20364 strings out of 493104
- 382283 string characters out of 6136931
- 450638 words of memory out of 5000000
- 23278 multiletter control sequences out of 15000+600000
- 51868 words of font info for 34 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
+ 20330 strings out of 493342
+ 381276 string characters out of 6141540
+ 449835 words of memory out of 5000000
+ 23239 multiletter control sequences out of 15000+600000
+ 51170 words of font info for 32 fonts, out of 8000000 for 9000
+ 953 hyphenation exceptions out of 8191
  56i,19n,66p,422b,636s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_afusau.enc}{/us
-r/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}</usr/shar
-e/texlive/texmf-dist/fonts/type1/public/libertine/LinBiolinumT.pfb></usr/share/
-texlive/texmf-dist/fonts/type1/public/libertine/LinBiolinumTB.pfb>
-Output written on presentation.pdf (16 pages, 440587 bytes).
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}</us
+r/share/texlive/texmf-dist/fonts/type1/public/libertine/LinBiolinumT.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/public/libertine/LinBiolinumTB.pfb>
+Output written on presentation.pdf (16 pages, 439555 bytes).
 PDF statistics:
- 613 PDF objects out of 1000 (max. 8388607)
- 563 compressed objects within 6 object streams
+ 610 PDF objects out of 1000 (max. 8388607)
+ 560 compressed objects within 6 object streams
  42 named destinations out of 1000 (max. 500000)
  178 words of extra memory for PDF output out of 10000 (max. 10000000)
 

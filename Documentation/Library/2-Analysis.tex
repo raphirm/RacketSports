@@ -80,26 +80,136 @@ Eine \textbf{Liga} kann zwischen mehreren regelmässigen Spielern arrangiert werd
 \subsection{Clubmitglieder}
 \subsubsection{Analyse}
 Clubmitglieder Spielen regelmässig und haben dafür fix Vereinbarte Clubtrainings. Diese sind nicht flexibel. Zusätzlich besteht auch eine Infrastruktur für Ranking über die Liga sowie eine Protokollierung von Spielen in den meisten Fällen.	Clubmitglieder sind somit nicht im Hauptfokus dieser Applikation. Höchstens Ausserhalb des Clublebens ist es gut möglich das ein Clubmitglied diese Applikation braucht um neue Spiele zu vereinbaren oder in einer privaten Liga mitzuspielen. 
-
+\newpage
 \subsubsection{Use Cases}
 Neue Clubs ohne Infrastruktur könnten diese Applikation für ihre Administration verwenden.
 
 \section{Use Cases}
 
-\subsection{Identifizierung von Partnern}
+\subsection{UC1: Identifizierung von Partnern}
 \begin{figure}[ht]
 	\centering
-	\includegraphics{Graphics/UC1.png}
+	\includegraphics[width=0.7\textwidth]{Graphics/UC1.png}
 	\caption{Grobplanung für Applikation}
 	\label{fig1}
 \end{figure}
+\FloatBarrier
 
-\subsection{Terminvereinbarung}
-\subsubsection{Gelegenheitspiele}
+Der erste Use Case beschreibt die Identifizierung von Partnern. Zwei Partner - A und B - wollen einen bestimmten Racketsport in einer bestimmten Region spielen. Der User A oder B kann Spielvorschläge an andere User senden. Dafür kann er nach Region filtern.
+\newpage
+\subsection{UC2: Terminvereinbarung}
+ Für den User Case Terminvereinbarung wurde in zwei Teil Use Cases unterteilt. 
+ 
+\subsubsection{UC 2.1: Gelegenheitspiele}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.7\textwidth]{Graphics/UC2_2.png}
+	\caption{Grobplanung für Applikation}
+	\label{fig1}
+\end{figure}
+\FloatBarrier
+Bei Gelegenheitsspielen kann der Spieler A oder B einen oder mehrere Spielvorschläge senden. Anschliessend kann der Spieler B einer dieser Spielvorschläge \textbf{annehmen}, \textbf{ablehnen} oder \textbf{neue Spielvorschläge senden}. Sobald beide Nutzer einen Spielvorschlag angenommen hat, wurde der Termin vereinbart.
+\newpage
+\subsubsection{UC 2.2: Regelmässige Spiele}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.7\textwidth]{Graphics/UC2_1.png}
+	\caption{Grobplanung für Applikation}
+	\label{fig1}
+\end{figure}
+ \FloatBarrier
+ Bei regelmässigen Spielen kann es auftreten das ein Spiele verhindert ist. Falls dies der Fall ist, kann der verhinderte Spieler den gleichen Algorithmus benutzen wie bei den Gelegenheitsspielen. 
+ \newpage
+\subsection{UC 3: Spiel Protokollieren}
 
-\subsubsection{Regelmässige Spiele}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.7\textwidth]{Graphics/UC3.png}
+	\caption{Grobplanung für Applikation}
+	\label{fig1}
+\end{figure}
+\FloatBarrier
 
-\subsection{Spiel Protokollieren}
+Nachdem ein Spiel durchgeführt wurde, kann der Spieler B sowie der Spieler A die Scores eintragen oder bestätigen. Anschliessend können beide Spieler die jeweiligen vergangenen Spiele jederzeit in der Applikation nachschlagen. Optional wird das protokollierte Spiel in einer Liga gewertet (falls vor dem Spiel so deklariert.)
+\newpage
+\subsection{UC4: Liga Management}
+\subsubsection{UC 4.1: Liga erstellen}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.7\textwidth]{Graphics/UC4_1.png}
+\caption{Grobplanung für Applikation}
+\label{fig1}
+\end{figure}
+\FloatBarrier
+Jeder Spieler kann eine Liga erstellen. Diese Liga generiert eine Rangliste. Der Spieler kann anschliessend andere Spieler in die Liege einladen. Spieler können zusätzlich bei öffentlichen Ligen beitreten.  
 
-\subsection{Liga Management}
+\subsubsection{Rangliste durch Spiele aktualisieren}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.7\textwidth]{Graphics/UC4_2.png}
+	\caption{Grobplanung für Applikation}
+	\label{fig1}
+	\end{figure}
+\FloatBarrier
+Nachdem ein Spiel gespielt ist, können beide Spieler ihre Scores eintragen. Stimmt diese überein oder bestätigt ein Spieler der eingetragene Score des anderen Spielers, wird dieser zur Rangliste hinzugerechnet.
+\subsubsection{Spiele automatisch anfordern}
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[width=0.7\textwidth]{Graphics/UC4_3.png}
+		\caption{Grobplanung für Applikation}
+		\label{fig1}
+		\end{figure}
+		\FloatBarrier
+Bei der Erstellung der Liga kann einen Algorithmus zur automatischen Spielvereinbarung ausgewählt werden. Dieser Algorithmus schlägt jedem Spieler nach der definierten Regelmässigkeit Terminvorschläge vor und stellt so sicher, das alle Spieler regelmässig gegen alle andere Spieler spielen. Die Spieler können sich auf einen der vorgeschlagenen Termine - oder ein anderer individuell vorgeschlagener Termin festlegen.
+
+
 \section{Anforderungsanalyse}
+Die Anforderung in diesem Abschnitt werden direkt in User Stories übertragen in das Tool Yodiz: \url{https://app.yodiz.com/plan/pages/task-board.vz?cid=14274&pid=1&iid=1}
+
+\subsection{Anforderungen für UC1}
+\subsubsection{REQ1.1.x - Zuteilung zu Regionen}
+Der User muss zu einer Region zugeordnet werden können. Regionen sind im Racketsport Zentren, die der Spieler vorzugsweise benutzt. Geographische nähen sind in diesem Use Case viel weniger präzise, da je nach Verkehrsanbindung oder Lebensumstände nicht Racketsport Zentren in der unmittelbaren Geografischen nähe referenziert werden. 
+\\
+\textbf{REQ1.1.1 - Racketsport Zentren registrieren}: Der User der Applikation kann Racketsport Zentren registrieren.
+\\
+\textbf{REQ1.1.2 - Zuordnung zu Racketsport Zentren}: Der User kann sich zu Racketsport Zentren zuordnen und so anderen Spielern signalisieren, dass er da bevorzugt Spielt.
+\\
+\textbf{REQ1.1.3 - Suche nach Spielern per Racketsport Zentrum}: User können andere Spieler suchen die sich an ein Racketsport Zentrum zugeordnet haben. 
+\subsubsection{REQ1.2 - Broadcast Herausforderung für Region}
+Der Spieler kann kann für eine Region einen Broadcast Spielvorschlag versenden für eine bestimmte Zeit.
+\subsubsection{REQ1.3 - Privatsphäre Einstellungen für Herausforderungen}
+Der Spieler kann in der Applikation einstellen ob er Broadcasts (REQ1.2) empfangen will und ob er von fremden Spielern Spielvorschläge empfangen will.
+
+\subsubsection{REQ1.4 - Details zur Spielerselektion}
+Der Spieler soll von anderen Spielern verschiedene Merkmale herauslesen können:
+\begin{itemize}
+	\item Username
+	\item Spielstärke
+	\item Freiwillige Beschreibung
+	\item Absichten (Regelmässige Spielpartner, Gelegenheitspartner, Spass spiele, Training, ...)
+	\item Sportzeiten (z.b. nur abends, flexibel, nur Montags - Mittwoch)
+\end{itemize}
+
+\subsubsection{REQ1.5 - Friend System}
+User können andere User zu ihrer Freundesliste hinzufügen. Privatsphäre Einstellungen können anschliessend drauf abgestimmt werden.
+
+\subsection{Anforderungen für UC2}
+\subsubsection{REQ2.1  - Spiel erstellen}
+Der User kann ein Spiel erstellen. Darin wird der Gegner, die Spielart sowie Terminvorschläge definiert. 
+\subsubsection{REQ2.2 - Spielterminvorschläge erstellen}
+Der User kann mehrere Terminvorschläge für ein Spiel registrieren (Terminvorschlag besteht aus einer Lokation und einem Datum/Uhrzeit). Diese Terminvorschläge werden einem Spiel zugeordnet.
+
+\subsubsection{REQ2.3 - Spielterminvorschläge annehmen}
+Der Empfänger der Terminvorschläge kann einen Spielterminvorschlag annehmen.
+
+\subsubsection{REQ2.4 - Spielterminvorschläge ablehnen}
+Der Empfänger der Terminvorschläge kann alle Vorschläge ablehnen und neue Vorschläge erstellen. 
+
+\subsubsection{REQ2.5 - Regelmässige Spiele erstellen}
+Der User kann ein regelmässiges Spiel mit einem Gegner registrieren. Beide User können Vorschläge zur Abweichung einreichen
+
+\subsection{Anforderungen für UC3}
+\subsubsection{} 
+
+
+

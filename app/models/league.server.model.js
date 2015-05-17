@@ -27,7 +27,7 @@ var LeagueSchema = new Schema({
         required: 'Please fill out the Area where your leage is built'
     },
     description: {
-        type: escapeHtml,
+        type: String,
         default: 'Neue Liga'
     },
     niveau: {
@@ -55,8 +55,8 @@ var LeagueSchema = new Schema({
     },
     enddate: {
         type: Date,
-        default: date.now
-    },
+        default: Date.now
+         },
     rules: {
         type: String,
         default: "Ein Match alle zwei Wochen, autogeneriert, win 3 Punkte, unentschieden 1 Punkt, verlieren: 0 Punkte"

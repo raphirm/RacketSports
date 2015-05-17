@@ -3,7 +3,7 @@
 // Leagues controller
 angular.module('leagues').controller('LeaguesController', ['$http', '$scope', '$stateParams', '$location', 'Authentication', 'Leagues',
 	function($http, $scope, $stateParams, $location, Authentication, Leagues) {
-		$scope.authentication = Authentication
+		$scope.authentication = Authentication;
 		// Create new League
 		$scope.create = function() {
 			// Create new League object
@@ -42,8 +42,8 @@ angular.module('leagues').controller('LeaguesController', ['$http', '$scope', '$
 		};
 
 		$scope.joinLeague = function(league) {
-			var league = $scope.league;
-			$http.get("/leagues/"+league._id+"/join");
+			league = $scope.league;
+			$http.get('/leagues/'+league._id+'/join');
 			location.reload();
 		};
 		$scope.leaveLeague = function(league) {

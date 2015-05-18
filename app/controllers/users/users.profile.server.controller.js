@@ -54,3 +54,30 @@ exports.update = function(req, res) {
 exports.me = function(req, res) {
 	res.json(req.user || null);
 };
+exports.removeFriend = function(req, res, next) {
+	var user = req.user;
+	var provider = req.param('friend');
+	if (user && provider) {
+		//delete friend
+		if(user.friends[provider]){
+			delete user.friends[provider];
+			user.markModified('friends');
+		}
+		user.save(function(err) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} else {
+				req.login(user, function(err) {
+					if (err) {
+						res.status(400).send(err);
+					} else {
+						res.json(user);
+					}
+				});
+			}
+		});
+	}
+
+}

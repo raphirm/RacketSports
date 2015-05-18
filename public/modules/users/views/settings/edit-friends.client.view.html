@@ -1,0 +1,23 @@
+<section class="row" data-ng-controller="FriendsController">
+	<h3 class="col-md-12 text-center">Friends</h3>
+	<div class="col-xs-offset-2 col-xs-8 col-md-offset-5 col-md-2">
+		<form name="userForm" data-ng-submit="addFriend(userForm.$valid)" class="signin form-horizontal" autocomplete="off">
+			<fieldset>
+				<div class="form-group">
+					<label for="friend">Add Friend</label>
+					<input type="text" id="friend" name="friend" class="form-control" data-ng-model="user.friend.username" placeholder="username">
+				</div>
+
+				<div class="text-center form-group">
+					<button type="submit" class="btn btn-large btn-primary">Add</button>
+				</div>
+
+
+
+			</fieldset>
+		</form>
+		<div class="list-group" ng-repeat="user in user.friends">
+			{{friends.username}}
+		</div>
+	</div>
+</section>

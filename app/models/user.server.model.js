@@ -88,7 +88,20 @@ var UserSchema = new Schema({
 	},
 	resetPasswordExpires: {
 		type: Date
+	},
+	courts: [{
+		type: Schema.ObjectId,
+		ref: 'Court'
+	}],
+	friends: [{
+		type: Schema.ObjectId,
+		ref: "User"
+	}],
+	privacy: {
+		type: String,
+		default: "public"
 	}
+
 });
 
 /**

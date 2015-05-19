@@ -126,7 +126,7 @@ module.exports = function(grunt) {
 			},
 				production: {
 				NODE_ENV: 'production',
-				src: '/var/lib/jenkins/RacketSport_SecureGruntEnv.json'
+				src: '~/RacketSport_SecureGruntEnv.json'
 			}
 		},
 		mochaTest: {

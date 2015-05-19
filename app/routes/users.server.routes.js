@@ -15,6 +15,7 @@ module.exports = function(app) {
 	app.route('/users/accounts').delete(users.removeOAuthProvider);
 	app.route('/users/friend').delete(users.removeFriend);
 	app.route('/users/friend').get(users.addFriend);
+	app.route('/users/friendrequest').get(users.addRequest);
 	// Setting up the users password api
 	app.route('/users/password').post(users.changePassword);
 	app.route('/auth/forgot').post(users.forgot);

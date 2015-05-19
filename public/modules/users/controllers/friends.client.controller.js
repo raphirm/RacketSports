@@ -45,9 +45,26 @@ angular.module('users').controller('FriendsController', ['$scope', '$http', '$lo
 		};
 
 		// Update a user profile
-		$scope.addFriend = function() {
-			var $friend = $scope.user.friend.username
+		$scope.addFriend = function(friend) {
 			$http.get('/users/friend', {
+				params: {
+					friend: friend
+				}
+
+			}).success(function (response) {
+				$scope.success = true;
+
+				$scope.find();
+
+
+			}).error(function (response) {
+			});
+
+
+		};
+		$scope.addRequest = function() {
+			var $friend = $scope.user.friendrequests.username
+			$http.get('/users/friendrequest', {
 				params: {
 					friend: $friend
 				}
@@ -64,16 +81,6 @@ angular.module('users').controller('FriendsController', ['$scope', '$http', '$lo
 
 		};
 		// Change user password
-		$scope.changeUserPassword = function() {
-			$scope.success = $scope.error = null;
 
-			$http.post('/users/password', $scope.passwordDetails).success(function(response) {
-				// If successful show success message and clear form
-				$scope.success = true;
-				$scope.passwordDetails = null;
-			}).error(function(response) {
-				$scope.error = response.message;
-			});
-		};
 	}
 ]);

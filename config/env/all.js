@@ -6,7 +6,7 @@ module.exports = {
 		description: 'Play RacketSports without hassle',
 		keywords: 'Squas, Tennis, Badminton, organise'
 	},
-	port: process.env.PORT || 3000,
+
 	templateEngine: 'swig',
 	sessionSecret: 'MEAN',
 	sessionCollection: 'sessions',

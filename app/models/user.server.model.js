@@ -97,9 +97,18 @@ var UserSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: "User"
 	}],
+	friendrequests: [{
+		type: Schema.ObjectId,
+		ref: "User"
+	}],
 	privacy: {
 		type: String,
 		default: "public"
+	},
+	hookEnabled:{
+		type: Boolean,
+		required: false,
+		default: true
 	}
 
 });
@@ -108,9 +117,13 @@ var UserSchema = new Schema({
  * Hook a pre save method to hash the password
  */
 UserSchema.pre('save', function(next) {
-	if (this.password && this.password.length > 6) {
+	if(this.hookEnabled){
+	if (this.password && this.password.length > 6 ) {
 		this.salt = new Buffer(crypto.randomBytes(16).toString('base64'), 'base64');
 		this.password = this.hashPassword(this.password);
+	}}
+	else{
+		this.hookEnabled = true;
 	}
 
 	next();

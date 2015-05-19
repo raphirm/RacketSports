@@ -5,6 +5,8 @@ module.exports = {
 	app: {
 		title: 'RacketSports - Development Environment'
 	},
+	port: process.env.PORT || 3214,
+	debugport: 7000,
 	facebook: {
 		clientID: process.env.FACEBOOK_ID || 'APP_ID',
 		clientSecret: process.env.FACEBOOK_SECRET || 'APP_SECRET',

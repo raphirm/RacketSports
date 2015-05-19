@@ -87,7 +87,7 @@ module.exports = function(grunt) {
 			dev: {
 				script: 'server.js',
 				options: {
-					nodeArgs: ['--debug'],
+					nodeArgs: ['--debug=7000'],
 					ext: 'js,html',
 					watch: watchFiles.serverViews.concat(watchFiles.serverJS)
 				}
@@ -98,7 +98,7 @@ module.exports = function(grunt) {
 				options: {
 					'web-port': 1337,
 					'web-host': 'localhost',
-					'debug-port': 5858,
+					'debug-port': 7000,
 					'save-live-edit': true,
 					'no-preload': true,
 					'stack-trace-limit': 50,

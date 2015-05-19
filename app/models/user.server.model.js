@@ -146,6 +146,7 @@ UserSchema.statics.findUniqueUsername = function(username, suffix, callback) {
 	}, function(err, user) {
 		if (!err) {
 			if (!user) {
+				console.log(possibleUsername);
 				callback(possibleUsername);
 			} else {
 				return _this.findUniqueUsername(username, (suffix || 0) + 1, callback);

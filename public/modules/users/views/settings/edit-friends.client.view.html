@@ -1,7 +1,7 @@
-<section class="row" data-ng-controller="FriendsController">
+<section class="row" data-ng-controller="FriendsController" data-ng-init="find()">
 	<h3 class="col-md-12 text-center">Friends</h3>
 	<div class="col-xs-offset-2 col-xs-8 col-md-offset-5 col-md-2">
-		<form name="userForm" data-ng-submit="addFriend(userForm.$valid)" class="signin form-horizontal" autocomplete="off">
+		<form name="userForm" data-ng-submit="addFriend(friend)" class="signin form-horizontal" autocomplete="off">
 			<fieldset>
 				<div class="form-group">
 					<label for="friend">Add Friend</label>
@@ -16,8 +16,8 @@
 
 			</fieldset>
 		</form>
-		<div class="list-group" ng-repeat="user in user.friends">
-			{{friends.username}}
+		<div class="list-group" ng-repeat="friend in user.friends">
+			{{friend.username}}<span class="glyphicon glyphicon-trash" aria-hidden="true" ng-click="removeFriend(friend.username)"></span>
 		</div>
 	</div>
 </section>

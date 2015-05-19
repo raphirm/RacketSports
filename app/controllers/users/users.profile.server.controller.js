@@ -52,32 +52,68 @@ exports.update = function(req, res) {
  * Send User
  */
 exports.me = function(req, res) {
-	res.json(req.user || null);
+	User.findOne({'username' : req.user.username}).populate('friends').exec(function(err, user){
+			res.json(user || null);
+		}
+
+	)
+
 };
 exports.removeFriend = function(req, res, next) {
 	var user = req.user;
 	var provider = req.param('friend');
 	if (user && provider) {
 		//delete friend
-		if(user.friends[provider]){
-			delete user.friends[provider];
-			user.markModified('friends');
-		}
-		user.save(function(err) {
-			if (err) {
-				return res.status(400).send({
-					message: errorHandler.getErrorMessage(err)
-				});
-			} else {
-				req.login(user, function(err) {
-					if (err) {
-						res.status(400).send(err);
-					} else {
-						res.json(user);
-					}
-				});
+		User.findOne({'username' : provider}).populate('friends').exec(function(err, friend) {
+			console.log("Deleting Friend with username: " + provider);
+			if (user.friends.indexOf(friend._id)>=0) {
+				var fid = user.friends.indexOf(friend._id);
+				console.log("Index of Friend: " +fid)
+				 user.friends.splice(fid, 1);
+				user.markModified('friends');
 			}
+			user.save(function (err) {
+				if (err) {
+					return res.status(400).send({
+						message: errorHandler.getErrorMessage(err)
+					});
+				} else {
+					req.login(user, function (err) {
+						if (err) {
+							res.status(400).send(err);
+						} else {
+							res.json(user);
+						}
+					});
+				}
+			});
 		});
 	}
 
-}
+};
+
+exports.addFriend = function(req, res, next) {
+	var user = req.user;
+	var provider = req.param('friend');
+	if (user) {
+		console.log(provider);
+
+		User.findOne({'username': provider}, function (err, friend) {
+				if (friend) {
+					console.log(user.friends.indexOf(friend));
+					if( user.friends.indexOf(friend._id) < 0){
+						user.friends.push(friend);
+						user.save();
+						res.json(user);}
+					else{
+						res.status(400).send('already added');
+					}
+				}
+				else {
+					res.status(400).send('user not found');
+				}
+			});
+
+
+	}
+};

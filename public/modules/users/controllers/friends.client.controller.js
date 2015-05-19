@@ -1,7 +1,6 @@
 'use strict';
-
-angular.module('users').controller('FriendsController', ['$scope', '$http', '$location', 'Users', 'Authentication',
-	function($scope, $http, $location, Users, Authentication) {
+angular.module('users').controller('FriendsController', ['$scope', '$http', '$location', '$resource', 'Users', 'Authentication',
+	function($scope, $http, $location, $resource,Users, Authentication ) {
 		$scope.user = Authentication.user;
 
 		// If user is not signed in then redirect back home
@@ -15,24 +14,31 @@ angular.module('users').controller('FriendsController', ['$scope', '$http', '$lo
 
 			return false;
 		};
+		$scope.find = function() {
+			var Resource = $resource('/users/me');
+			Resource.get(function(user){
+				$scope.user = user;
+			});
 
+		};
 		// Check if provider is already in use with current user
 		$scope.isConnectedSocialAccount = function(provider) {
 			return $scope.user.provider === provider || ($scope.user.additionalProvidersData && $scope.user.additionalProvidersData[provider]);
 		};
 
 		// Remove a user social account
-		$scope.removeFriend = function(provider) {
+		$scope.removeFriend = function(friend) {
 			$scope.success = $scope.error = null;
 
 			$http.delete('/users/friend', {
 				params: {
-					provider: friend
+					friend: friend
 				}
 			}).success(function(response) {
 				// If successful show success message and clear form
 				$scope.success = true;
 				$scope.user = Authentication.user = response;
+				$scope.find();
 			}).error(function(response) {
 				$scope.error = response.message;
 			});
@@ -40,14 +46,17 @@ angular.module('users').controller('FriendsController', ['$scope', '$http', '$lo
 
 		// Update a user profile
 		$scope.addFriend = function() {
-			scope.user = Authentication.user;
-			http.get('/users/friend', {
+			var $friend = $scope.user.friend.username
+			$http.get('/users/friend', {
 				params: {
-					friend: friend
+					friend: $friend
 				}
 
 			}).success(function (response) {
 				$scope.success = true;
+
+				$scope.find();
+
 
 			}).error(function (response) {
 			});

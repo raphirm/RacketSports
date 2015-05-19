@@ -10,6 +10,7 @@ module.exports = function(grunt) {
 		clientCSS: ['public/modules/**/*.css'],
 		mochaTests: ['app/tests/**/*.js']
 	};
+	var ENV_FILE= '.env';
 	// Project Configuration
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
@@ -126,7 +127,7 @@ module.exports = function(grunt) {
 			},
 				production: {
 				NODE_ENV: 'production',
-				src: '~/RacketSport_SecureGruntEnv.json'
+				src: ENV_FILE
 			}
 		},
 		mochaTest: {

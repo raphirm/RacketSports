@@ -10,8 +10,6 @@ module.exports = function(grunt) {
 		clientCSS: ['public/modules/**/*.css'],
 		mochaTests: ['app/tests/**/*.js']
 	};
-	grunt.loadNpmTasks('grunt-contrib-connect');
-	grunt.loadNpmTasks('grunt-daemon');
 	// Project Configuration
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
@@ -93,15 +91,6 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-		nodeprod: {
-			all: {
-				script: 'server.js',
-				options: {
-					ext: 'js,html',
-					watch: watchFiles.serverViews.concat(watchFiles.serverJS)
-				}
-			}
-		},
 		'node-inspector': {
 			custom: {
 				options: {
@@ -138,7 +127,7 @@ module.exports = function(grunt) {
 			},
 				production: {
 				NODE_ENV: 'production',
-				src: '../../RacketSport_SecureGruntEnv.json'
+				src: '/var/lib/jenkins/RacketSport_SecureGruntEnv.json'
 			}
 		},
 		mochaTest: {

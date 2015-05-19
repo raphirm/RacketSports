@@ -147,11 +147,11 @@ exports.addFriend = function(req, res, next) {
 						friend.save();
 						res.json(user);}
 					else{
-						res.status(400).send('already added');
+						res.status(400).send({message: 'user already added'});
 					}
 				}
 				else {
-					res.status(400).send('user not found');
+					res.status(400).send({message: 'user not found'});
 				}
 			});
 
@@ -173,11 +173,13 @@ exports.addRequest = function(req, res, next) {
 					friend.save();
 					res.json(user);}
 				else{
-					res.status(400).send('already added');
+					res.status(400).send({message: 'user already added'});
 				}
 			}
 			else {
-				res.status(400).send('user not found');
+				res.status(400).send({
+					message: 'user not found'
+				});
 			}
 		});
 

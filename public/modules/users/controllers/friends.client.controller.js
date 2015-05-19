@@ -87,12 +87,17 @@ angular.module('users').controller('FriendsController', ['$scope', '$http', '$lo
 				}
 
 			}).success(function (response) {
-				$scope.success = true;
+
 
 				$scope.find();
+				$scope.error = '';
+				$scope.success = true;
 
 
 			}).error(function (response) {
+				$scope.success = false;
+				console.log(response.message)
+				$scope.error = response.message;
 			});
 
 

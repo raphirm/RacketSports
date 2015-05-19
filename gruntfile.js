@@ -94,7 +94,7 @@ module.exports = function(grunt) {
 			}
 		},
 		nodeprod: {
-			dev: {
+			all: {
 				script: 'server.js',
 				options: {
 					ext: 'js,html',

@@ -43,6 +43,23 @@ angular.module('users').controller('FriendsController', ['$scope', '$http', '$lo
 				$scope.error = response.message;
 			});
 		};
+		$scope.removeRequest = function(friend) {
+			$scope.success = $scope.error = null;
+
+			$http.delete('/users/request', {
+				params: {
+					friend: friend
+				}
+			}).success(function(response) {
+				// If successful show success message and clear form
+				$scope.success = true;
+				$scope.user = Authentication.user = response;
+				$scope.find();
+			}).error(function(response) {
+				$scope.error = response.message;
+			});
+		};
+
 
 		// Update a user profile
 		$scope.addFriend = function(friend) {
@@ -64,7 +81,7 @@ angular.module('users').controller('FriendsController', ['$scope', '$http', '$lo
 		};
 		$scope.addRequest = function() {
 			var $friend = $scope.user.friendrequests.username
-			$http.get('/users/friendrequest', {
+			$http.get('/users/request', {
 				params: {
 					friend: $friend
 				}

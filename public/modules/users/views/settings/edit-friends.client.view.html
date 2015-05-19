@@ -22,7 +22,7 @@
 		</div>
 		<h3 class="col-md-12 text-center">Friend Requests</h3>
 		<div class="list-group" ng-repeat="friend in user.friendrequests">
-			{{friend.username}}<span class="glyphicon glyphicon-plus" aria-hidden="true" ng-click="addFriend(friend.username)"></span>
+			{{friend.username}}<span class="glyphicon glyphicon-plus" aria-hidden="true" ng-click="addFriend(friend.username)"><span class="glyphicon glyphicon-trash" aria-hidden="true" ng-click="removeRequest(friend.username)"></span>
 		</div>
 	</div>
 </section>

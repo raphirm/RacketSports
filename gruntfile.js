@@ -93,12 +93,20 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		nodeprod: {
+			dev: {
+				script: 'server.js',
+				options: {
+					ext: 'js,html',
+					watch: watchFiles.serverViews.concat(watchFiles.serverJS)
+				}
+			}
+		},
 		'node-inspector': {
 			custom: {
 				options: {
 					'web-port': 1337,
 					'web-host': 'localhost',
-					'debug-port': 7000,
 					'save-live-edit': true,
 					'no-preload': true,
 					'stack-trace-limit': 50,

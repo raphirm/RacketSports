@@ -85,7 +85,6 @@ module.exports = function(grunt) {
 			dev: {
 				script: 'server.js',
 				options: {
-					nodeArgs: ['--debug=7000'],
 					ext: 'js,html',
 					watch: watchFiles.serverViews.concat(watchFiles.serverJS)
 				}
@@ -111,7 +110,7 @@ module.exports = function(grunt) {
 			}
 		},
 		concurrent: {
-			default: ['nodeprod', 'watch'],
+			default: ['nodemon', 'watch'],
 			debug: ['nodemon', 'watch', 'node-inspector'],
 			options: {
 				logConcurrentOutput: true,
@@ -160,7 +159,7 @@ module.exports = function(grunt) {
 	});
 
 	// Default task(s).
-	grunt.registerTask('default', ['lint', 'concurrent:default']);
+	grunt.registerTask('default', ['lint', 'concurrent:debug']);
 
 	// Debug task.
 	grunt.registerTask('debug', ['lint', 'concurrent:debug']);

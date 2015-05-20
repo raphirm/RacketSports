@@ -94,5 +94,8 @@ angular.module('courts').controller('CourtsController', ['$scope', '$stateParams
 				courtId: $stateParams.courtId
 			});
 		};
+		$scope.go = function(court){
+			$location.path('/courts/'+ court._id)
+		}
 	}
 ]);

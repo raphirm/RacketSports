@@ -1,7 +1,9 @@
+
 <section data-ng-controller="LeaguesController" data-ng-init="find()">
     <div class="page-header">
         <h1>Leagues</h1>
     </div>
+
     <div class="list-group">
         <a data-ng-repeat="league in leagues" data-ng-href="#!/leagues/{{league._id}}" class="list-group-item " ng-class="{'list-group-item-success': joinStatus(league) == true}">
 

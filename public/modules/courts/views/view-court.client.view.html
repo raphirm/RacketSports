@@ -7,7 +7,7 @@
 		<button data-ng-show="joinStatus(court)" type="button" class="btn btn-default" ng-click="leaveCourt(court)">I don't play here anymore</button>
 
 	</div>
-	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == court.user._id))">
+	<div class="pull-right" data-ng-show="((authentication.user) && ((authentication.user._id == court.user._id) || (authentication.user.roles.indexOf('admin')>=0)))">
 
 		<a class="btn btn-primary" href="/#!/courts/{{court._id}}/edit">
 			<i class="glyphicon glyphicon-edit"></i>

@@ -73,7 +73,7 @@ exports.delete = function(req, res) {
  * List of Courts
  */
 exports.list = function(req, res) { 
-	Court.find().sort('-created').populate('user', 'displayName').exec(function(err, courts) {
+	Court.find().sort('-created').populate('user').exec(function(err, courts) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -88,7 +88,7 @@ exports.list = function(req, res) {
  * Court middleware
  */
 exports.courtByID = function(req, res, next, id) { 
-	Court.findById(id).populate('user', 'displayName').exec(function(err, court) {
+	Court.findById(id).populate('user players').exec(function(err, court) {
 		if (err) return next(err);
 		if (! court) return next(new Error('Failed to load Court ' + id));
 		req.court = court ;
@@ -104,4 +104,40 @@ exports.hasAuthorization = function(req, res, next) {
 		return res.status(403).send('User is not authorized');
 	}
 	next();
+};
+
+/**
+ * Join League
+ */
+exports.join = function (req, res) {
+	var court = req.court;
+	var user = req.user;
+	court.players.push(user);
+	court.save(function (err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.jsonp(court);
+		}
+	});
+};
+
+/**
+ * Join League
+ */
+exports.leave = function (req, res) {
+	var court = req.court;
+	var i = court.players.indexOf(req.user);
+	court.players.splice(i, 1);
+	court.save(function (err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.jsonp(court);
+		}
+	});
 };

@@ -30,8 +30,8 @@ function geolocate() {
 }
 // [END region_geolocation]
 // Courts controller
-angular.module('courts').controller('CourtsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Courts',
-	function($scope, $stateParams, $location, Authentication, Courts) {
+angular.module('courts').controller('CourtsController', ['$scope', '$stateParams', '$http', '$location', 'Authentication', 'Courts',
+	function($scope, $stateParams,$http, $location, Authentication, Courts) {
 		$scope.authentication = Authentication;
 
 		// Create new Court
@@ -97,5 +97,27 @@ angular.module('courts').controller('CourtsController', ['$scope', '$stateParams
 		$scope.go = function(court){
 			$location.path('/courts/'+ court._id)
 		}
+		$scope.joinStatus = function(court) {
+
+			var existing = false;
+			if(court.players) {
+				court.players.forEach(function (user) {
+					if ($scope.authentication.user._id == user._id) {
+						existing = true;
+					}
+				});
+			}
+			return existing;
+		};
+		$scope.joinCourt = function(court) {
+			//court = $scope.court;
+			$http.get('/courts/'+court._id+'/join');
+			location.reload();
+		};
+		$scope.leaveCourt = function(court) {
+			//court = $scope.court;
+			$http.get('/courts/'+court._id+'/leave');
+			location.reload();
+		};
 	}
 ]);

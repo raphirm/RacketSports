@@ -38,7 +38,15 @@ var CourtSchema = new Schema({
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
-	}
+	},
+	players: [
+		{
+			type: Schema.ObjectId,
+			ref: 'User'
+		}
+		]
+
+
 
 });
 

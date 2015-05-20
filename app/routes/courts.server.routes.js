@@ -13,7 +13,10 @@ module.exports = function(app) {
 		.get(courts.read)
 		.put(users.requiresLogin, courts.hasAuthorization, courts.update)
 		.delete(users.requiresLogin, courts.hasAuthorization, courts.delete);
-
+	app.route('/courts/:courtId/join')
+		.get(users.requiresLogin, courts.join);
+	app.route('/courts/:courtId/leave')
+		.get(users.requiresLogin, courts.leave);
 	// Finish by binding the Court middleware
 	app.param('courtId', courts.courtByID);
 };

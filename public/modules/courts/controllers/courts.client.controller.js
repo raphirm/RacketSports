@@ -38,7 +38,10 @@ angular.module('courts').controller('CourtsController', ['$scope', '$stateParams
 		$scope.create = function() {
 			// Create new Court object
 			var court = new Courts ({
-				name: this.name
+				name: this.name,
+				address: this.address,
+				contact: this.contact,
+				sports: this.sports
 			});
 
 			// Redirect after save

@@ -27,6 +27,10 @@ var CourtSchema = new Schema({
 		}],
 		required: 'please select at least one sport that you can play in that sportcenter'
 	},
+	contact: {
+		type: String
+	},
+
 	created: {
 		type: Date,
 		default: Date.now

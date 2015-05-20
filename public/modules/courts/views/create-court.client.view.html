@@ -17,7 +17,20 @@
                 </div>
                 <div class="form-group">
                     <label for="address">Adresse</label>
-                    <input type="text" onFocus="geolocate()" id="address" name="address" class="form-control" data-ng-model="street" required>
+                    <input type="text" onFocus="geolocate()" id="address" name="address" class="form-control" data-ng-model="address" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact">Kontakt</label>
+                    <input type="text"  id="contact" name="contact" class="form-control" data-ng-model="contact" placeholder="Telefon/e-Mail">
+                </div>
+                <div class="form-group">
+                    <label for="sport">Sport</label>
+                <select name="sport" id="sport" class="form-control" data-ng-model="sports" multiple required>
+                    <option value="Squash">Squash</option>
+                    <option value="Tennis">Tennis</option>
+                    <option value="Badminton">Badminton</option>
+                    <option value="Tabletennis">Tischtennis</option>
+                </select>
                 </div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-default">

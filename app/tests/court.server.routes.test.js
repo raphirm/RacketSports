@@ -38,7 +38,7 @@ describe('Court CRUD tests', function() {
 		// Save a user to the test db and create new Court
 		user.save(function() {
 			court = {
-				name: 'Court Name'
+				"name":"Vitis","address":"Vitis","contact":"0795769266","sports":["Squash","Tennis","Badminton","Tabletennis"]
 			};
 
 			done();
@@ -75,7 +75,7 @@ describe('Court CRUD tests', function() {
 
 								// Set assertions
 								(courts[0].user._id).should.equal(userId);
-								(courts[0].name).should.match('Court Name');
+								(courts[0].name).should.match('Vitis');
 
 								// Call the assertion callback
 								done();

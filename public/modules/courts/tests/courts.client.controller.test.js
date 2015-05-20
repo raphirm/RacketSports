@@ -53,7 +53,7 @@
 		it('$scope.find() should create an array with at least one Court object fetched from XHR', inject(function(Courts) {
 			// Create sample Court using the Courts service
 			var sampleCourt = new Courts({
-				name: 'New Court'
+			"name":"Vitis","address":"Vitis","contact":"000000000","sports":["Squash","Tennis","Badminton","Tabletennis"]
 			});
 
 			// Create a sample Courts array that includes the new Court
@@ -72,9 +72,7 @@
 
 		it('$scope.findOne() should create an array with one Court object fetched from XHR using a courtId URL parameter', inject(function(Courts) {
 			// Define a sample Court object
-			var sampleCourt = new Courts({
-				name: 'New Court'
-			});
+			var sampleCourt = new Courts({"name":"Vitis","address":"Vitis","contact":"000000000","sports":["Squash","Tennis","Badminton","Tabletennis"]});
 
 			// Set the URL parameter
 			$stateParams.courtId = '525a8422f6d0f87f0e407a33';
@@ -92,18 +90,19 @@
 
 		it('$scope.create() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Courts) {
 			// Create a sample Court object
-			var sampleCourtPostData = new Courts({
-				name: 'New Court'
-			});
+			var sampleCourtPostData = new Courts({"name":"Vitis","address":"Vitis","contact":"0795769266","sports":["Squash","Tennis","Badminton","Tabletennis"]});
 
 			// Create a sample Court response
 			var sampleCourtResponse = new Courts({
 				_id: '525cf20451979dea2c000001',
-				name: 'New Court'
+				"name":"Vitis","address":"Vitis","contact":"0795769266","sports":["Squash","Tennis","Badminton","Tabletennis"]
 			});
 
 			// Fixture mock form input values
-			scope.name = 'New Court';
+			scope.name = 'Vitis';
+			scope.address = 'Vitis';
+			scope.contact = "0795769266";
+			scope.sports = ["Squash","Tennis","Badminton","Tabletennis"] ;
 
 			// Set POST response
 			$httpBackend.expectPOST('courts', sampleCourtPostData).respond(sampleCourtResponse);
@@ -123,7 +122,7 @@
 			// Define a sample Court put data
 			var sampleCourtPutData = new Courts({
 				_id: '525cf20451979dea2c000001',
-				name: 'New Court'
+				"name":"Vitis","address":"Vitis","contact":"0795769266","sports":["Squash","Tennis","Badminton","Tabletennis"]
 			});
 
 			// Mock Court in scope

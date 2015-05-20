@@ -70,7 +70,11 @@ var LeagueSchema = new Schema({
 		{
 		type: Schema.ObjectId,
 		ref: 'UserToPoints'
-	}]
+	}],
+    user: {
+        type: Schema.ObjectId,
+        ref: 'User'
+    }
 
 });
 

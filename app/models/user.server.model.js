@@ -111,6 +111,7 @@ var UserSchema = new Schema({
 		default: true
 	}
 
+
 });
 
 /**

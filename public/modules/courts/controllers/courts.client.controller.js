@@ -1,5 +1,34 @@
 'use strict';
+var placeSearch, autocomplete;
+function initialize() {
+	// Create the autocomplete object, restricting the search
+	// to geographical location types.
+	autocomplete = new google.maps.places.Autocomplete(
+		/** @type {HTMLInputElement} */(document.getElementById('address')));
+	// When the user selects an address from the dropdown,
+	// populate the address fields in the form.
+	google.maps.event.addListener(autocomplete, 'place_changed', function() {
+		fillInAddress();
+	});
+}
 
+// [START region_fillform]
+function fillInAddress() {
+	// Get the place details from the autocomplete object.
+	var place = autocomplete.getPlace();
+
+
+}
+// [END region_fillform]
+
+// [START region_geolocation]
+// Bias the autocomplete object to the user's geographical location,
+// as supplied by the browser's 'navigator.geolocation' object.
+function geolocate() {
+	initialize()
+
+}
+// [END region_geolocation]
 // Courts controller
 angular.module('courts').controller('CourtsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Courts',
 	function($scope, $stateParams, $location, Authentication, Courts) {

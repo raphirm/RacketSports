@@ -36,7 +36,6 @@ angular.module('users').controller('FriendsController', ['$scope', '$http', '$lo
 				}
 			}).success(function(response) {
 				// If successful show success message and clear form
-				$scope.success = true;
 				$scope.user = Authentication.user = response;
 				$scope.find();
 			}).error(function(response) {
@@ -52,7 +51,6 @@ angular.module('users').controller('FriendsController', ['$scope', '$http', '$lo
 				}
 			}).success(function(response) {
 				// If successful show success message and clear form
-				$scope.success = true;
 				$scope.user = Authentication.user = response;
 				$scope.find();
 			}).error(function(response) {
@@ -69,7 +67,6 @@ angular.module('users').controller('FriendsController', ['$scope', '$http', '$lo
 				}
 
 			}).success(function (response) {
-				$scope.success = true;
 
 				$scope.find();
 

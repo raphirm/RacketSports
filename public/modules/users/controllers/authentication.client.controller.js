@@ -12,8 +12,9 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
 				// If successful we assign the response to the global user model
 				$scope.authentication.user = response;
 
+				$location.path('/settings/profile').search({new: 'new'});
 				// And redirect to the index page
-				$location.path('/settings/profile/?new');
+
 			}).error(function(response) {
 				$scope.error = response.message;
 			});

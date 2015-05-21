@@ -109,7 +109,31 @@ var UserSchema = new Schema({
 		type: Boolean,
 		required: false,
 		default: true
+	},
+	skill: {
+		type: Number,
+		default: 3
+
+	},
+	description: {
+		type: String
+	},
+	expectation: {
+		type: [{
+			type: String,
+			enum: ['Regelmässiger Spielpartner finden', 'Gelegenheitspartner finden', 'Fun Spiele', ' Trainings', 'Liga teilnehmen']
+		}]
+	},
+	playTimes: {
+		type: String
+	},
+	invitePermission: {
+		type: String,
+		enum: ['all', 'friends', 'no'],
+		required: true,
+		default: 'all'
 	}
+
 
 
 });

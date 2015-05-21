@@ -13,3 +13,7 @@
 .ng-valid.ng-dirty {
 	border-color: #78FA89;
 }
+table {
+	table-layout: fixed;
+	word-wrap: break-word;
+}

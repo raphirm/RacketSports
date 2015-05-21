@@ -29,7 +29,7 @@ describe('Court Model Unit Tests:', function() {
 
 		user.save(function() { 
 			court = new Court({
-				"name":"Vitis","address":"Vitis","contact":"0795769266","sports":["Squash","Tennis","Badminton","Tabletennis"],
+				"name":"Vitis", "lat" : "47.400084", "lng" : "8.444892999999979","address":"Vitis","contact":"0795769266","sports":["Squash","Tennis","Badminton","Tabletennis"],
 				user: user
 			});
 

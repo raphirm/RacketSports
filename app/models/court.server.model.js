@@ -20,6 +20,14 @@ var CourtSchema = new Schema({
 		type: String,
 		required: 'Please fill in a address the court is located'
 	},
+	lat: {
+		type: String,
+		required: "Please fill in a correct address (select it from the dropdown)"
+	},
+	lng: {
+		type: String,
+		required: "Please fill in a correct address (select it from the dropdown)"
+	},
 	sports: {
 		type: [{
 			type: String,

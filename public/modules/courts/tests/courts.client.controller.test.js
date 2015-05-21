@@ -90,18 +90,20 @@
 
 		it('$scope.create() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Courts) {
 			// Create a sample Court object
-			var sampleCourtPostData = new Courts({"name":"Vitis","address":"Vitis","contact":"0795769266","sports":["Squash","Tennis","Badminton","Tabletennis"]});
+			var sampleCourtPostData = new Courts({"name":"Vitis", "lat" : "47.400084", "lng" : "8.444892999999979","address":"Vitis","contact":"0795769266","sports":["Squash","Tennis","Badminton","Tabletennis"]});
 
 			// Create a sample Court response
 			var sampleCourtResponse = new Courts({
 				_id: '525cf20451979dea2c000001',
-				"name":"Vitis","address":"Vitis","contact":"0795769266","sports":["Squash","Tennis","Badminton","Tabletennis"]
+				"name":"Vitis", "lat" : "47.400084", "lng" : "8.444892999999979","address":"Vitis","contact":"0795769266","sports":["Squash","Tennis","Badminton","Tabletennis"]
 			});
 
 			// Fixture mock form input values
 			scope.name = 'Vitis';
 			scope.address = 'Vitis';
 			scope.contact = "0795769266";
+			scope.lat =  '47.400084';
+			scope.lng=  '8.444892999999979',
 			scope.sports = ["Squash","Tennis","Badminton","Tabletennis"] ;
 
 			// Set POST response
@@ -122,7 +124,7 @@
 			// Define a sample Court put data
 			var sampleCourtPutData = new Courts({
 				_id: '525cf20451979dea2c000001',
-				"name":"Vitis","address":"Vitis","contact":"0795769266","sports":["Squash","Tennis","Badminton","Tabletennis"]
+				"name":"Vitis", "lat" : "47.400084", "lng" : "8.444892999999979","address":"Vitis","contact":"0795769266","sports":["Squash","Tennis","Badminton","Tabletennis"]
 			});
 
 			// Mock Court in scope

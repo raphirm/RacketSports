@@ -1,39 +1,20 @@
 'use strict';
-var placeSearch, autocomplete;
-function initialize() {
-	// Create the autocomplete object, restricting the search
-	// to geographical location types.
-	autocomplete = new google.maps.places.Autocomplete(
-		/** @type {HTMLInputElement} */(document.getElementById('address')));
-	// When the user selects an address from the dropdown,
-	// populate the address fields in the form.
-	google.maps.event.addListener(autocomplete, 'place_changed', function() {
-		fillInAddress();
-	});
-}
 
-// [START region_fillform]
-function fillInAddress() {
-	// Get the place details from the autocomplete object.
-	var place = autocomplete.getPlace();
-
-
-}
-// [END region_fillform]
-
-// [START region_geolocation]
-// Bias the autocomplete object to the user's geographical location,
-// as supplied by the browser's 'navigator.geolocation' object.
-function geolocate() {
-	initialize()
-
-}
 // [END region_geolocation]
 // Courts controller
 angular.module('courts').controller('CourtsController', ['$scope', '$stateParams', '$http', '$location', 'Authentication', 'Courts',
 	function($scope, $stateParams,$http, $location, Authentication, Courts) {
 		$scope.authentication = Authentication;
+		var placeSearch, autocomplete;
 
+		autocomplete = new google.maps.places.Autocomplete(
+			/** @type {HTMLInputElement} */(document.getElementById('address')));
+		// When the user selects an address from the dropdown,
+		// populate the address fields in the form.
+
+		google.maps.event.addListener(autocomplete, 'place_changed', function() {
+			$scope.updateAddress();
+		});
 		// Create new Court
 		$scope.create = function() {
 			// Create new Court object
@@ -41,7 +22,9 @@ angular.module('courts').controller('CourtsController', ['$scope', '$stateParams
 				name: this.name,
 				address: this.address,
 				contact: this.contact,
-				sports: this.sports
+				sports: this.sports,
+				lat: this.lat,
+				lng: this.lng
 			});
 
 			// Redirect after save
@@ -119,5 +102,20 @@ angular.module('courts').controller('CourtsController', ['$scope', '$stateParams
 			$http.get('/courts/'+court._id+'/leave');
 			location.reload();
 		};
+		$scope.updateAddress =function() {
+			var place = autocomplete.getPlace();
+			document.getElementById('address').value = place.formatted_address;
+			document.getElementById('lat').value = place.geometry.location.A;
+			document.getElementById('lng').value = place.geometry.location.F;
+			if ($scope.court) {
+				$scope.court.address = place.formatted_address;
+				$scope.court.lat = place.geometry.location.A;
+				$scope.court.lng = place.geometry.location.F;
+			}else{
+				this.address  = place.formatted_address;;
+				this.lat = place.geometry.location.A;
+				this.lng = place.geometry.location.F;
+			}
+		}
 	}
 ]);

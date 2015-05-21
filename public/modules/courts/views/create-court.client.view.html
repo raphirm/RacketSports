@@ -19,6 +19,8 @@
                     <label for="address">Adresse</label>
                     <input type="text" onFocus="geolocate()" id="address" name="address" class="form-control" data-ng-model="address" required>
                 </div>
+                <input type="hidden" id="lng" name="lng" class="form-control" data-ng-model="court.lng" required disabled="true" >
+                <input type="hidden" id="lat" name="lat" class="form-control" data-ng-model="court.lat" required disabled="true" >
                 <div class="form-group">
                     <label for="contact">Kontakt</label>
                     <input type="text"  id="contact" name="contact" class="form-control" data-ng-model="contact" placeholder="Telefon/e-Mail">

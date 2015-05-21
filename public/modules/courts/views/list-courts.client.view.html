@@ -1,13 +1,13 @@
 <section data-ng-controller="CourtsController" data-ng-init="find()">
     <div class="page-header">
 
-        <h1>Courts</h1>
+        <h1>Racketzentren</h1>
     </div>
-    <div class="panel panel-default" >
+    <div class="panel panel-default" data-ng-show="!courts.$resolved || courts.length" >
 
         <div class="panel-heading"> Alle registrierten Racketzentren</div>
         <div class="panel-body">
-            <p>Fall dein Racketzentrum nicht verfügbar ist, <a href="/#!/courts/create">kriere doch ein neues</a> </p>
+            <p>Fall dein Racketzentrum nicht verfügbar ist, <a href="/#!/courts/create">registrier doch ein neues</a> </p>
         </div>
         <table id="courtslist" class="table">
             <tr>
@@ -28,6 +28,6 @@
 
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!courts.$resolved || courts.length">
-    	No Courts yet, why don't you <a href="/#!/courts/create">create one</a>?
+    	Keine RacketZentren definiert.  <a href="/#!/courts/create">registrier doch ein neues</a>?
     </div>
 </section>

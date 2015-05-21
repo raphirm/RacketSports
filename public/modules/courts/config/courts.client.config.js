@@ -4,8 +4,8 @@
 angular.module('courts').run(['Menus',
 	function(Menus) {
 		// Set top bar menu items
-		Menus.addMenuItem('topbar', 'Courts', 'courts', 'dropdown', '/courts(/create)?');
-		Menus.addSubMenuItem('topbar', 'courts', 'List Courts', 'courts');
-		Menus.addSubMenuItem('topbar', 'courts', 'New Court', 'courts/create');
+		Menus.addMenuItem('topbar', 'Racketzentren', 'courts', 'dropdown', '/courts(/create)?');
+		Menus.addSubMenuItem('topbar', 'courts', 'Racketzentren', 'courts');
+		Menus.addSubMenuItem('topbar', 'courts', 'Racketzentrum erfassen', 'courts/create');
 	}
 ]);

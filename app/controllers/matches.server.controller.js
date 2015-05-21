@@ -13,7 +13,6 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
 	var match = new Match(req.body);
-	match.user = req.user;
 
 	match.save(function(err) {
 		if (err) {
@@ -100,7 +99,7 @@ exports.matchByID = function(req, res, next, id) {
  * Match authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-	if (req.match.user.id !== req.user.id) {
+	if (req.match.user.indexOf(req.user)>-1) {
 		return res.status(403).send('User is not authorized');
 	}
 	next();

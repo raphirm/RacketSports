@@ -10,20 +10,44 @@ var mongoose = require('mongoose'),
  * Match Schema
  */
 var MatchSchema = new Schema({
-	name: {
+
+	spieler: [{
+		user: {
+			type: Schema.ObjectId,
+			ref: 'User'
+		},
+		outcome: {
+			type: String,
+			enum: ['win', 'draw', 'loss']
+		},
+		sets: [{
+			outcome: {
+				type: String,
+				enum: ['win', 'draw', 'loss']
+			},
+			value: {
+				type: Number
+			}
+
+		}]
+	}],
+	state: {
 		type: String,
-		default: '',
-		required: 'Please fill Match name',
-		trim: true
+		enum: ['new', 'sent', 'open', 'progress', 'done']
 	},
-	created: {
-		type: Date,
-		default: Date.now
-	},
-	user: {
+	court: {
 		type: Schema.ObjectId,
-		ref: 'User'
+		ref: 'Court'
+	},
+	sport: {
+		type: String,
+		enum: ['Squash', 'Tennis', 'Badminton', 'Tabletennis']
+	},
+	time: {
+		type: String
+
 	}
+
 });
 
 mongoose.model('Match', MatchSchema);

@@ -6,15 +6,16 @@ angular.module('courts').controller('CourtsController', ['$scope', '$stateParams
 	function($scope, $stateParams,$http, $location, Authentication, Courts) {
 		$scope.authentication = Authentication;
 		var placeSearch, autocomplete;
+		if(document.getElementById('address')) {
+			autocomplete = new google.maps.places.Autocomplete(
+				/** @type {HTMLInputElement} */(document.getElementById('address')));
+			// When the user selects an address from the dropdown,
+			// populate the address fields in the form.
 
-		autocomplete = new google.maps.places.Autocomplete(
-			/** @type {HTMLInputElement} */(document.getElementById('address')));
-		// When the user selects an address from the dropdown,
-		// populate the address fields in the form.
-
-		google.maps.event.addListener(autocomplete, 'place_changed', function() {
-			$scope.updateAddress();
-		});
+			google.maps.event.addListener(autocomplete, 'place_changed', function () {
+				$scope.updateAddress();
+			});
+		}
 		// Create new Court
 		$scope.create = function() {
 			// Create new Court object

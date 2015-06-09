@@ -308,7 +308,7 @@ angular.module('leagues').config(['$stateProvider',
 // Leagues controller
 angular.module('leagues').controller('LeaguesController', ['$http', '$scope', '$stateParams', '$location', 'Authentication', 'Leagues',
 	function($http, $scope, $stateParams, $location, Authentication, Leagues) {
-		$scope.authentication = Authentication
+		$scope.authentication = Authentication;
 		// Create new League
 		$scope.create = function() {
 			// Create new League object

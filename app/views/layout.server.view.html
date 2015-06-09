@@ -53,12 +53,18 @@
 
 	<!--Embedding The User Object-->
 	<script type="text/javascript">
-		var user = {{ user | json | safe }};
+		var user = {
+		{
+			user | json | safe
+		};
+		}
 	</script>
 
 	<!--Application JavaScript Files-->
 	{% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
 	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+	<script src="lib/jquery/dist/jquery.js" type="text/javascript"></script>
+
 	{% if process.env.NODE_ENV === 'development' %}
 	<!--Livereload script rendered -->
 	<script type="text/javascript" src="http://{{request.hostname}}:35729/livereload.js"></script>

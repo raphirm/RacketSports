@@ -80,7 +80,7 @@ angular.module('courts').controller('CourtsController', ['$scope', '$stateParams
 		};
 		$scope.go = function(court){
 			$location.path('/courts/'+ court._id)
-		}
+		};
 		$scope.joinStatus = function(court) {
 
 			var existing = false;
@@ -113,7 +113,7 @@ angular.module('courts').controller('CourtsController', ['$scope', '$stateParams
 				$scope.court.lat = place.geometry.location.A;
 				$scope.court.lng = place.geometry.location.F;
 			}else{
-				this.address  = place.formatted_address;;
+				this.address = place.formatted_address;
 				this.lat = place.geometry.location.A;
 				this.lng = place.geometry.location.F;
 			}

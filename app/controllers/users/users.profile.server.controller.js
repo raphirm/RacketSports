@@ -69,7 +69,7 @@ exports.removeFriend = function(req, res, next) {
 			if (user.friends.indexOf(friend._id)>=0) {
 				var fid = user.friends.indexOf(friend._id);
 				var uid = friend.friends.indexOf(user._id);
-				console.log("Index of Friend: " +fid)
+				console.log("Index of Friend: " +fid);
 				user.friends.splice(fid, 1);
 				friend.friends.splice(uid, 1);
 				friend.hookEnabled = false;
@@ -105,7 +105,7 @@ exports.removeRequest = function(req, res, next) {
 			console.log("Deleting Friend with username: " + provider);
 			if (user.friendrequests.indexOf(friend._id)>=0) {
 				var fid = user.friendrequests.indexOf(friend._id);
-				console.log("Index of Friend: " +fid)
+				console.log("Index of Friend: " +fid);
 				user.friendrequests.splice(fid, 1);
 				user.markModified('friends');
 			}
@@ -175,6 +175,26 @@ exports.addRequest = function(req, res, next) {
 				else{
 					res.status(400).send({message: 'user already added'});
 				}
+			}
+			else {
+				res.status(400).send({
+					message: 'user not found'
+				});
+			}
+		});
+
+
+	}
+};
+exports.findUser = function(req, res, next) {
+	var user = req.user;
+	var provider = req.param('user');
+	if (user) {
+		console.log(provider);
+
+		User.findOne({'username': provider}, function (err, user) {
+			if (user) {
+				res.json(user)
 			}
 			else {
 				res.status(400).send({

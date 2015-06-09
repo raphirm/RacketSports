@@ -6,23 +6,37 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Match = mongoose.model('Match'),
+	User = mongoose.model('User'),
+	Court = mongoose.model('Court'),
 	_ = require('lodash');
 
 /**
  * Create a Match
  */
 exports.create = function(req, res) {
-	var match = new Match(req.body);
+	var match = new Match();
+	console.log(req.body.spieler[1].user);
+	User.findOne(req.body.spieler[1].user, function(err, spieler){
+		match.spieler.push({user: req.user});
+		match.spieler.push({user: spieler});
+		Court.findOne(req.body.court, function(err, court){
+			match.court = court;
 
-	match.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
+			match.sport = req.body.sport;
+			match.save(function(err) {
+				if (err) {
+					return res.status(400).send({
+						message: errorHandler.getErrorMessage(err)
+					});
+				} else {
+					res.jsonp(match);
+				}
 			});
-		} else {
-			res.jsonp(match);
-		}
+		});
 	});
+
+
+
 };
 
 /**
@@ -72,14 +86,16 @@ exports.delete = function(req, res) {
  * List of Matches
  */
 exports.list = function(req, res) { 
-	Match.find().sort('-created').populate('user', 'displayName').exec(function(err, matches) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(matches);
-		}
+	Match.find().sort('-created').populate('spieler court').exec(function(err, matches) {
+		User.populate(matches, {path: 'spieler.user'}, function (err, user) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} else {
+				res.jsonp(matches);
+			}
+		});
 	});
 };
 

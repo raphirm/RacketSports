@@ -15,6 +15,8 @@ module.exports = function(app) {
 	app.route('/users/accounts').delete(users.removeOAuthProvider);
 	app.route('/users/friend').delete(users.removeFriend);
 	app.route('/users/friend').get(users.addFriend);
+	app.route('/users/find').get(users.findUser);
+
 	app.route('/users/request').get(users.addRequest);
 	app.route('/users/request').delete(users.removeRequest);
 

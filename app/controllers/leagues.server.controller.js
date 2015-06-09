@@ -98,7 +98,7 @@ exports.list = function (req, res) {
                 });
 
             async.parallel(calls, function(err, result){
-            console.log(req.user)
+            console.log(req.user);
                             res.jsonp(leagues)
 
             });
@@ -118,7 +118,7 @@ exports.listMyLeagues = function (req, res) {
             });
         } else {
             var calls = [];
-            var myLeagues = []
+            var myLeagues = [];
             leagues.forEach(function (league, index, leagues) {
                 calls.push(function(callback) {
                     UserToPoints.populate(league.users, {path: 'user', select: 'username'}, function (err, user) {
@@ -126,7 +126,7 @@ exports.listMyLeagues = function (req, res) {
                         if (!leagues) return res.jsonp(new Error('Failed to load League ' + id));
                         league.users = user;
                         leagues[index] = league;
-                        var filteredLeague=[]
+                        var filteredLeague=[];
                         if(user.length != 0){
                         filteredLeague= user.filter(function(usr) {
 
@@ -158,12 +158,12 @@ exports.listMyLeagues = function (req, res) {
  * Join League
  */
 exports.join = function (req, res) {
-    var league = req.league
-    var user = req.user
+    var league = req.league;
+    var user = req.user;
     var userToPoints = new UserToPoints();
-    userToPoints.user = req.user
-    userToPoints.save()
-    league.users.push(userToPoints)
+    userToPoints.user = req.user;
+    userToPoints.save();
+    league.users.push(userToPoints);
     league.save(function (err) {
         if (err) {
             return res.status(400).send({
@@ -173,15 +173,15 @@ exports.join = function (req, res) {
             res.jsonp(league);
         }
     });
-}
+};
 
 /**
  * Join League
  */
 exports.leave = function (req, res) {
-    var league = req.league
+    var league = req.league;
     var i = league.users.indexOf(req.user);
-    league.users.splice(i, 1)
+    league.users.splice(i, 1);
     league.save(function (err) {
         if (err) {
             return res.status(400).send({
@@ -191,7 +191,7 @@ exports.leave = function (req, res) {
             res.jsonp(league);
         }
     });
-}
+};
 
 /**
  * League middleware

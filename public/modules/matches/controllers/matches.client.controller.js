@@ -1,15 +1,35 @@
 'use strict';
 
 // Matches controller
-angular.module('matches').controller('MatchesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Matches',
-	function($scope, $stateParams, $location, Authentication, Matches) {
+angular.module('matches').controller('MatchesController', ['$scope', '$stateParams', '$location', "$http" , "$resource", 'Authentication', 'Matches', 'Users',
+	function($scope, $stateParams, $location, $http, $resource,  Authentication, Matches, Users) {
 		$scope.authentication = Authentication;
+		$scope.user = Authentication.user;
+		$scope.suser = "";
+		$scope.find = function() {
+			var Resource = $resource('/users/me');
+			Resource.get(function(user){
+				$scope.user = user;
+			});
+			Resource = $resource("/courts" );
+			Resource.query(function(courts){
+				$scope.courts = courts;
+			})
 
+		};
+		$scope.find();
 		// Create new Match
 		$scope.create = function() {
 			// Create new Match object
 			var match = new Matches ({
-				name: this.name
+				spieler:  [
+					{user: $scope.user },
+					{user: {
+						username: this.match.user.username
+					}}
+				],
+				court: this.match.court,
+				sport: this.match.sport
 			});
 
 			// Redirect after save
@@ -62,5 +82,20 @@ angular.module('matches').controller('MatchesController', ['$scope', '$statePara
 				matchId: $stateParams.matchId
 			});
 		};
+		$scope.findUser= function() {
+			var Resource = $resource('/users/find', {user: $scope.suser});
+			Resource.get(
+				function(user){
+					$scope.player2 = user;
+					$scope.user.friends.push(user);
+					$scope.match = {user: ''};
+					$scope.match.user=user;
+
+			}, function(response) {
+
+					$scope.error = response.data.message;
+
+			});
+		}
 	}
 ]);

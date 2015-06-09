@@ -77,7 +77,7 @@ angular.module('users').controller('FriendsController', ['$scope', '$http', '$lo
 
 		};
 		$scope.addRequest = function() {
-			var $friend = $scope.user.friendrequests.username
+			var $friend = $scope.user.friendrequests.username;
 			$http.get('/users/request', {
 				params: {
 					friend: $friend
@@ -93,7 +93,7 @@ angular.module('users').controller('FriendsController', ['$scope', '$http', '$lo
 
 			}).error(function (response) {
 				$scope.success = false;
-				console.log(response.message)
+				console.log(response.message);
 				$scope.error = response.message;
 			});
 

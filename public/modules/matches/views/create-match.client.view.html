@@ -1,22 +1,58 @@
 <section data-ng-controller="MatchesController">
     <div class="page-header">
-        <h1>New Match</h1>
+        <h1>Neues Spiel</h1>
     </div>
+    <form class="form-horizontal" data-ng-submit="create()" novalidate>
+        <fieldset>
     <div class="col-md-12">
-        <form class="form-horizontal" data-ng-submit="create()" novalidate>
-            <fieldset>
-                <div class="form-group">
-                    <label class="control-label" for="name">Name</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" required>
+        <div class="container">
+            <div class="row">
+
+                <div class="form-group col-xs-5">
+                   <h4> {{user.username}} <small><br /> {{user.firstName}} {{user.lastName}}</small></h4>
+                </div>
+                <div class="col-xs-2">
+                <h3 style="text-align: center">VS</h3>
+                </div>
+                <div class="form-group col-xs-5">
+                    Freund:
+                    <select name="player2" id="player2" class="form-control" data-ng-options="friend.username for friend in user.friends" data-ng-model="match.user" required>
+
+                    </select>
+                    oder: <input data-ng-model="suser" id="suser" type="text" placeholder="Spieler suchen"><span class="glyphicon glyphicon-search" ng-click="findUser()"></span>
+                    <div data-ng-show="error" class="text-center text-danger">
+                        <strong data-ng-bind="error"></strong>
                     </div>
                 </div>
+                <div class="col-sm-12"></div>
+            </div>
+        </div>
+
+
+
+
+                <div class="form-group">
+                    <label class="control-label" for="court">Racketzentrum</label>
+                    <select name="court" id="court" class="form-control" ng-model="match.court.name"  required>
+                        <option  ng-repeat="court in courts" value="{{court.name}}">{{court.name}}</option>
+                    </select>
+                </div>
+        <div class="form-group">
+        <label class="control-label" for="court">Sportart</label>
+        <select name="sport" id="sport" class="form-control" ng-model="match.sport"  required>
+            <option value="Squash">Squash</option>
+            <option value="Tennis">Tennis</option>
+            <option value="Badminton">Badminton</option>
+            <option value="Tabletennis">Tischtennis</option>
+        </select>
+            </div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-default">
                 </div>
 				<div data-ng-show="error" class="text-danger">
 					<strong data-ng-bind="error"></strong>
 				</div>
+        </div>
             </fieldset>
         </form>
     </div>

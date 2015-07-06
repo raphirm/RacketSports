@@ -6,9 +6,20 @@ module.exports = function(app) {
 
 	// Matches Routes
 	app.route('/matches')
-		.get(matches.list)
+		.get(users.requiresLogin, matches.list)
 		.post(users.requiresLogin, matches.create);
-
+	app.route('/matches/new')
+		.get(users.requiresLogin, matches.listNew);
+	app.route('/matches/open')
+		.get(users.requiresLogin, matches.listOpen);
+	app.route('/matches/proposed')
+		.get(users.requiresLogin, matches.listChange);
+	app.route('/matches/inProgress')
+		.get(users.requiresLogin, matches.listInProgress);
+	app.route('/matches/r2c')
+		.get(users.requiresLogin, matches.rtwoc);
+	app.route('/matches/done')
+		.get(users.requiresLogin, matches.listDone);
 	app.route('/matches/:matchId')
 		.get(matches.read)
 		.put(users.requiresLogin, matches.hasAuthorization, matches.update)

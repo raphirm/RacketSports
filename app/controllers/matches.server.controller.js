@@ -21,8 +21,10 @@ exports.create = function(req, res) {
 		match.spieler.push({user: spieler});
 		Court.findOne(req.body.court, function(err, court){
 			match.court = court;
-
+			match.proposedTimes = req.body.proposedTimes;
 			match.sport = req.body.sport;
+			match.state = req.body.state;
+			match.propBy = req.user;
 			match.save(function(err) {
 				if (err) {
 					return res.status(400).send({
@@ -85,8 +87,9 @@ exports.delete = function(req, res) {
 /**
  * List of Matches
  */
-exports.list = function(req, res) { 
-	Match.find().sort('-created').populate('spieler court').exec(function(err, matches) {
+exports.list = function(req, res) {
+
+	Match.find({'spieler.user': req.user}).sort('-created').populate('spieler court').exec(function(err, matches) {
 		User.populate(matches, {path: 'spieler.user'}, function (err, user) {
 			if (err) {
 				return res.status(400).send({
@@ -98,16 +101,101 @@ exports.list = function(req, res) {
 		});
 	});
 };
-
+exports.listNew = function(req, res) {
+	Match.find({'spieler.user': req.user, state: "new", propBy: { $ne: req.user}}).sort('-created').populate('spieler court').exec(function(err, matches) {
+		User.populate(matches, {path: 'spieler.user'}, function (err, user) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} else {
+				res.jsonp(matches);
+			}
+		});
+	});
+};
+exports.listChange = function(req, res) {
+	var user = req.user;
+	Match.find({'spieler.user': req.user, state: "proposed", propBy: { $ne: req.user}}).sort('-created').populate('spieler court').exec(function(err, matches) {
+		User.populate(matches, {path: 'spieler.user'}, function (err, user) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} else {
+				res.jsonp(matches);
+			}
+		});
+	});
+};
+exports.listInProgress = function(req, res) {
+	var user = req.user;
+	Match.find({'spieler.user': req.user, state: "progress"}).sort('-created').populate('spieler court').exec(function(err, matches) {
+		User.populate(matches, {path: 'spieler.user'}, function (err, user) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} else {
+				res.jsonp(matches);
+			}
+		});
+	});
+};
+exports.rtwoc = function(req, res) {
+	var user = req.user;
+	Match.find({'spieler.user': req.user, state: "r2c", r2cBy: { $ne: req.user}}).sort('-created').populate('spieler court').exec(function(err, matches) {
+		User.populate(matches, {path: 'spieler.user'}, function (err, user) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} else {
+				res.jsonp(matches);
+			}
+		});
+	});
+};
+exports.listOpen = function(req, res) {
+	var user = req.user;
+	Match.find({'spieler.user': req.user, state: "open"}).sort('-created').populate('spieler court').exec(function(err, matches) {
+		User.populate(matches, {path: 'spieler.user'}, function (err, user) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} else {
+				res.jsonp(matches);
+			}
+		});
+	});
+};
+exports.listDone = function(req, res) {
+	var user = req.user;
+	Match.find({'spieler.user': req.user, state: "done"}).sort('-created').populate('spieler court').exec(function(err, matches) {
+		User.populate(matches, {path: 'spieler.user'}, function (err, user) {
+			if (err) {
+				return res.status(400).send({
+					message: errorHandler.getErrorMessage(err)
+				});
+			} else {
+				res.jsonp(matches);
+			}
+		});
+	});
+};
 /**
  * Match middleware
  */
 exports.matchByID = function(req, res, next, id) { 
-	Match.findById(id).populate('user', 'displayName').exec(function(err, match) {
-		if (err) return next(err);
-		if (! match) return next(new Error('Failed to load Match ' + id));
-		req.match = match ;
-		next();
+	Match.findById(id).populate('spieler court propsedTimes').exec(function(err, match) {
+		User.populate(match, {path: 'spieler.user'}, function (err, user) {
+
+			if (err) return next(err);
+			if (!match) return next(new Error('Failed to load Match ' + id));
+			req.match = match;
+			next();
+		});
 	});
 };
 
@@ -115,7 +203,7 @@ exports.matchByID = function(req, res, next, id) {
  * Match authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-	if (req.match.user.indexOf(req.user)>-1) {
+	if (req.match.spieler.indexOf(req.user)>-1) {
 		return res.status(403).send('User is not authorized');
 	}
 	next();

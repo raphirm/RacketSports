@@ -33,7 +33,21 @@ var MatchSchema = new Schema({
 	}],
 	state: {
 		type: String,
-		enum: ['new', 'sent', 'open', 'progress', 'done']
+		enum: ['new', 'proposed', 'open', 'progress', 'r2c', 'done']
+	},
+	propBy: {
+		type: Schema.ObjectId,
+		ref: 'User'
+	},
+	propMsg: {
+		type: String
+	},
+	r2cBy: {
+		type: Schema.ObjectId,
+		ref: 'User'
+	},
+	r2cMsg: {
+		type: String
 	},
 	court: {
 		type: Schema.ObjectId,
@@ -44,9 +58,18 @@ var MatchSchema = new Schema({
 		enum: ['Squash', 'Tennis', 'Badminton', 'Tabletennis']
 	},
 	time: {
-		type: String
-
-	}
+		type: Date
+	},
+	proposedTimes: [{
+		time: {
+			type: Date,
+			required: true
+		},
+		state: {
+			type: String,
+			enum: ['proposed', 'agreed']
+		}
+	}]
 
 });
 

@@ -1,19 +1,97 @@
 <section data-ng-controller="MatchesController" data-ng-init="find()">
     <div class="page-header">
-        <h1>Matches</h1>
+    <h1>Deine Spiele</h1>
     </div>
-    <div class="list-group">
-        <a data-ng-repeat="match in matches" data-ng-href="#!/matches/{{match._id}}" class="list-group-item">
-			<small class="list-group-item-text">
-				Posted on
-				<span data-ng-bind="match.created | date:'medium'"></span>
-				by
-				<span data-ng-bind="match.user.displayName"></span>
-			</small>
-			<h4 class="list-group-item-heading" data-ng-bind="match.name"></h4>
-        </a>
+    <div class="form-group col-xs-12">
+    <div class="form-group col-xs-6">
+        <h2>Herausforderungen</h2>
+        <div class="list-group">
+            <a data-ng-repeat="match in newMatches" data-ng-href="#!/matches/{{match._id}}" class="list-group-item">
+                <small class="list-group-item-text">
+                    <h4 class="list-group-item-heading" >{{match.spieler[0].user.username}} vs {{match.spieler[1].user.username}}</h4>
+
+                </small>
+                <h4 class="list-group-item-heading" data-ng-bind="match.name"></h4>
+            </a>
+        </div>
+        <div class="alert alert-warning text-center" data-ng-hide="!newMatches.$resolved || newMatches.length">
+            No Matches yet...
+        </div>
     </div>
-    <div class="alert alert-warning text-center" data-ng-hide="!matches.$resolved || matches.length">
-    	No Matches yet, why don't you <a href="/#!/matches/create">create one</a>?
+    <div class="form-group col-xs-6">
+        <h2>Bestätigte Herausforderungen</h2>
+        <div class="list-group">
+            <a data-ng-repeat="match in propMatches" data-ng-href="#!/matches/{{match._id}}" class="list-group-item">
+                <small class="list-group-item-text">
+                    <h4 class="list-group-item-heading" >{{match.spieler[0].user.username}} vs {{match.spieler[1].user.username}}</h4>
+
+                </small>
+                <h4 class="list-group-item-heading" data-ng-bind="match.name"></h4>
+            </a>
+        </div>
+        <div class="alert alert-warning text-center" data-ng-hide="!propMatches.$resolved || propMatches.length">
+            No Matches yet...
+        </div>
     </div>
+        </div>
+    <div class="form-group col-xs-12">
+    <div class="form-group col-xs-6">
+        <h2>Offene Matches</h2>
+        <div class="list-group">
+            <a data-ng-repeat="match in openMatches" data-ng-href="#!/matches/{{match._id}}" class="list-group-item">
+                <small class="list-group-item-text">
+                    <h4 class="list-group-item-heading" >{{match.spieler[0].user.username}} vs {{match.spieler[1].user.username}}</h4>
+
+                </small>
+                <h4 class="list-group-item-heading" data-ng-bind="match.name"></h4>
+            </a>
+        </div>
+        <div class="alert alert-warning text-center" data-ng-hide="!openMatches.$resolved || openMatches.length">
+            No Matches yet...
+        </div>
+    </div>
+
+    <div class="form-group col-xs-6">
+            <h2>Laufende Matches</h2>
+            <div class="list-group">
+                <a data-ng-repeat="match in r2cMatches" data-ng-href="#!/matches/{{match._id}}" class="list-group-item">
+                    <small class="list-group-item-text">
+                        <h4 class="list-group-item-heading" >{{match.spieler[0].user.username}} vs {{match.spieler[1].user.username}}</h4>
+
+                    </small>
+                    <h4 class="list-group-item-heading" data-ng-bind="match.name"></h4>
+                </a>
+            </div>
+            <div class="list-group">
+                <a data-ng-repeat="match in progressMatches" data-ng-href="#!/matches/{{match._id}}" class="list-group-item">
+                    <small class="list-group-item-text">
+                        <h4 class="list-group-item-heading" >{{match.spieler[0].user.username}} vs {{match.spieler[1].user.username}}</h4>
+
+                    </small>
+                    <h4 class="list-group-item-heading" data-ng-bind="match.name"></h4>
+                </a>
+            </div>
+
+            <div class="alert alert-warning text-center" data-ng-hide="!r2cMatches.$resolved || r2cMatches.length">
+                No Matches yet...
+            </div>
+        </div>
+        </div>
+    <div class="form-group col-xs-12">
+        <h2>Abgeschlossene Matches</h2>
+        <div class="list-group">
+            <a data-ng-repeat="match in doneMatches" data-ng-href="#!/matches/{{match._id}}" class="list-group-item">
+                <small class="list-group-item-text">
+                    <h4 class="list-group-item-heading" >{{match.spieler[0].user.username}} vs {{match.spieler[1].user.username}}</h4>
+
+                </small>
+                <h4 class="list-group-item-heading" data-ng-bind="match.name"></h4>
+            </a>
+        </div>
+        <div class="alert alert-warning text-center" data-ng-hide="!doneMatches.$resolved || doneMatches.length">
+            No Matches yet...
+        </div>
+    </div>
+
+
 </section>

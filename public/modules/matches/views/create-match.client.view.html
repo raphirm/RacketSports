@@ -2,6 +2,7 @@
     <div class="page-header">
         <h1>Neues Spiel</h1>
     </div>
+
     <form class="form-horizontal" data-ng-submit="create()" novalidate>
         <fieldset>
     <div class="col-md-12">
@@ -46,6 +47,18 @@
             <option value="Tabletennis">Tischtennis</option>
         </select>
             </div>
+        <div class="form-group">
+            <label class="control-label" for="times">Zeitvorschläge</label>
+            <div data-ng-repeat="time in times" id="times" class='input-group date'>
+                <input   type='datetime-local' id="time" class="form-control" ng-model="time.time" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-plus" ng-click="addTime()"></span>
+                        <span class="glyphicon glyphicon-minus" ng-click="remTime($index)"></span>
+                    </span>
+            </div>
+
+        </div>
+
                 <div class="form-group">
                     <input type="submit" class="btn btn-default">
                 </div>

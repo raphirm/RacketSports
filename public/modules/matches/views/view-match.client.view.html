@@ -1,21 +1,69 @@
 <section data-ng-controller="MatchesController" data-ng-init="findOne()">
-	<div class="page-header">
-		<h1 data-ng-bind="match.name"></h1>
+
+
+
+	<form class="form-horizontal"  novalidate>
+		<fieldset>
+			<div class="page-header">
+				<div class="col-md-12">
+
+					<div class="container">
+						<div class="row">
+
+							<div class="form-group col-xs-5">
+								<h4 class="text-right"> {{match.spieler[0].user.username}} <small><br /> {{match.spieler[0].user.firstName}} {{match.spieler[0].user.lastName}}</small></h4>
+							</div>
+							<div class="col-xs-2">
+								<h3 style="text-align: center">VS</h3>
+							</div>
+							<div class="form-group col-xs-5">
+								<h4> {{match.spieler[1].user.username}} <small><br /> {{match.spieler[1].user.firstName}} {{match.spieler[1].user.lastName}}</small></h4>
+							</div>
+							<div class="col-sm-12"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<h4>{{match.court.name}}</h4>
+					</div>
+					<div class="form-group">
+						<h4>{{match.sport}}</h4>
+					</div>
+					<div data-ng-show="matchIsNew()" class="form-group">
+						<h4>Proposed Times:<br />
+							<small> An welchen Zeiten hast du Zeit? Bestätige die Zeit indem du auf den Haken klickst und dann deine Auswahl bestätigst. </small></h4>
+
+						<h5 data-ng-repeat="time in match.proposedTimes" ng-class="{'text-success': timeIsAgreed($index) == true}">{{time.time| date:'medium'}}
+							<span data-ng-show="timeIsProposed($index)" class="glyphicon glyphicon-ok" ng-click="verifyTime($index)"></span>
+						<span data-ng-show="timeIsAgreed($index)" class="glyphicon glyphicon-remove" ng-click="unverifyTime($index)"></span></h5>
+					</div>
+
+
+					<div data-ng-show="matchIsProposed()" class="form-group">
+						<h4>Bestätigte Spielzeiten:
+							<br />
+							<small> Folgende Zeiten sind OK für dich sowie dein Gegenspieler, wähle nun eine aus: </small></h4>
+						<select name="time" id="time" class="form-control"required ng-model="match.time">
+							<option ng-repeat="time in match.proposedTimes">{{time.time | date: 'medium'}}</option>
+						</select>
+					</div>
+
+
+					<div class="form-group">
+
+						<input data-ng-show="matchIsNew()"  type="submit" value="Zeitvorschlag bestätigen" ng-click="sendProposals()" class="btn btn-default">
+						<input data-ng-show="matchIsNew()"  type="submit" value="Neue Zeiten vorschlagen" class="btn btn-default">
+						<input data-ng-show="matchIsProposed()"  type="submit" value="Spiel neu planen" class="btn btn-default">
+						<input data-ng-show="matchIsProposed()"  type="submit" value="Datum vereinbaren" class="btn btn-default" ng-click="matchToOpen()">
+					</div>
+					<div data-ng-show="error" class="text-danger">
+						<strong data-ng-bind="error"></strong>
+					</div>
+
+				</div>
+			</div>
+		</fieldset>
+	</form>
 	</div>
-	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == match.user._id))">
-		<a class="btn btn-primary" href="/#!/matches/{{match._id}}/edit">
-			<i class="glyphicon glyphicon-edit"></i>
-		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
-			<i class="glyphicon glyphicon-trash"></i>
-		</a>
-	</div>
-	<small>
-		<em class="text-muted">
-			Posted on
-			<span data-ng-bind="match.created | date:'mediumDate'"></span>
-			by
-			<span data-ng-bind="match.user.displayName"></span>
-		</em>
-	</small>
 </section>

@@ -148,6 +148,13 @@ angular.module('matches').controller('MatchesController', ['$scope', '$statePara
 				return false;
 			}
 		};
+		$scope.matchIsOpen = function(){
+			if($scope.match.state == 'open'){
+				return true;
+			}else{
+				return false;
+			}
+		};
 		$scope.matchIsProposed = function(){
 			if($scope.match.state == 'proposed'){
 				return true;

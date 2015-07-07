@@ -150,7 +150,7 @@ angular.module('matches').controller('MatchesController', ['$scope', '$statePara
 
         };
         $scope.matchIsNew = function () {
-            if ($scope.match.state === 'new') {
+            if ($scope.match.state === 'new'  &&  $scope.match.propBy != Authentication.user._id) {
                 return true;
             } else {
                 return false;
@@ -164,14 +164,14 @@ angular.module('matches').controller('MatchesController', ['$scope', '$statePara
             }
         };
         $scope.matchIsProposed = function () {
-            if ($scope.match.state === 'proposed') {
+            if ($scope.match.state === 'proposed' &&  $scope.match.propBy != Authentication.user._id) {
                 return true;
             } else {
                 return false;
             }
         };
         $scope.matchIsInProgress = function () {
-            if ($scope.match.state === 'progress') {
+            if ($scope.match.state === 'progress' ) {
                 return true;
             } else {
                 return false;
@@ -185,7 +185,7 @@ angular.module('matches').controller('MatchesController', ['$scope', '$statePara
             }
         };
         $scope.matchIsR2C = function () {
-            if ($scope.match.state == 'r2c') {
+            if ($scope.match.state == 'r2c' &&  $scope.match.r2cBy != Authentication.user._id) {
                 return true;
             } else {
                 return false;
@@ -199,7 +199,7 @@ angular.module('matches').controller('MatchesController', ['$scope', '$statePara
             }
         };
         $scope.timeIsAgreed = function (index) {
-            if ($scope.match.proposedTimes[index].state == 'agreed') {
+            if ($scope.match.proposedTimes[index].state == 'agreed' ) {
                 return true;
             } else {
                 return false;

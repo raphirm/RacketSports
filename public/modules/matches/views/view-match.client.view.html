@@ -33,13 +33,16 @@
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <h4>{{match.court.name}}</h4>
+                        <h4>Court: {{match.court.name}}</h4>
                     </div>
                     <div class="form-group">
-                        <h4>{{match.sport}}</h4>
+                        <h4>Sport: {{match.sport}}</h4>
+                    </div>
+                    <div ng-show="match.time" class="form-group">
+                    <h4 >Zeit: {{match.time |  date:'medium'}}</h4>
                     </div>
                     <div data-ng-show="matchIsNew()" class="form-group">
-                        <h4>Proposed Times:<br/>
+                        <h4>Vorgeschlagene Zeiten:<br/>
                             <small> An welchen Zeiten hast du Zeit? Bestätige die Zeit indem du auf den Haken klickst
                                 und dann deine Auswahl bestätigst.
                             </small>

@@ -24,7 +24,6 @@ module.exports = function(app) {
 		.get(matches.read)
 		.put(users.requiresLogin, matches.hasAuthorization, matches.update)
 		.delete(users.requiresLogin, matches.hasAuthorization, matches.delete);
-
 	// Finish by binding the Match middleware
 	app.param('matchId', matches.matchByID);
 };

@@ -1,71 +1,141 @@
 <section data-ng-controller="MatchesController" data-ng-init="findOne()">
 
 
+    <form class="form-horizontal" novalidate>
+        <fieldset>
+            <div class="page-header">
+                <div class="col-md-12">
 
-	<form class="form-horizontal"  novalidate>
-		<fieldset>
-			<div class="page-header">
-				<div class="col-md-12">
+                    <div class="container">
+                        <div class="row">
 
-					<div class="container">
-						<div class="row">
+                            <div class="form-group col-xs-5">
+                                <h4 class="text-right" ng-class="match.spieler[0].outcome == 'win' ? 'text-success' : 'text-danger'"> {{match.spieler[0].user.username}}
+                                    <small  ng-class="match.spieler[0].outcome == 'win' ? 'text-success' : 'text-danger'" ><br/> {{match.spieler[0].user.firstName}} {{match.spieler[0].user.lastName}}
+                                    </small>
+                                </h4>
+                                <h5 class="text-right" ng-repeat="satz in match.spieler[0].sets" ng-class="satz.outcome == 'win' ? 'text-success' : 'text-danger'">  {{satz.value}} </h5>
+                            </div>
+                            <div class="col-xs-2">
+                                <h3 style="text-align: center">VS</h3>
+                                <h5 class="text-center" ng-repeat="satz in match.spieler[0].sets">  Satz {{$index + 1}} </h5>
+                            </div>
+                            <div class="form-group col-xs-5">
+                                <h4 class="text-left" ng-class="match.spieler[1].outcome == 'win' ? 'text-success' : 'text-danger'"> {{match.spieler[1].user.username}}
+                                    <small class="text-left" ng-class="match.spieler[1].outcome == 'win' ? 'text-success' : 'text-danger'"><br/> {{match.spieler[1].user.firstName}} {{match.spieler[1].user.lastName}}
+                                    </small>
+                                    <h5 ng-repeat="satz in match.spieler[1].sets" ng-class="satz.outcome == 'win' ? 'text-success' : 'text-danger'">  {{satz.value}} </h5>
+                                </h4>
+                            </div>
+                            <div class="col-sm-12"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <h4>{{match.court.name}}</h4>
+                    </div>
+                    <div class="form-group">
+                        <h4>{{match.sport}}</h4>
+                    </div>
+                    <div data-ng-show="matchIsNew()" class="form-group">
+                        <h4>Proposed Times:<br/>
+                            <small> An welchen Zeiten hast du Zeit? Bestätige die Zeit indem du auf den Haken klickst
+                                und dann deine Auswahl bestätigst.
+                            </small>
+                        </h4>
 
-							<div class="form-group col-xs-5">
-								<h4 class="text-right"> {{match.spieler[0].user.username}} <small><br /> {{match.spieler[0].user.firstName}} {{match.spieler[0].user.lastName}}</small></h4>
-							</div>
-							<div class="col-xs-2">
-								<h3 style="text-align: center">VS</h3>
-							</div>
-							<div class="form-group col-xs-5">
-								<h4> {{match.spieler[1].user.username}} <small><br /> {{match.spieler[1].user.firstName}} {{match.spieler[1].user.lastName}}</small></h4>
-							</div>
-							<div class="col-sm-12"></div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-12">
-					<div class="form-group">
-						<h4>{{match.court.name}}</h4>
-					</div>
-					<div class="form-group">
-						<h4>{{match.sport}}</h4>
-					</div>
-					<div data-ng-show="matchIsNew()" class="form-group">
-						<h4>Proposed Times:<br />
-							<small> An welchen Zeiten hast du Zeit? Bestätige die Zeit indem du auf den Haken klickst und dann deine Auswahl bestätigst. </small></h4>
-
-						<h5 data-ng-repeat="time in match.proposedTimes" ng-class="{'text-success': timeIsAgreed($index) == true}">{{time.time| date:'medium'}}
-							<span data-ng-show="timeIsProposed($index)" class="glyphicon glyphicon-ok" ng-click="verifyTime($index)"></span>
-						<span data-ng-show="timeIsAgreed($index)" class="glyphicon glyphicon-remove" ng-click="unverifyTime($index)"></span></h5>
-					</div>
+                        <h5 data-ng-repeat="time in match.proposedTimes"
+                            ng-class="{'text-success': timeIsAgreed($index) == true}">{{time.time| date:'medium'}}
+                            <span data-ng-show="timeIsProposed($index)" class="glyphicon glyphicon-ok"
+                                  ng-click="verifyTime($index)"></span>
+                            <span data-ng-show="timeIsAgreed($index)" class="glyphicon glyphicon-remove"
+                                  ng-click="unverifyTime($index)"></span></h5>
+                    </div>
 
 
-					<div data-ng-show="matchIsProposed()" class="form-group">
-						<h4>Bestätigte Spielzeiten:
-							<br />
-							<small> Folgende Zeiten sind OK für dich sowie dein Gegenspieler, wähle nun eine aus: </small></h4>
-						<select name="time" id="time" class="form-control"required ng-model="match.time">
-							<option ng-repeat="time in match.proposedTimes">{{time.time | date: 'medium'}}</option>
-						</select>
-					</div>
+                    <div data-ng-show="matchIsProposed()" class="form-group">
+                        <h4>Bestätigte Spielzeiten:
+                            <br/>
+                            <small> Folgende Zeiten sind OK für dich sowie dein Gegenspieler, wähle nun eine aus:
+                            </small>
+                        </h4>
+                        <select name="time" id="time" class="form-control" required ng-model="match.time">
+                            <option ng-repeat="time in match.proposedTimes">{{time.time | date: 'medium'}}</option>
+                        </select>
+                    </div>
 
 
-					<div class="form-group">
+                    <div class="form-group" data-ng-show="matchIsReshedule()">
+                        <label class="control-label" for="times">Zeitvorschläge</label>
 
-						<input data-ng-show="matchIsNew()"  type="submit" value="Zeitvorschlag bestätigen" ng-click="sendProposals()" class="btn btn-default">
-						<input data-ng-show="matchIsNew()"  type="submit" value="Neue Zeiten vorschlagen" class="btn btn-default">
-						<input data-ng-show="matchIsProposed()"  type="submit" value="Spiel neu planen" class="btn btn-default">
-						<input data-ng-show="matchIsProposed()"  type="submit" value="Datum vereinbaren" class="btn btn-default" ng-click="matchToOpen()">
-						<input data-ng-show="matchIsOpen()"  type="submit" value="Resultate Eintragen" class="btn btn-default" ng-click="matchToOpen()">
+                        <div data-ng-repeat="time in times" id="times" class='input-group date'>
+                            <input type='datetime-local' id="time" class="form-control" ng-model="time.time"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-plus" ng-click="addTime()"></span>
+                        <span class="glyphicon glyphicon-minus" ng-click="remTime($index)"></span>
+                    </span>
+                        </div>
+                    </div>
 
-					</div>
-					<div data-ng-show="error" class="text-danger">
-						<strong data-ng-bind="error"></strong>
-					</div>
+                    <div data-ng-show="matchIsInProgress()" class="form-group">
+                        <h4>Scores</h4>
 
-				</div>
-			</div>
-		</fieldset>
-	</form>
-	</div>
+                        <div data-ng-repeat="score in scores" id="scores" >
+
+
+                            <div class=" col-xs-5">
+                                <h5 class="text-right"><input type="number" ng-model="score[0].value"></h5>
+                            </div>
+                            <div class=" col-xs-2">
+                                <h5 class="text-center"> Satz {{$index + 1}} <span class="glyphicon glyphicon-plus"
+                                                                                   ng-click="addSet()"></span>
+                                    <span class="glyphicon glyphicon-minus" ng-click="remSet($index)"></span></h5>
+
+                            </div>
+
+                            <div class="col-xs-5">
+                                <h5><input type="number"  ng-model="score[1].value"></h5>
+                            </div>
+                            <div class="col-sm-12"></div>
+                        </div>
+                        <div>
+                            <h4>Sieger:</h4>
+                            <select name="players" id="players" class="form-control"
+                                    data-ng-options="spieler.user.username for spieler in match.spieler"
+                                    data-ng-model="winner" required></select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+
+                    <input data-ng-show="matchIsNew()" type="submit" value="Zeitvorschlag bestätigen"
+                           ng-click="sendProposals()" class="btn btn-default">
+                    <input data-ng-show="matchIsNew()" type="submit" value="Neue Zeiten vorschlagen"
+                           class="btn btn-default" ng-click="matchReshedule()">
+                    <input data-ng-show="matchIsProposed()" type="submit" value="Spiel neu planen"
+                           class="btn btn-default" ng-click="matchReshedule()">
+                    <input data-ng-show="matchIsProposed()" type="submit" value="Datum vereinbaren"
+                           class="btn btn-default" ng-click="matchToOpen()">
+                    <input data-ng-show="matchIsOpen()" type="submit" value="Resultate Eintragen"
+                           class="btn btn-default" ng-click="matchToInProgress()">
+                    <input data-ng-show="matchIsReshedule()" type="submit" value="Neue Daten vorschlagen"
+                           class="btn btn-default" ng-click="matchToNew()">
+                    <input data-ng-show="matchIsInProgress()"  ng-click="matchToR2C()" type="submit" value="Update Score" class="btn btn-default"
+                           >
+                    <input data-ng-show="matchIsR2C()"  ng-click="matchToDone()" type="submit" value="Resultat bestätigen" class="btn btn-default"
+                           >
+                    <input data-ng-show="matchIsR2C()"  ng-click="matchToInProgress()" type="submit" value="Resultat korrigieren" class="btn btn-default"
+                           >
+
+                </div>
+                <div data-ng-show="error" class="text-danger">
+                    <strong data-ng-bind="error"></strong>
+                </div>
+
+            </div>
+        </fieldset>
+    </form>
 </section>

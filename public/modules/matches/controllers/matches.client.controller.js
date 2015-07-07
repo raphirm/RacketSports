@@ -6,6 +6,8 @@ angular.module('matches').controller('MatchesController', ['$scope', '$statePara
 		$scope.authentication = Authentication;
 		$scope.user = Authentication.user;
 		$scope.times = [ {time: '', state: "proposed" } ];
+		$scope.scores = [[{outcome: '', value: 0},{outcome: '', value: 0}]];
+		$scope.winner = ""
 		$scope.suser = "";
 		$scope.newMatches = "";
 		$scope.propMatches = "";
@@ -112,7 +114,12 @@ angular.module('matches').controller('MatchesController', ['$scope', '$statePara
 				$scope.error = errorResponse.data.message;
 			});
 		};
-
+		$scope.addSet = function() {
+			$scope.scores.push({outcome: '', value: 0});
+		};
+		$scope.remSet = function(index) {
+			$scope.scores.splice(index,1);
+		};
 		// Find a list of Matches
 		$scope.find = function() {
 			$scope.matches = Matches.query();
@@ -162,6 +169,27 @@ angular.module('matches').controller('MatchesController', ['$scope', '$statePara
 				return false;
 			}
 		};
+		$scope.matchIsInProgress = function(){
+			if($scope.match.state == 'progress'){
+				return true;
+			}else{
+				return false;
+			}
+		};
+		$scope.matchIsReshedule = function(){
+			if($scope.match.state == 'reshedule'){
+				return true;
+			}else{
+				return false;
+			}
+		};
+		$scope.matchIsR2C = function(){
+			if($scope.match.state == 'r2c'){
+				return true;
+			}else{
+				return false;
+			}
+		};
 		$scope.timeIsProposed = function(index){
 			if($scope.match.proposedTimes[index].state == 'proposed'){
 				return true;
@@ -202,8 +230,83 @@ angular.module('matches').controller('MatchesController', ['$scope', '$statePara
 				$location.path('matches/' + $scope.match._id);
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
-			})
-		}
+			});
+		};
+		$scope.matchToNew = function(){
+			$scope.match.state = 'new';
+			$scope.match.proposedTimes = $scope.times;
+			$scope.match.$update(function() {
+				$location.path('matches/' + $scope.match._id);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+		$scope.matchToInProgress = function(){
+			$scope.match.state = 'progress';
+			$scope.match.spieler[0].sets = [];
+			$scope.match.spieler[1].sets = [];
+			$scope.match.$update(function() {
+				$location.path('matches/' + $scope.match._id);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+		$scope.matchReshedule = function(){
+			$scope.match.state = 'reshedule';
+			$scope.match.proposedTimes = [];
+			$scope.match.$update(function() {
+				$location.path('matches/' + $scope.match._id);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+		$scope.matchToR2C = function(){
+			$scope.match.state = 'r2c';
+			if ($scope.winner.user == $scope.match.spieler[0].user){
+				$scope.match.spieler[0].outcome = 'win';
+				$scope.match.spieler[1].outcome = 'loss';
+
+			}
+			if ($scope.winner.user == $scope.match.spieler[1].user){
+				$scope.match.spieler[1].outcome = 'win';
+				$scope.match.spieler[0].outcome = 'loss';
+
+			}
+			for (var i = 0; i< $scope.scores.length; i++){
+
+				var spieler0num = $scope.scores[i][0].value;
+				var spieler1num = $scope.scores[i][1].value;
+				var spieler1out = '';
+				var spieler0out ='';
+				if ($scope.scores[i][0].value < $scope.scores[i][1].value && $scope.scores[i][0].value != $scope.scores[i][1].value){
+					spieler1out='win';
+					spieler0out='loss';
+				}
+				if ($scope.scores[i][1].value < $scope.scores[i][0].value && $scope.scores[i][0].value != $scope.scores[i][1].value){
+					spieler0out='win';
+					spieler1out='loss';
+				}
+				if($scope.scores[i][0].value == $scope.scores[i][1].value){
+					spieler1out='draw';
+					spieler0out='draw';
+				}
+				$scope.match.spieler[0].sets.push({value: spieler0num, outcome: spieler0out});
+				$scope.match.spieler[1].sets.push({value: spieler1num, outcome: spieler1out});
+			}
+			$scope.match.$update(function() {
+				$location.path('matches/' + $scope.match._id);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
+		$scope.matchToDone = function(){
+			$scope.match.state = 'done';
+			$scope.match.$update(function() {
+				$location.path('matches/' + $scope.match._id);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
 
 	}
 ]);

@@ -33,7 +33,7 @@ var MatchSchema = new Schema({
 	}],
 	state: {
 		type: String,
-		enum: ['new', 'proposed', 'open', 'progress', 'r2c', 'done']
+		enum: ['reshedule', 'new', 'proposed', 'open', 'progress', 'r2c', 'done']
 	},
 	propBy: {
 		type: Schema.ObjectId,

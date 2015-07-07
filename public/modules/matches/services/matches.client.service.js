@@ -7,7 +7,8 @@ angular.module('matches').factory('Matches', ['$resource',
 		}, {
 			update: {
 				method: 'PUT'
-			}
+			},
+
 		});
 	}
 ]);

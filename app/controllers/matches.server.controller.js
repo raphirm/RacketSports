@@ -55,6 +55,11 @@ exports.update = function(req, res) {
 	var match = req.match ;
 
 	match = _.extend(match , req.body);
+	if(req.body.state == 'r2c'){
+		match.r2cBy = req.user;
+	}else{
+		match.propBy = req.user;
+	}
 
 	match.save(function(err) {
 		if (err) {
@@ -66,6 +71,7 @@ exports.update = function(req, res) {
 		}
 	});
 };
+
 
 /**
  * Delete an Match

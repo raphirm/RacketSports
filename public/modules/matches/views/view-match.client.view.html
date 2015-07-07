@@ -10,21 +10,33 @@
                         <div class="row">
 
                             <div class="form-group col-xs-5">
-                                <h4 class="text-right" ng-class="match.spieler[0].outcome == 'win' ? 'text-success' : 'text-danger'"> {{match.spieler[0].user.username}}
-                                    <small  ng-class="match.spieler[0].outcome == 'win' ? 'text-success' : 'text-danger'" ><br/> {{match.spieler[0].user.firstName}} {{match.spieler[0].user.lastName}}
+                                <h4 class="text-right"
+                                    ng-class="match.spieler[0].outcome == 'win' ? 'text-success' : 'text-danger'">
+                                    {{match.spieler[0].user.username}}
+                                    <small ng-class="match.spieler[0].outcome == 'win' ? 'text-success' : 'text-danger'">
+                                        <br/> {{match.spieler[0].user.firstName}} {{match.spieler[0].user.lastName}}
                                     </small>
                                 </h4>
-                                <h5 class="text-right" ng-repeat="satz in match.spieler[0].sets" ng-class="satz.outcome == 'win' ? 'text-success' : 'text-danger'">  {{satz.value}} </h5>
+                                <h5 class="text-right" ng-repeat="satz in match.spieler[0].sets"
+                                    ng-class="satz.outcome == 'win' ? 'text-success' : 'text-danger'">
+                                    {{satz.value}} </h5>
                             </div>
                             <div class="col-xs-2">
                                 <h3 style="text-align: center">VS</h3>
-                                <h5 class="text-center" ng-repeat="satz in match.spieler[0].sets">  Satz {{$index + 1}} </h5>
+                                <h5 class="text-center" ng-repeat="satz in match.spieler[0].sets"> Satz {{$index +
+                                    1}} </h5>
                             </div>
                             <div class="form-group col-xs-5">
-                                <h4 class="text-left" ng-class="match.spieler[1].outcome == 'win' ? 'text-success' : 'text-danger'"> {{match.spieler[1].user.username}}
-                                    <small class="text-left" ng-class="match.spieler[1].outcome == 'win' ? 'text-success' : 'text-danger'"><br/> {{match.spieler[1].user.firstName}} {{match.spieler[1].user.lastName}}
+                                <h4 class="text-left"
+                                    ng-class="match.spieler[1].outcome == 'win' ? 'text-success' : 'text-danger'">
+                                    {{match.spieler[1].user.username}}
+                                    <small class="text-left"
+                                           ng-class="match.spieler[1].outcome == 'win' ? 'text-success' : 'text-danger'">
+                                        <br/> {{match.spieler[1].user.firstName}} {{match.spieler[1].user.lastName}}
                                     </small>
-                                    <h5 ng-repeat="satz in match.spieler[1].sets" ng-class="satz.outcome == 'win' ? 'text-success' : 'text-danger'">  {{satz.value}} </h5>
+                                    <h5 ng-repeat="satz in match.spieler[1].sets"
+                                        ng-class="satz.outcome == 'win' ? 'text-success' : 'text-danger'">
+                                        {{satz.value}} </h5>
                                 </h4>
                             </div>
                             <div class="col-sm-12"></div>
@@ -39,7 +51,7 @@
                         <h4>Sport: {{match.sport}}</h4>
                     </div>
                     <div ng-show="match.time" class="form-group">
-                    <h4 >Zeit: {{match.time |  date:'medium'}}</h4>
+                        <h4>Zeit: {{match.time | date:'medium'}}</h4>
                     </div>
                     <div data-ng-show="matchIsNew()" class="form-group">
                         <h4>Vorgeschlagene Zeiten:<br/>
@@ -84,7 +96,7 @@
                     <div data-ng-show="matchIsInProgress()" class="form-group">
                         <h4>Scores</h4>
 
-                        <div data-ng-repeat="score in scores" id="scores" >
+                        <div data-ng-repeat="score in scores" id="scores">
 
 
                             <div class=" col-xs-5">
@@ -98,7 +110,7 @@
                             </div>
 
                             <div class="col-xs-5">
-                                <h5><input type="number"  ng-model="score[1].value"></h5>
+                                <h5><input type="number" ng-model="score[1].value"></h5>
                             </div>
                             <div class="col-sm-12"></div>
                         </div>
@@ -126,12 +138,15 @@
                            class="btn btn-default" ng-click="matchToInProgress()">
                     <input data-ng-show="matchIsReshedule()" type="submit" value="Neue Daten vorschlagen"
                            class="btn btn-default" ng-click="matchToNew()">
-                    <input data-ng-show="matchIsInProgress()"  ng-click="matchToR2C()" type="submit" value="Update Score" class="btn btn-default"
-                           >
-                    <input data-ng-show="matchIsR2C()"  ng-click="matchToDone()" type="submit" value="Resultat bestätigen" class="btn btn-default"
-                           >
-                    <input data-ng-show="matchIsR2C()"  ng-click="matchToInProgress()" type="submit" value="Resultat korrigieren" class="btn btn-default"
-                           >
+                    <input data-ng-show="matchIsInProgress()" ng-click="matchToR2C()" type="submit" value="Update Score"
+                           class="btn btn-default"
+                            >
+                    <input data-ng-show="matchIsR2C()" ng-click="matchToDone()" type="submit"
+                           value="Resultat bestätigen" class="btn btn-default"
+                            >
+                    <input data-ng-show="matchIsR2C()" ng-click="matchToInProgress()" type="submit"
+                           value="Resultat korrigieren" class="btn btn-default"
+                            >
 
                 </div>
                 <div data-ng-show="error" class="text-danger">

@@ -47,7 +47,7 @@ describe('League CRUD tests', function() {
 			league = new League({
 				name: 'League Name',
 				users: usertopoints,
-				sport: "Squash"
+				sport: 'Squash'
 			});
 
 			});

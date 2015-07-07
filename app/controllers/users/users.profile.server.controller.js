@@ -65,11 +65,11 @@ exports.removeFriend = function(req, res, next) {
 	if (user && provider) {
 		//delete friend
 		User.findOne({'username' : provider}).populate('friends').exec(function(err, friend) {
-			console.log("Deleting Friend with username: " + provider);
+			console.log('Deleting Friend with username: ' + provider);
 			if (user.friends.indexOf(friend._id)>=0) {
 				var fid = user.friends.indexOf(friend._id);
 				var uid = friend.friends.indexOf(user._id);
-				console.log("Index of Friend: " +fid);
+				console.log('Index of Friend: ' +fid);
 				user.friends.splice(fid, 1);
 				friend.friends.splice(uid, 1);
 				friend.hookEnabled = false;
@@ -102,10 +102,10 @@ exports.removeRequest = function(req, res, next) {
 	if (user && provider) {
 		//delete friend
 		User.findOne({'username' : provider}).populate('friends').exec(function(err, friend) {
-			console.log("Deleting Friend with username: " + provider);
+			console.log('Deleting Friend with username: ' + provider);
 			if (user.friendrequests.indexOf(friend._id)>=0) {
 				var fid = user.friendrequests.indexOf(friend._id);
-				console.log("Index of Friend: " +fid);
+				console.log('Index of Friend: ' +fid);
 				user.friendrequests.splice(fid, 1);
 				user.markModified('friends');
 			}

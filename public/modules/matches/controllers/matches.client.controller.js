@@ -1,50 +1,50 @@
 'use strict';
 
 // Matches controller
-angular.module('matches').controller('MatchesController', ['$scope', '$stateParams', '$location', "$http", "$resource", 'Authentication', 'Matches', 'Users',
+angular.module('matches').controller('MatchesController', ['$scope', '$stateParams', '$location', '$http', '$resource', 'Authentication', 'Matches', 'Users',
     function ($scope, $stateParams, $location, $http, $resource, Authentication, Matches, Users) {
         $scope.authentication = Authentication;
         $scope.user = Authentication.user;
-        $scope.times = [{time: '', state: "proposed"}];
+        $scope.times = [{time: '', state: 'proposed'}];
         $scope.scores = [[{outcome: '', value: 0}, {outcome: '', value: 0}]];
-        $scope.winner = ""
-        $scope.suser = "";
-        $scope.newMatches = "";
-        $scope.propMatches = "";
-        $scope.openMatches = "";
-        $scope.r2cMatches = "";
-        $scope.progressMatches = "";
-        $scope.doneMatches = "";
+        $scope.winner = '';
+        $scope.suser = '';
+        $scope.newMatches = '';
+        $scope.propMatches = '';
+        $scope.openMatches = '';
+        $scope.r2cMatches = '';
+        $scope.progressMatches = '';
+        $scope.doneMatches = '';
         $scope.find = function () {
             var Resource = $resource('/users/me');
             Resource.get(function (user) {
                 $scope.user = user;
             });
-            Resource = $resource("/courts");
+            Resource = $resource('/courts');
             Resource.query(function (courts) {
                 $scope.courts = courts;
             });
-            Resource = $resource("/matches/new");
+            Resource = $resource('/matches/new');
             Resource.query(function (matches) {
                 $scope.newMatches = matches;
             });
-            Resource = $resource("/matches/proposed");
+            Resource = $resource('/matches/proposed');
             Resource.query(function (matches) {
                 $scope.propMatches = matches;
             });
-            Resource = $resource("/matches/open");
+            Resource = $resource('/matches/open');
             Resource.query(function (matches) {
                 $scope.openMatches = matches;
             });
-            Resource = $resource("/matches/inprogress");
+            Resource = $resource('/matches/inprogress');
             Resource.query(function (matches) {
                 $scope.progressMatches = matches;
             });
-            Resource = $resource("/matches/r2c");
+            Resource = $resource('/matches/r2c');
             Resource.query(function (matches) {
                 $scope.r2cMatches = matches;
             });
-            Resource = $resource("/matches/done");
+            Resource = $resource('/matches/done');
             Resource.query(function (matches) {
                 $scope.doneMatches = matches;
             });
@@ -68,7 +68,7 @@ angular.module('matches').controller('MatchesController', ['$scope', '$statePara
                 ],
                 court: this.match.court,
                 sport: this.match.sport,
-                state: "new",
+                state: 'new',
                 proposedTimes: $scope.times
             });
 
@@ -100,7 +100,7 @@ angular.module('matches').controller('MatchesController', ['$scope', '$statePara
             }
         };
         $scope.addTime = function () {
-            $scope.times.push({time: '', state: "proposed"});
+            $scope.times.push({time: '', state: 'proposed'});
         };
         $scope.remTime = function (index) {
             $scope.times.splice(index, 1);
@@ -150,28 +150,28 @@ angular.module('matches').controller('MatchesController', ['$scope', '$statePara
 
         };
         $scope.matchIsNew = function () {
-            if ($scope.match.state == 'new') {
+            if ($scope.match.state === 'new') {
                 return true;
             } else {
                 return false;
             }
         };
         $scope.matchIsOpen = function () {
-            if ($scope.match.state == 'open') {
+            if ($scope.match.state === 'open') {
                 return true;
             } else {
                 return false;
             }
         };
         $scope.matchIsProposed = function () {
-            if ($scope.match.state == 'proposed') {
+            if ($scope.match.state === 'proposed') {
                 return true;
             } else {
                 return false;
             }
         };
         $scope.matchIsInProgress = function () {
-            if ($scope.match.state == 'progress') {
+            if ($scope.match.state === 'progress') {
                 return true;
             } else {
                 return false;

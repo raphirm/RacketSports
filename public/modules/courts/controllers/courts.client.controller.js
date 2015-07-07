@@ -79,14 +79,14 @@ angular.module('courts').controller('CourtsController', ['$scope', '$stateParams
 			});
 		};
 		$scope.go = function(court){
-			$location.path('/courts/'+ court._id)
+			$location.path('/courts/'+ court._id);
 		};
 		$scope.joinStatus = function(court) {
 
 			var existing = false;
 			if(court.players) {
 				court.players.forEach(function (user) {
-					if ($scope.authentication.user._id == user._id) {
+					if ($scope.authentication.user._id === user._id) {
 						existing = true;
 					}
 				});
@@ -117,6 +117,6 @@ angular.module('courts').controller('CourtsController', ['$scope', '$stateParams
 				this.lat = place.geometry.location.A;
 				this.lng = place.geometry.location.F;
 			}
-		}
+		};
 	}
 ]);

@@ -108,7 +108,7 @@ exports.list = function(req, res) {
 	});
 };
 exports.listNew = function(req, res) {
-	Match.find({'spieler.user': req.user, state: "new", propBy: { $ne: req.user}}).sort('-created').populate('spieler court').exec(function(err, matches) {
+	Match.find({'spieler.user': req.user, state: 'new', propBy: { $ne: req.user}}).sort('-created').populate('spieler court').exec(function(err, matches) {
 		User.populate(matches, {path: 'spieler.user'}, function (err, user) {
 			if (err) {
 				return res.status(400).send({
@@ -122,7 +122,7 @@ exports.listNew = function(req, res) {
 };
 exports.listChange = function(req, res) {
 	var user = req.user;
-	Match.find({'spieler.user': req.user, state: "proposed", propBy: { $ne: req.user}}).sort('-created').populate('spieler court').exec(function(err, matches) {
+	Match.find({'spieler.user': req.user, state: 'proposed', propBy: { $ne: req.user}}).sort('-created').populate('spieler court').exec(function(err, matches) {
 		User.populate(matches, {path: 'spieler.user'}, function (err, user) {
 			if (err) {
 				return res.status(400).send({
@@ -136,7 +136,7 @@ exports.listChange = function(req, res) {
 };
 exports.listInProgress = function(req, res) {
 	var user = req.user;
-	Match.find({'spieler.user': req.user, state: "progress"}).sort('-created').populate('spieler court').exec(function(err, matches) {
+	Match.find({'spieler.user': req.user, state: 'progress'}).sort('-created').populate('spieler court').exec(function(err, matches) {
 		User.populate(matches, {path: 'spieler.user'}, function (err, user) {
 			if (err) {
 				return res.status(400).send({
@@ -150,7 +150,7 @@ exports.listInProgress = function(req, res) {
 };
 exports.rtwoc = function(req, res) {
 	var user = req.user;
-	Match.find({'spieler.user': req.user, state: "r2c", r2cBy: { $ne: req.user}}).sort('-created').populate('spieler court').exec(function(err, matches) {
+	Match.find({'spieler.user': req.user, state: 'r2c', r2cBy: { $ne: req.user}}).sort('-created').populate('spieler court').exec(function(err, matches) {
 		User.populate(matches, {path: 'spieler.user'}, function (err, user) {
 			if (err) {
 				return res.status(400).send({
@@ -164,7 +164,7 @@ exports.rtwoc = function(req, res) {
 };
 exports.listOpen = function(req, res) {
 	var user = req.user;
-	Match.find({'spieler.user': req.user, state: "open"}).sort('-created').populate('spieler court').exec(function(err, matches) {
+	Match.find({'spieler.user': req.user, state: 'open'}).sort('-created').populate('spieler court').exec(function(err, matches) {
 		User.populate(matches, {path: 'spieler.user'}, function (err, user) {
 			if (err) {
 				return res.status(400).send({
@@ -178,7 +178,7 @@ exports.listOpen = function(req, res) {
 };
 exports.listDone = function(req, res) {
 	var user = req.user;
-	Match.find({'spieler.user': req.user, state: "done"}).sort('-created').populate('spieler court').exec(function(err, matches) {
+	Match.find({'spieler.user': req.user, state: 'done'}).sort('-created').populate('spieler court').exec(function(err, matches) {
 		User.populate(matches, {path: 'spieler.user'}, function (err, user) {
 			if (err) {
 				return res.status(400).send({

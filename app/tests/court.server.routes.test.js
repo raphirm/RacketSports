@@ -38,7 +38,7 @@ describe('Court CRUD tests', function() {
 		// Save a user to the test db and create new Court
 		user.save(function() {
 			court = {
-				"name":"Vitis", "lat" : "47.400084", "lng" : "8.444892999999979","address":"Vitis","contact":"0795769266","sports":["Squash","Tennis","Badminton","Tabletennis"]
+				'name':'Vitis', 'lat' : '47.400084', 'lng' : '8.444892999999979','address':'Vitis','contact':'0795769266','sports':['Squash','Tennis','Badminton','Tabletennis']
 			};
 
 			done();

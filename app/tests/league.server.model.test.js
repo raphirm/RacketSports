@@ -38,7 +38,7 @@ describe('League Model Unit Tests:', function() {
 			league = new League({
 				name: 'League Name',
 				users: usertopoints,
-				sport: "Squash"
+				sport: 'Squash'
 			});
 			done();
 		});

@@ -209,8 +209,25 @@ exports.matchByID = function(req, res, next, id) {
  * Match authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-	if (req.match.spieler.indexOf(req.user)>-1) {
-		return res.status(403).send('User is not authorized');
-	}
-	next();
+	Match.findById(req.match._id).populate('spieler court propsedTimes').exec(function(err, match) {
+		User.populate(match, {path: 'spieler.user'}, function (err, user) {
+			console.log(match.r2cBy + req.user._id);
+
+			if (!match) return res.status(404).send('Match not valid');
+
+			if (match.spieler.indexOf(req.user)>-1) {
+
+				return res.status(403).send('User is not authorized');
+			}
+			if(match.state === 'r2c'&&req.user._id == match.r2cBy){
+
+				return res.status(403).send('User is not authorized');
+			}
+			else if(req.user._id == match.propBy){
+				return res.status(403).send('User is not authorized');
+			}
+			next()
+		});
+	});
+	;
 };

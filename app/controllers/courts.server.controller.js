@@ -119,9 +119,19 @@ exports.join = function (req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(court);
+			user.courts.push(court);
+			user.save(function(err){
+				if (err) {
+					return res.status(400).send({
+						message: errorHandler.getErrorMessage(err)
+					});
+				} else {
+					res.jsonp(court);
+				}
+			});
 		}
 	});
+
 };
 
 /**
@@ -129,6 +139,7 @@ exports.join = function (req, res) {
  */
 exports.leave = function (req, res) {
 	var court = req.court;
+	var user = req.user;
 	var i = court.players.indexOf(req.user);
 	court.players.splice(i, 1);
 	court.save(function (err) {
@@ -137,7 +148,17 @@ exports.leave = function (req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(court);
+			var i = user.courts.indexOf(court)
+			user.courts.splice(i, 1);
+			user.save(function (err) {
+				if (err) {
+					return res.status(400).send({
+						message: errorHandler.getErrorMessage(err)
+					});
+				} else {
+					res.jsonp(court);
+				}
+			});
 		}
 	});
 };

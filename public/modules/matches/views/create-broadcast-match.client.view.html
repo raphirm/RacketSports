@@ -1,0 +1,73 @@
+<section data-ng-controller="MatchesControllerBroadcast">
+    <div class="page-header">
+        <h1>Neues Spiel</h1>
+    </div>
+
+    <form class="form-horizontal" data-ng-submit="create()" novalidate>
+        <fieldset>
+    <div class="col-md-12">
+        <div class="container">
+            <div class="row">
+
+                <div class="form-group col-xs-5">
+                   <h4> {{user.username}} <small><br /> {{user.firstName}} {{user.lastName}}</small></h4>
+                </div>
+                <div class="col-xs-2">
+                <h3 style="text-align: center">VS</h3>
+                </div>
+                <div class="form-group col-xs-5">
+                    <h4>????</h4>
+                </div>
+                <div class="col-sm-12"></div>
+            </div>
+        </div>
+
+
+
+
+                <div class="form-group">
+                    <label class="control-label" for="court">Racketzentrum</label>
+                    <select name="court" id="court" class="form-control" ng-model="match.court.name"  required>
+                        <option  ng-repeat="court in courts" value="{{court.name}}">{{court.name}}</option>
+                    </select>
+                </div>
+        <div class="form-group">
+        <label class="control-label" for="court">Sportart</label>
+        <select name="sport" id="sport" class="form-control" ng-model="match.sport"  required>
+            <option value="Squash">Squash</option>
+            <option value="Tennis">Tennis</option>
+            <option value="Badminton">Badminton</option>
+            <option value="Tabletennis">Tischtennis</option>
+        </select>
+            </div>
+        <div class="form-group">
+            <label class="control-label" for="times">Zeitvorschläge</label>
+            <div data-ng-repeat="time in times" id="times" class='date'>
+                <div class="dropdown">
+                    <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
+                        <div class="input-group"><input type="text" class="form-control" data-ng-model="time.time" required><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span><span class="input-group-addon">
+                            <span class="glyphicon glyphicon-plus" ng-click="addTime()"></span>
+                            <span class="glyphicon glyphicon-minus" ng-click="remTime($index)"></span>
+                            </span>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <datetimepicker data-ng-model="time.time" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+                <div class="form-group">
+                    <input type="submit" class="btn btn-default">
+                </div>
+				<div data-ng-show="error" class="text-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+        </div>
+            </fieldset>
+        </form>
+    </div>
+</section>

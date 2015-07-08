@@ -190,6 +190,19 @@ exports.listDone = function(req, res) {
 		});
 	});
 };
+exports.listBroadcasts =  function(req, res){
+	Match.find({state: 'new', 'spieler.user.1' : { $exists: false }, court: {$in : req.user.courts}}).sort('-created').populate('spieler court').exec(function(err, matches){
+			User.populate(matches, {path: 'spieler.user'}, function (err, user) {
+				if (err) {
+					return res.status(400).send({
+						message: errorHandler.getErrorMessage(err)
+					});
+				} else {
+					res.jsonp(matches);
+				}
+			});
+	});
+};
 /**
  * Match middleware
  */
@@ -229,5 +242,5 @@ exports.hasAuthorization = function(req, res, next) {
 			next()
 		});
 	});
-	;
+
 };

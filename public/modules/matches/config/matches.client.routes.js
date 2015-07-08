@@ -13,6 +13,10 @@ angular.module('matches').config(['$stateProvider',
 			url: '/matches/create',
 			templateUrl: 'modules/matches/views/create-match.client.view.html'
 		}).
+			state('createBroadcastMatch', {
+				url: '/matches/create/broadcast',
+				templateUrl: 'modules/matches/views/create-broadcast-match.client.view.html'
+			}).
 		state('viewMatch', {
 			url: '/matches/:matchId',
 			templateUrl: 'modules/matches/views/view-match.client.view.html'

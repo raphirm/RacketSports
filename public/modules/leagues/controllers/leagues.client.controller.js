@@ -4,6 +4,31 @@
 angular.module('leagues').controller('LeaguesController', ['$http', '$scope', '$stateParams', '$location', 'Authentication', 'Leagues',
 	function($http, $scope, $stateParams, $location, Authentication, Leagues) {
 		$scope.authentication = Authentication;
+		var placeSearch, autocomplete;
+		if(document.getElementById('address')) {
+			autocomplete = new google.maps.places.Autocomplete(
+				/** @type {HTMLInputElement} */(document.getElementById('address')));
+			// When the user selects an address from the dropdown,
+			// populate the address fields in the form.
+
+			google.maps.event.addListener(autocomplete, 'place_changed', function () {
+				$scope.updateAddress();
+			});
+		};
+		$scope.updateAddress =function() {
+			var place = autocomplete.getPlace();
+			document.getElementById('address').value = place.formatted_address;
+
+			if ($scope.league) {
+				$scope.league.ort = place.formatted_address;
+				$scope.league.lat = place.geometry.location.A;
+				$scope.league.lng = place.geometry.location.F;
+			}else{
+				this.address = place.formatted_address;
+				this.lat = place.geometry.location.A;
+				this.lng = place.geometry.location.F;
+			}
+		};
 		// Create new League
 		$scope.create = function() {
 			// Create new League object
@@ -54,11 +79,13 @@ angular.module('leagues').controller('LeaguesController', ['$http', '$scope', '$
 		$scope.joinStatus = function(leagueid) {
 
 			var existing = false;
-			leagueid.users.forEach(function(user){
-				if($scope.authentication.user._id == user.user._id){
-					existing = true;
-				}
-			});
+			if(leagueid.users) {
+				leagueid.users.forEach(function (user) {
+					if ($scope.authentication.user._id == user.user._id) {
+						existing = true;
+					}
+				});
+			}
 			return existing;
 		};
 

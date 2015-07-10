@@ -4,7 +4,7 @@
     </div>
     <div class="form-group col-xs-12">
     <div class="form-group col-xs-6">
-        <h3>Herausforderungen</h3>
+        <h4>Herausforderungen</h4>
         <div class="list-group">
             <a data-ng-repeat="match in newMatches" data-ng-href="#!/matches/{{match._id}}" class="list-group-item">
                 <small class="list-group-item-text">
@@ -19,7 +19,7 @@
         </div>
     </div>
     <div class="form-group col-xs-6">
-        <h3>Bestätigte Herausforderungen</h3>
+        <h4>Bestätigte Herausforderungen</h4>
         <div class="list-group">
             <a data-ng-repeat="match in propMatches" data-ng-href="#!/matches/{{match._id}}" class="list-group-item">
                 <small class="list-group-item-text">
@@ -36,7 +36,7 @@
         </div>
     <div class="form-group col-xs-12">
     <div class="form-group col-xs-6">
-        <h3>Offene Matches</h3>
+        <h4>Offene Matches</h4>
         <div class="list-group">
             <a data-ng-repeat="match in openMatches" data-ng-href="#!/matches/{{match._id}}" class="list-group-item">
                 <small class="list-group-item-text">
@@ -52,7 +52,7 @@
     </div>
 
     <div class="form-group col-xs-6">
-            <h3>Laufende Matches</h3>
+            <h4>Laufende Spiele</h4>
             <div class="list-group">
                 <a data-ng-repeat="match in r2cMatches" data-ng-href="#!/matches/{{match._id}}" class="list-group-item">
                     <small class="list-group-item-text">
@@ -77,12 +77,27 @@
             </div>
         </div>
         </div>
-    <div class="form-group col-xs-12">
-        <h3>Abgeschlossene Matches</h3>
+    <div class="form-group col-xs-6">
+        <h4>Abgeschlossene Matches</h4>
         <div class="list-group">
             <a data-ng-repeat="match in doneMatches" data-ng-href="#!/matches/{{match._id}}" class="list-group-item">
                 <small class="list-group-item-text">
                     <h4 class="list-group-item-heading" >{{match.spieler[0].user.username}} vs {{match.spieler[1].user.username}}</h4>
+
+                </small>
+                <h4 class="list-group-item-heading" data-ng-bind="match.name"></h4>
+            </a>
+        </div>
+        <div class="alert alert-warning text-center" data-ng-hide="!doneMatches.$resolved || doneMatches.length">
+            No Matches yet...
+        </div>
+    </div>
+    <div class="form-group col-xs-6">
+        <h4>Herausforderungen aus deinen Racketzentren</h4>
+        <div class="list-group">
+            <a data-ng-repeat="match in broadcastMatches" data-ng-href="#!/matches/{{match._id}}" class="list-group-item">
+                <small class="list-group-item-text">
+                    <h4 class="list-group-item-heading" >{{match.spieler[0].user.username}} am {{match.time| date:"MM/dd/yyyy  H:mm"}}</h4>
 
                 </small>
                 <h4 class="list-group-item-heading" data-ng-bind="match.name"></h4>

@@ -13,6 +13,7 @@ angular.module('matches').controller('MatchesController', ['$scope', '$statePara
         $scope.propMatches = '';
         $scope.openMatches = '';
         $scope.r2cMatches = '';
+        $scope.broadcastMatches = '';
         $scope.progressMatches = '';
         $scope.doneMatches = '';
         $scope.find = function () {
@@ -35,6 +36,10 @@ angular.module('matches').controller('MatchesController', ['$scope', '$statePara
             Resource = $resource('/matches/open');
             Resource.query(function (matches) {
                 $scope.openMatches = matches;
+            });
+            Resource = $resource('/matches/broadcasts');
+            Resource.query(function (matches) {
+                $scope.broadcastMatches = matches;
             });
             Resource = $resource('/matches/inprogress');
             Resource.query(function (matches) {
@@ -71,7 +76,10 @@ angular.module('matches').controller('MatchesController', ['$scope', '$statePara
                 state: 'new',
                 proposedTimes: $scope.times
             });
-
+            if(this.match.schedule)
+            {
+                match.schedule= this.match.schedule;
+            }
             // Redirect after save
             match.$save(function (response) {
                 $location.path('matches/');
@@ -150,7 +158,14 @@ angular.module('matches').controller('MatchesController', ['$scope', '$statePara
 
         };
         $scope.matchIsNew = function () {
-            if ($scope.match.state === 'new'  &&  $scope.match.propBy != Authentication.user._id) {
+            if ($scope.match.state === 'new'  &&  $scope.match.propBy != Authentication.user._id && $scope.match.spieler[1]) {
+                return true;
+            } else {
+                return false;
+            }
+        };
+        $scope.matchIsBroadcast = function () {
+            if ($scope.match.state === 'new'  &&  !$scope.match.spieler[1]) {
                 return true;
             } else {
                 return false;
@@ -308,6 +323,15 @@ angular.module('matches').controller('MatchesController', ['$scope', '$statePara
                 $scope.error = errorResponse.data.message;
             });
         };
+        $scope.matchBroadcastToOpen = function() {
+            $scope.match.spieler.push({user: $scope.user});
+            $scope.match.state = 'open';
+            $scope.match.$update(function () {
+                $location.path('matches/' + $scope.match._id);
+            }, function (errorResponse) {
+                $scope.error = errorResponse.data.message;
+            });
+        }
 
     }
 ]);

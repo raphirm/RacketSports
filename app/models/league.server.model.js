@@ -26,24 +26,25 @@ var LeagueSchema = new Schema({
         default: 'Schweiz',
         required: 'Please fill out the Area where your leage is built'
     },
+    lat: {
+        type: Number
+    },
+    lng: {
+        type: Number
+    },
     description: {
         type: String,
         default: 'Neue Liga'
     },
     niveau: {
-        type: String,
-        default: 'Voll Schlecht',
+        type: Number,
+        default: '3',
         required: 'Please fill out what skill level is required'
     },
     gernder: {
         type: String,
         default: 'mixed',
         required: 'Please fill out what gender are allowed to participate'
-    },
-    mode: {
-        type: String,
-        default: 'single',
-        required: 'Please fill out what mode'
     },
     price: {
         type: String,
@@ -61,6 +62,10 @@ var LeagueSchema = new Schema({
         type: String,
         default: "Ein Match alle zwei Wochen, autogeneriert, win 3 Punkte, unentschieden 1 Punkt, verlieren: 0 Punkte"
     },
+    requestShedule: {
+        type: String,
+        enum: [ 'biweeklyAll', 'weeklyAll', 'biweeklyTwoTop', 'weeklyTwoTop' ]
+    },
     
 	created: {
 		type: Date,
@@ -74,7 +79,13 @@ var LeagueSchema = new Schema({
     user: {
         type: Schema.ObjectId,
         ref: 'User'
-    }
+    },
+    matches: [
+        {
+            type: Schema.ObjectId,
+            ref: 'Match'
+        }
+    ]
 
 });
 

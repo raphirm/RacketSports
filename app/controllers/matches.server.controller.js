@@ -15,17 +15,39 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
 	var match = new Match();
-	console.log(req.body.spieler[1].user);
-	User.findOne(req.body.spieler[1].user, function(err, spieler){
+	if (req.body.spieler[1]) {
+		User.findOne(req.body.spieler[1].user, function (err, spieler) {
+			match.spieler.push({user: req.user});
+			match.spieler.push({user: spieler});
+			Court.findOne(req.body.court, function (err, court) {
+				match.court = court;
+				match.proposedTimes = req.body.proposedTimes;
+				match.sport = req.body.sport;
+				match.state = req.body.state;
+				match.propBy = req.user;
+				if(req.body.schedule){
+					match.schedule = req.body.schedule;
+				}
+				match.save(function (err) {
+					if (err) {
+						return res.status(400).send({
+							message: errorHandler.getErrorMessage(err)
+						});
+					} else {
+						res.jsonp(match);
+					}
+				});
+			});
+		});
+	}else{
 		match.spieler.push({user: req.user});
-		match.spieler.push({user: spieler});
-		Court.findOne(req.body.court, function(err, court){
+		Court.findOne(req.body.court, function (err, court) {
 			match.court = court;
-			match.proposedTimes = req.body.proposedTimes;
 			match.sport = req.body.sport;
+			match.time = req.body.time;
 			match.state = req.body.state;
 			match.propBy = req.user;
-			match.save(function(err) {
+			match.save(function (err) {
 				if (err) {
 					return res.status(400).send({
 						message: errorHandler.getErrorMessage(err)
@@ -35,7 +57,7 @@ exports.create = function(req, res) {
 				}
 			});
 		});
-	});
+	}
 
 
 
@@ -59,6 +81,27 @@ exports.update = function(req, res) {
 		match.r2cBy = req.user;
 	}else{
 		match.propBy = req.user;
+	}
+	if(req.body.state == 'done' && req.body.schedule){
+		Match.findById(req.match._id).populate('spieler court propsedTimes').exec(function(err, match) {
+			var newMatch = new Match();
+			newMatch.spieler.push({user: match.spieler[0].user});
+			newMatch.spieler.push({user: match.spieler[1].user});
+			newMatch.court = match.court;
+			newMatch.sport = match.sport;
+			newMatch.state = 'open';
+			if(match.schedule == 'weekly') {
+				newMatch.time = new Date(match.time.getTime() + 604800000);
+			}
+			if(match.schedule == 'daily') {
+				newMatch.time = new Date(match.time.getTime() + 86400000);
+			}
+			if(match.schedule == 'monthly') {
+				newMatch.time = new Date(match.time.setMonth(match.time.getMonth() + 1));
+			}
+
+			newMatch.save();
+		});
 	}
 
 	match.save(function(err) {
@@ -191,7 +234,7 @@ exports.listDone = function(req, res) {
 	});
 };
 exports.listBroadcasts =  function(req, res){
-	Match.find({state: 'new', 'spieler.user.1' : { $exists: false }, court: {$in : req.user.courts}}).sort('-created').populate('spieler court').exec(function(err, matches){
+	Match.find({state: 'new', "spieler.1.user" : { $exists: false }, court: {$in : req.user.courts}, propBy: { $ne: req.user}}).sort('-created').populate('spieler court').exec(function(err, matches){
 			User.populate(matches, {path: 'spieler.user'}, function (err, user) {
 				if (err) {
 					return res.status(400).send({

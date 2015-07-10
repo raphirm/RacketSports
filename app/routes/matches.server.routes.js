@@ -20,12 +20,13 @@ module.exports = function(app) {
 		.get(users.requiresLogin, matches.rtwoc);
 	app.route('/matches/done')
 		.get(users.requiresLogin, matches.listDone);
+	app.route('/matches/broadcasts')
+		.get(users.requiresLogin, matches.listBroadcasts);
 	app.route('/matches/:matchId')
 		.get(matches.read)
 		.put(users.requiresLogin, matches.hasAuthorization, matches.update)
 		.delete(users.requiresLogin, matches.hasAuthorization, matches.delete);
-	app.route(users.requiresLogin, '/matches/broadcasts')
-		.get(matches.listBroadcasts);
+
 	// Finish by binding the Match middleware
 	app.param('matchId', matches.matchByID);
 

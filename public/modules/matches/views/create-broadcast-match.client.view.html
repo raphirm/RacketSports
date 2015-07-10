@@ -1,4 +1,4 @@
-<section data-ng-controller="MatchesControllerBroadcast">
+<section data-ng-controller="MatchBroadcastController">
     <div class="page-header">
         <h1>Neues Spiel</h1>
     </div>
@@ -27,6 +27,7 @@
 
                 <div class="form-group">
                     <label class="control-label" for="court">Racketzentrum</label>
+                    <h5><small>Wähle ein Racketsportzentrum aus, wo du Spielen willst. Deine Anfrage ist anschliessend für alle anderen Spieler des gleichen Racketsportzentrums ersichtlich.</small></h5>
                     <select name="court" id="court" class="form-control" ng-model="match.court.name"  required>
                         <option  ng-repeat="court in courts" value="{{court.name}}">{{court.name}}</option>
                     </select>
@@ -41,22 +42,19 @@
         </select>
             </div>
         <div class="form-group">
-            <label class="control-label" for="times">Zeitvorschläge</label>
-            <div data-ng-repeat="time in times" id="times" class='date'>
+            <label class="control-label" >Zeit</label>
                 <div class="dropdown">
                     <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
-                        <div class="input-group"><input type="text" class="form-control" data-ng-model="time.time" required><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span><span class="input-group-addon">
-                            <span class="glyphicon glyphicon-plus" ng-click="addTime()"></span>
-                            <span class="glyphicon glyphicon-minus" ng-click="remTime($index)"></span>
+                        <div class="input-group"><input type="text" class="form-control" data-ng-model="match.time" required><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                             </span>
                         </div>
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                        <datetimepicker data-ng-model="time.time" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
+                        <datetimepicker data-ng-model="match.time" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
                     </ul>
                 </div>
 
-            </div>
+
 
         </div>
 

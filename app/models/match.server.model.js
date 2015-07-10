@@ -69,7 +69,11 @@ var MatchSchema = new Schema({
 			type: String,
 			enum: ['proposed', 'agreed']
 		}
-	}]
+	}],
+	schedule: {
+		type: String,
+		enum: ['daily','weekly', 'monthly']
+	}
 
 });
 

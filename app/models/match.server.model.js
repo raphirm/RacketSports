@@ -73,6 +73,10 @@ var MatchSchema = new Schema({
 	schedule: {
 		type: String,
 		enum: ['daily','weekly', 'monthly']
+	},
+	league: {
+		type: Schema.ObjectId,
+		ref: 'League'
 	}
 
 });

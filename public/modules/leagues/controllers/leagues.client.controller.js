@@ -1,9 +1,18 @@
 'use strict';
 
 // Leagues controller
-angular.module('leagues').controller('LeaguesController', ['$http', '$scope', '$stateParams', '$location', 'Authentication', 'Leagues',
-	function($http, $scope, $stateParams, $location, Authentication, Leagues) {
+angular.module('leagues').controller('LeaguesController', ['$http', '$resource' , '$scope', '$stateParams', '$location', 'Authentication', 'Leagues',
+	function($http,$resource, $scope, $stateParams, $location, Authentication, Leagues) {
+		$scope.invite = '';
 		$scope.authentication = Authentication;
+		$scope.listRequests = '';
+		$scope.find = function () {
+			var Resource = $resource('/leagues/requests');
+			Resource.query(function (leagues) {
+				$scope.listRequests = leagues;
+			});
+		};
+			$scope.find();
 		var placeSearch, autocomplete;
 		if (document.getElementById('address')) {
 			autocomplete = new google.maps.places.Autocomplete(
@@ -63,6 +72,7 @@ angular.module('leagues').controller('LeaguesController', ['$http', '$scope', '$
 				});
 			}
 		};
+
 
 		$scope.joinLeague = function (league) {
 			league = $scope.league;
@@ -130,6 +140,11 @@ angular.module('leagues').controller('LeaguesController', ['$http', '$scope', '$
 			else{
 				return 'keine'
 			}
-	}
+	};
+		$scope.sendInvite = function(){
+			var league = $scope.league;
+			$http.post('/leagues/' + league._id + '/invite', {user: $scope.invite});
+
+		}
 	}
 ]);

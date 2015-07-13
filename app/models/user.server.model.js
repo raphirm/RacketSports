@@ -97,6 +97,14 @@ var UserSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: "User"
 	}],
+	leagues: [{
+		type: Schema.ObjectId,
+		ref: 'League'
+	}],
+	leaguerequests: [{
+		type: Schema.ObjectId,
+		ref: 'League'
+	}],
 	friendrequests: [{
 		type: Schema.ObjectId,
 		ref: "User"

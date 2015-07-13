@@ -15,6 +15,14 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="control-label" for="privat">Privat<small> Die Liga wird nicht in der Übersicht angezeigt wenn privat.</small></label>
+
+                    <div class="controls">
+                        <input type="checkbox" data-ng-model="league.private" id="privat" class="form-control" placeholder="Name" value="false" required>
+
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="control-label" for="sport">Sportart</label>
                     <select name="sport" id="sport" class="form-control" ng-model="league.sport"  required>
                         <option value="Squash">Squash</option>

@@ -7,6 +7,7 @@
 var mongoose = require('mongoose'),
     errorHandler = require('./errors.server.controller'),
     League = mongoose.model('League'),
+    User = mongoose.model('User'),
     UserToPoints = mongoose.model('UserToPoints'),
     _ = require('lodash');
 
@@ -152,20 +153,32 @@ exports.listMyLeagues = function (req, res) {
         }
     });
 };
-
+exports.listMyLeagueRequests = function (req, res) {
+        var user = req.user;
+        User.findById(user._id).populate('leaguerequests').exec(function(err, user) {
+            var leagues = user.leaguerequests;
+            res.jsonp(leagues);
+        });
+}
 
 /**
  * Join League
  */
 exports.join = function (req, res) {
+    console.log("WTF");
+
     var league = req.league;
     var user = req.user;
     var userToPoints = new UserToPoints();
     userToPoints.user = req.user;
     userToPoints.save();
+
     league.users.push(userToPoints);
+
+    console.log(league);
     league.save(function (err) {
         if (err) {
+            console.log(err);
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
@@ -191,6 +204,34 @@ exports.leave = function (req, res) {
             res.jsonp(league);
         }
     });
+};
+exports.invite = function (req, res) {
+    var username = req.body.user;
+    var league = req.league;
+    User.findOne({'username': username}, function (err, invitee) {
+        if (invitee) {
+            invitee.leaguerequests.push(league);
+            invitee.hookEnabled = false;
+            invitee.save(function(err) {
+                if(err){
+                    return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                    });
+                }
+                else{
+                    res.jsonp(league);
+                }
+            })
+        }
+        else{
+            return res.status(400).send({
+                message: 'User not find'
+            });
+        }
+
+    });
+
+
 };
 
 /**

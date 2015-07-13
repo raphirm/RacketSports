@@ -9,8 +9,13 @@
 		<a class="btn btn-primary" href="/#!/leagues/{{league._id}}/edit">
 			<i class="glyphicon glyphicon-edit"></i>
 		</a>
+
+
 		<a class="btn btn-primary" data-ng-click="remove();">
 			<i class="glyphicon glyphicon-trash"></i>
+		</a>
+		<a class="">
+			<input type="text" ng-model="invite" /> <input value="Zur Liga einladen" type="submit" ng-click="sendInvite()">
 		</a>
 	</div>
 	<div class="page-header">

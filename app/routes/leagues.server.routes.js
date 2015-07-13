@@ -10,6 +10,8 @@ module.exports = function(app) {
 		.post(users.requiresLogin, leagues.create);
     app.route('/leagues/me')
         .get(users.requiresLogin, leagues.listMyLeagues);
+	app.route('/leagues/requests')
+		.get(users.requiresLogin, leagues.listMyLeagueRequests);
 	app.route('/leagues/:leagueId')
 		.get(leagues.read)
 		.put(users.requiresLogin, leagues.hasAuthorization, leagues.update)
@@ -18,6 +20,8 @@ module.exports = function(app) {
 		.get(users.requiresLogin, leagues.hasAuthorization, leagues.join);
 	app.route('/leagues/:leagueId/leave')
 		.get(users.requiresLogin, leagues.hasAuthorization, leagues.leave);
+	app.route('/leagues/:leagueId/invite')
+		.post(users.requiresLogin, leagues.hasAuthorization, leagues.invite);
 	// Finish by binding the League middleware
 	app.param('leagueId', leagues.leagueByID);
 };

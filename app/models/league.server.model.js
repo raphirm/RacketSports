@@ -85,7 +85,11 @@ var LeagueSchema = new Schema({
             type: Schema.ObjectId,
             ref: 'Match'
         }
-    ]
+    ],
+    private: {
+        type: Boolean,
+        default: false
+    }
 
 });
 

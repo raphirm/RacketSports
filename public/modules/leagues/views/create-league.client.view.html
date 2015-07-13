@@ -56,9 +56,37 @@
                     <input type="price" data-ng-model="league.price" id="price" class="form-control" placeholder="Preisbeschreibung" required>
 
                 </div>
+
                 <div class="form-group">
-                    <label class="control-label" for="startdate">Liga start</label>
-                    <input type="text" data-ng-model="league.startdate" id="startdate" class="form-control" placeholder="Stat Datum" required>
+                    <label class="control-label" >Liga Start (optional)</label>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" id="startime" role="button" data-toggle="starttime" data-target="#" href="#">
+                            <div class="input-group"><input type="text" class="form-control" data-ng-model="league.starttime" required><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                </span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <datetimepicker data-ng-model="league.starttime" data-datetimepicker-config="{ dropdownSelector: '#starttime' }"/>
+                        </ul>
+                    </div>
+
+
+
+                </div>
+                <div class="form-group">
+                    <label class="control-label" >Liga Ende (optional)</label>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" id="endtime" role="button" data-toggle="endtime" data-target="#" href="#">
+                            <div class="input-group"><input type="text" class="form-control" data-ng-model="league.endtime" required><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                </span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <datetimepicker data-ng-model="league.endtime" data-datetimepicker-config="{ dropdownSelector: '#endtime' }"/>
+                        </ul>
+                    </div>
+
+
 
                 </div>
                 <div class="form-group">

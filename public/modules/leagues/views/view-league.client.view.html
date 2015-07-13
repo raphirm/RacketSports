@@ -1,11 +1,6 @@
 <section data-ng-controller="LeaguesController" data-ng-init="findOne()">
-	<div class="page-header">
-		<h1 data-ng-bind="league.name"></h1>
-		<p data-ng-bind="league.sport"></p>
-
-	</div>
 	<div class="pull-right">
-			<a data-ng-show="!joinStatus(league)" class="btn btn-primary" ng-click="joinLeague()">
+		<a data-ng-show="!joinStatus(league)" class="btn btn-primary" ng-click="joinLeague()">
 			<i class="glyphicon glyphicon-ok"></i>
 		</a>
 		<a data-ng-show="joinStatus(league)" class="btn btn-primary" ng-click="leaveLeague()">
@@ -18,6 +13,19 @@
 			<i class="glyphicon glyphicon-trash"></i>
 		</a>
 	</div>
+	<div class="page-header">
+		<h1 data-ng-bind="league.name"></h1>
+		<p data-ng-bind="league.sport"></p>
+		<p >Beschreibung: {{league.description}}</p>
+		<p >Niveau (je höher desto besser): {{league.niveau}}</p>
+		<p ng-if="league.price">Preis: {{league.price}}</p>
+		<p>Liga: {{league.gender}}</p>
+		<p>Liga Anfang: {{league.startdate|date: 'medium'}}</p>
+		<p>Liga Ende: {{league.enddate|date: 'medium'}}</p>
+		<p>Automatische Herausforderung: {{requestSheduleFormated()}}</p>
+
+	</div>
+	
 	<div class="center-block" >
 		<div class="list-group" ng-repeat="user in league.users">
 			{{user.user.username}} - {{user.points}}

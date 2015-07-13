@@ -41,7 +41,7 @@ var LeagueSchema = new Schema({
         default: '3',
         required: 'Please fill out what skill level is required'
     },
-    gernder: {
+    gender: {
         type: String,
         default: 'mixed',
         required: 'Please fill out what gender are allowed to participate'

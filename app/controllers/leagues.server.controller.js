@@ -4,10 +4,12 @@
  * Module dependencies.
  */
     var async = require('async');
+    var Agenda = require('agenda');
 var mongoose = require('mongoose'),
     errorHandler = require('./errors.server.controller'),
     League = mongoose.model('League'),
     User = mongoose.model('User'),
+    config = require('../../config/config.js'),
     UserToPoints = mongoose.model('UserToPoints'),
     _ = require('lodash');
 
@@ -25,6 +27,29 @@ exports.create = function (req, res) {
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
+            if(league.requestShedule){
+                var agenda = new Agenda({db: {address: config.dbagenda}})
+                console.log("execute schedulematches sending ID: "+ league);
+                agenda.define(league._id+' schedule', League.scheduleMatches);
+                var job = agenda.create(league._id+' schedule',league.id);
+                if(league.requestShedule == 'weeklyAll'){
+                    job.repeatAt('in 1 weeks');
+                }
+                if(league.requestShedule == 'biweeklyAll'){
+                    job.repeatAt('in 2 weeks');
+                }
+                if(league.requestShedule == 'biweeklyTwoTop'){
+                    job.repeatAt('in 2 weeks');
+                }
+                if(league.requestShedule == 'weeklyTwoTop'){
+                    job.repeatAt('in 1 weeks');
+                }
+
+                //agenda.every('10 minutes', league._id+' schedule', league.id);
+
+                job.save()
+                agenda.start();
+            }
             res.jsonp(league);
         }
     });
@@ -77,6 +102,7 @@ exports.delete = function (req, res) {
  * List of Leagues
  */
 exports.list = function (req, res) {
+
     League.find().populate('users').exec(function (err, leagues) {
         if (err) {
             return res.status(400).send({
@@ -174,6 +200,7 @@ exports.join = function (req, res) {
     userToPoints.save();
 
     league.users.push(userToPoints);
+    user.leagues.push(league)
 
     console.log(league);
     league.save(function (err) {
@@ -183,7 +210,18 @@ exports.join = function (req, res) {
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            res.jsonp(league);
+            user.save(function (err) {
+                if (err) {
+                    console.log(err);
+                    return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                    });
+                } else {
+                    res.jsonp(league);
+                }
+                ;
+
+            });
         }
     });
 };
@@ -193,15 +231,26 @@ exports.join = function (req, res) {
  */
 exports.leave = function (req, res) {
     var league = req.league;
+    var user = req.user;
     var i = league.users.indexOf(req.user);
     league.users.splice(i, 1);
+    var j = user.leagues.indexOf(req.league);
+    user.leagues.splice(j, 1);
     league.save(function (err) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            res.jsonp(league);
+            user.save(function (err) {
+                if (err) {
+                    return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                    });
+                } else {
+                    res.jsonp(league);
+                }
+            });
         }
     });
 };

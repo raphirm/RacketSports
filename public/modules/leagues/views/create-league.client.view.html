@@ -31,6 +31,15 @@
                         <option value="Tabletennis">Tischtennis</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label class="control-label" for="requestShedule">Die Liga erstellt automatisch Spiele</label>
+                    <select name="requestShedule" id="requestShedule" class="form-control" ng-model="league.requestShedule"  >
+                        <option value="weeklyAll">Eine zufällige Herausforderung pro Woche</option>
+                        <option value="biweeklyAll">Eine zufällige Herausforderung jede zweite Woche</option>
+                        <option value="weeklyTwoTop">Eine Herausforderung gegen einen Mitspieler maximal 2 Plätze besser/schlechter pro Woche</option>
+                        <option value="biweeklyTwoTop">Eine Herausforderung gegen einen Mitspieler maximal 2 Plätze besser/schlechter jede zweite Woche</option>
+                    </select>
+                </div>
 
                 <div class="form-group">
                     <label for="address">Austragungsort</label>

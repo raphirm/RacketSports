@@ -52,7 +52,7 @@ exports.update = function(req, res) {
  * Send User
  */
 exports.me = function(req, res) {
-	User.findOne({'username' : req.user.username}).populate('friends friendrequests').exec(function(err, user){
+	User.findOne({'username' : req.user.username}).populate('friends friendrequests leagues').exec(function(err, user){
 			res.json(user || null);
 		}
 

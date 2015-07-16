@@ -21,7 +21,9 @@ var fs = require('fs'),
 	flash = require('connect-flash'),
 	config = require('./config'),
 	consolidate = require('consolidate'),
-	path = require('path');
+	path = require('path'),
+	Agenda = require('agenda'),
+	agendaUI = require('agenda-ui');
 
 module.exports = function(db) {
 	// Initialize express app
@@ -95,7 +97,10 @@ module.exports = function(db) {
 			collection: config.sessionCollection
 		})
 	}));
-
+	var agenda = new Agenda({db: {address: config.dbagenda}});
+	console.log("starting agenda");
+	app.use('/agenda-ui', agendaUI(agenda, {poll: 1000}));
+	agenda.start();
 	// use passport session
 	app.use(passport.initialize());
 	app.use(passport.session());

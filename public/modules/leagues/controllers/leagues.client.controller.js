@@ -134,7 +134,7 @@ angular.module('leagues').controller('LeaguesController', ['$http', '$resource' 
 			return 'Eine Herausforderung gegen einen Mitspieler maximal 2 Plätze besser/schlechter pro Woche';
 
 		}
-		else if ($scope.league.requestShedule == 'byweeklyTowTop') {
+		else if ($scope.league.requestShedule == 'biweeklyTowTop') {
 			return ' Eine Herausforderung gegen einen Mitspieler maximal 2 Plätze besser/schlechter jede zweite Woche';
 		}
 			else{

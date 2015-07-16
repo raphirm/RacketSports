@@ -2,6 +2,7 @@
 
 module.exports = {
 	db: 'mongodb://localhost/racketsports-dev',
+	dbagenda: 'localhost/racketsports-dev-agenda',
 	app: {
 		title: 'RacketSports - Development Environment'
 	},

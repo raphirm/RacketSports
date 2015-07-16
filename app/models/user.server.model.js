@@ -140,6 +140,10 @@ var UserSchema = new Schema({
 		enum: ['all', 'friends', 'no'],
 		required: true,
 		default: 'all'
+	},
+	pause:{
+		type:Boolean,
+		default: false
 	}
 
 

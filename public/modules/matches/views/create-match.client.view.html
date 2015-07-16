@@ -57,6 +57,12 @@
             </select>
         </div>
         <div class="form-group">
+            <label class="control-label" for="league">Liga</label>
+            <select data-ng-options="league.name for league in user.leagues" name="" id="league" class="form-control" ng-model="match.league">
+                    <option value="">Keine</option>
+                </select>
+        </div>
+        <div class="form-group">
             <label class="control-label" for="times">Zeitvorschläge</label>
             <div data-ng-repeat="time in times" id="times" class='date'>
                 <div class="dropdown">

@@ -6,6 +6,8 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Match = mongoose.model('Match'),
+	League = mongoose.model('League'),
+	UserToPoints = mongoose.model('UserToPoints'),
 	User = mongoose.model('User'),
 	Court = mongoose.model('Court'),
 	_ = require('lodash');
@@ -28,8 +30,12 @@ exports.create = function(req, res) {
 				if(req.body.schedule){
 					match.schedule = req.body.schedule;
 				}
+				if(req.body.league){
+					match.league = req.body.league._id
+				}
 				match.save(function (err) {
 					if (err) {
+						console.log(err);
 						return res.status(400).send({
 							message: errorHandler.getErrorMessage(err)
 						});
@@ -82,25 +88,84 @@ exports.update = function(req, res) {
 	}else{
 		match.propBy = req.user;
 	}
-	if(req.body.state == 'done' && req.body.schedule){
-		Match.findById(req.match._id).populate('spieler court propsedTimes').exec(function(err, match) {
-			var newMatch = new Match();
-			newMatch.spieler.push({user: match.spieler[0].user});
-			newMatch.spieler.push({user: match.spieler[1].user});
-			newMatch.court = match.court;
-			newMatch.sport = match.sport;
-			newMatch.state = 'open';
-			if(match.schedule == 'weekly') {
-				newMatch.time = new Date(match.time.getTime() + 604800000);
-			}
-			if(match.schedule == 'daily') {
-				newMatch.time = new Date(match.time.getTime() + 86400000);
-			}
-			if(match.schedule == 'monthly') {
-				newMatch.time = new Date(match.time.setMonth(match.time.getMonth() + 1));
-			}
+	if(req.body.state == 'done'){
+		Match.findById(req.match._id).populate('spieler.user court propsedTimes league').exec(function(err, match) {
+			if(req.body.schedule ) {
+				var newMatch = new Match();
+				newMatch.spieler.push({user: match.spieler[0].user});
+				newMatch.spieler.push({user: match.spieler[1].user});
+				newMatch.court = match.court;
+				newMatch.sport = match.sport;
+				if(match.schedule){
+					newMatch.schedule = match.schedule;
+				}
+				if(match.league){
+					newMatch.league = match.league;
+				}
+				newMatch.state = 'open';
+				if (match.schedule == 'weekly') {
+					newMatch.time = new Date(match.time.getTime() + 604800000);
+				}
+				if (match.schedule == 'daily') {
+					newMatch.time = new Date(match.time.getTime() + 86400000);
+				}
+				if (match.schedule == 'monthly') {
+					newMatch.time = new Date(match.time.setMonth(match.time.getMonth() + 1));
+				}
 
-			newMatch.save();
+				newMatch.save();
+			}
+			if(req.body.league) {
+				League.findById(req.body.league).populate('users').exec(function (err, league) {
+					UserToPoints.populate(league.users, {path: 'user', select: 'username'}, function (err, user) {
+						var winner = '';
+						var looser = '';
+						if (match.spieler[0].outcome == 'win') {
+							winner = match.spieler[0].user;
+							looser = match.spieler[1].user;
+						} else {
+							winner = match.spieler[1].user;
+							looser = match.spieler[0].user;
+
+						}
+
+						league["users"].forEach(function (usertopoint) {
+							if (usertopoint.user.id == winner.id) {
+								console.log("Found winner: " + usertopoint);
+								usertopoint.wins++;
+								usertopoint.points = usertopoint.points + 3;
+								usertopoint.save(function (err) {
+									if (err) {
+										console.log(err);
+										return res.status(400).send({
+											message: errorHandler.getErrorMessage(err)
+										});
+									} else {
+
+									}
+								});
+							}
+							if (usertopoint.user.id == looser.id) {
+								console.log("Found looser: " + usertopoint);
+
+								usertopoint.loss++;
+								usertopoint.save(function (err) {
+									if (err) {
+										console.log(err);
+										return res.status(400).send({
+											message: errorHandler.getErrorMessage(err)
+										});
+									} else {
+
+									}
+								});
+							}
+
+						});
+					});
+
+				});
+			}
 		});
 	}
 

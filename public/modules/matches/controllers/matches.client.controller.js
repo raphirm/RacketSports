@@ -80,6 +80,9 @@ angular.module('matches').controller('MatchesController', ['$scope', '$statePara
             {
                 match.schedule= this.match.schedule;
             }
+            if(this.match.league){
+                match.league = this.match.league
+            }
             // Redirect after save
             match.$save(function (response) {
                 $location.path('matches/');

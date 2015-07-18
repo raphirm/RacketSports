@@ -1,4 +1,4 @@
-% !TeX spellcheck = de_CH
+% !TeX spellcheck = de_DE
 \chapter{Konzeption}
 \begin{figure}[ht]
 	\centering
@@ -7,18 +7,119 @@
 	\label{fig1}
 \end{figure}
 \FloatBarrier
-Die Applikation besteht aus drei Teilen. Einem Webserver, der eine API und statische Clientfiles zur Verfügung stellt, der Client im Browser, welcher die API konsumiert sowie eine Android Applikation die auch auf die API zugreift. 
+Die Applikation besteht aus drei Teilen. Einem Webserver, der eine API und statische Clientfiles zur Verfügung stellt, der Client im Browser, welcher die API konsumiert sowie eine Android Applikation welche die Website lädt. 
  
 \section{Technologiestack}
 Wie in dem Grobkonzept beschrieben, wird für die Applikation einen Technologiestack gebraucht, welcher einfach eine skalierbare API sowie eine gute Integration der API mit einer Browser Frontend Anwendung bietet. Folgende Anforderungen werden an den Technologiestack gestellt:
 \begin{itemize}
+		 \itemsep-0.5em
 	\item Skalierbare API
 	\item Einfacher und schneller Umgang mit AJAX
 	\item Gute Integration zwischen API und HTML/JS Client
-	\item Responsive Design, integration mit OAUTH für fremdauthentisierungen
+	\item Responsive Design, integration mit OAUTH für 3rd Party Authentisierung
 	\item Persistance Layer (Datenbankunterstützung)
-	\item Integration mit Android APIs
 \end{itemize} 
-\section{Applikationsdesign}
+
+Um diese Kriterien zu erfüllen braucht es ein MVC Framework auf Server, sovie auf Client. Durch das MVC Pattern ist es möglich, ein Responsive Design durch Single Page Applikationen zu entwickeln. MVC Patterns eignen sich zusätzlich auf dem Server hervorragend um APIs zu implementieren. Folgenden zwei Technologien kann die Funktionalität implementiertweden:
+\begin{itemize}
+		 \itemsep-0.5em
+	\item Klassisch: J2EE MVC Framework (Spring) + Client MVC Library (AngularJS)
+	\item Modern: MEAN Stack 
+\end{itemize}
+
+\subsection{Spring + AngularJS}
+Spring ist ein MVC Framework in Java. Man Programmiert in der J2EE Umgebung und bietet eine API zum Client. Gleichzeitig sendet man den AngularJS Stack zum Client, welcher anschliessend die API konsumiert. Als Persistance Layer können Relationale Datenbanken wie MySQL, Oracle oder Sybase verwendet werden. Über Data Access Object wird dieser Layer angesprochen und in Models Emuliert. 
+
+Folgende Vor- / Nachteile bring das Spring-Angular Setup mit:
+\begin{itemize}
+		 \itemsep-0.5em
+	\item + reife Technologien, Markt erprobt
+	\item + viel Know-How auf dem Markt in Java/Spring
+	\item + Anbindung an Zahlreiche Persistance Layer Applikationen
+	\item - Viele Daten-Transformationen (Relationale DB <-> Java Objekt <-> JSON Object)
+	\item - Kompliziertes Setup
+\end{itemize}
+
+\newpage
+\subsection{MEAN Stack}
+Der MEAM Stack besteht aus folgender Produkten:
+\begin{itemize}
+		 \itemsep-0.5em
+	\item M - MongoDB, der Skalierbare Persistance Layer
+	\item E - ExpressJS, ein MVC um APIs zu entwickeln
+	\item A - AngularJS, ein MVC auf dem Client um Sing-Page Applikationen zu erstellen, welche auf die ExpressJS API zugreifen.
+	\item N - NodeJS, JavaScript Applikationsserver, welcher sehr gut skalierbar ist.
+\end{itemize}
+
+Folgende Vor- / Nachteile bring das MEAN Stack Setup mit:
+\begin{itemize}
+		 \itemsep-0.5em
+	\item + Kleine Daten Transformationen (JSON Object wird in MongoDB gespeichert)
+	 \item + Gleiche Programmiersprachen (JavaScript, HTML, CSS)
+	\item + Einfaches Setup, grosse Flexibilitäten
+	\item + Innovative Technologien
+	\item - Wenig Markt erprobt
+\end{itemize}
+
+\subsection{Entscheidung}
+Da das Ergebnis dieser Arbeit ein Proof of Concept darstellt, und die Applikation nicht ausgereift sein wird zum Zeitpunkt der Abgabe, sowie eine produktiver Nutzen nicht das Ziel dieser Aufgabenstellung ist, will der Autor mit möglichst innovativen, flexiblen und einfachen Technologien arbeiten. Der MEAN Stack scheint dadurch der optimale Kandidat für dieses Projekt.
+
+\section{Architektur}
+Die Applikation ist aufgeteilt auf einen Server, sowie auf einen Client, welcher ein Browser oder eine Android App ist. Auf dem Server sind alle Daten hinterlegt:
+\begin{itemize}
+	\itemsep -0.5em
+	\item Gespeicherte Objekte in MongoDB
+	\item Server Logik
+	\item Client Daten, welche vom Browser über HTTP abgefragt werden
+\end{itemize}
+
+Im Anfangszustand hat der Client keine Daten. Der Client bekommt die Daten bei dem Abruf der Applikations URL über HTTP. Er baut nun die Logik im Browser Cache auf und startet das JavaScript Programm. Das JavaScript Programm lädt nun die auf dem Server gespeicherten Objekte über HTTP AJAX Abrufe und stellt diese dar.  
+
+Die Logik von Server wie auch Client benutzt das M(V)C Pattern. Objecte werden in Models - inklusive Business Logik -  gespeichert, der Controller beinhaltet die Applikationslogik, welche das Model sowie die View auswählt. Die View rendert nun das Model in ein bestimmtes Schema (siehe Abbildung \ref{DetAppArch}). 
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.9\textwidth]{Graphics/DetailAppArch.png}
+	\caption{Detaillierte Applikations Architektur}
+	\label{DetAppArch}
+\end{figure}
+
+
 \section{DB Design}
-\section{GUI Entwurf}
+In der Applikation gibt es kein Relationales Datenbankmodel. MongoDB arbeiet mit Dokumenten, sowie Referenzen. Dokumente sind JSON-Objekte in JavasScript, welche in MongoDB als Dokument gespeichert werden. Ein Objekt ist eine Representation von Business Objekten in der Applikation.
+
+Das User-Objekt repräsentiert der User der Applikation. Der User hat einen Namen, einen Usernamen, ein Passwort (encrypted und salted), Berechtigungen und Freunde. Zusätzlich werden Ihm andere Objekte zugeordnet sowie andere User (Repräsentation als Freund).
+
+Das Court-Objekt repräsentiert ein Racketsportzentrum der Applikation. Dieses Objekt wird benötigt um den Physikalischen Austragungsort eines Spieles zu definieren. Das Objekt beinhaltet einen Namen, eine Adresse (inklusive Koordinaten für eine zukünftige Umkreissuche), was für Sportarten gespielt werden können und welche User in diesem Racketsportzentrum spielen wollen.
+
+Das Match-Objekt respäsentiert das Spiel, welches geplant, ausgetragen oder beendet ist. Das Spiel-Modell definiert zwei oder einen Spieler, einen Status, eine Sportart, ein Court, mehrere Datumvorschläge, maximal fixes Datum, eine Punkzahl, sowie ein Gewinner. Hinter dem Match-Objekt existiert ein relativ grosser Business-Workflow, welcher im Kapitel <<<<IMPLEMENTATION Matchmaking>>>> definiert ist. 
+
+Das Liga-Objekt repräsntiert eine Liga. Verschiedene Benutzer können einer Liga beitereten und sind nach Beitritt bestimmten regeln unterworfen. Dafür können die Benutzer spiele für die Liga spielen und so Punkte für einen optionalen Preis sammeln. Die Liga beinhaltet neben einem Namen, einer Sportart, einem Standort (inklusive Koordinaten, für zukünftige Umkreissuche), einem Niveau, Start- und Enddatum, einem Preis und einem Matchmaking Plan (wird später im Dokument erläuert>>>>>>>REF). 
+
+Folgende Grafik zeigt die Beziehung der Verschiedenen Schemas auf, das Datenbankmodell ist nicht Relational, und somit nicht normalisiert. 
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.9\textwidth]{Graphics/DBModel.png}
+	\caption{Datenbank Modell}
+	\label{DBMOdel}
+\end{figure}
+
+\newpage
+\section{GUI}
+Als GUI wird ein standard Bootstrap Design verwendet. Ohne Authentisierung kann nur die Home-Page gesehen werden sowie die Login und Signup Page. Für alle anderen Seiten muss der Benutzer authentisiert sein. Sobald die Authentisierung durchgeführt wurde, gibt es können die Elemente (Nach Datenbank) Benutzer, Liga, Racketsportzentrum sowie Spiele selektiert werden. Innerhalb der einzelnen Menu kann man verschiedene Operationen direkt ansteuern, einige nur über andere Operationen. Folgendes Diagram zeigt die Interaktion durch die verschiedenen Views.
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.9\textwidth]{Graphics/GUIInteraction.png}
+	\caption{GUI Interaktions Modell}
+	\label{GUIInteraction}
+\end{figure}
+
+\subsection{User Section}
+Die User Section einhaltet drei Views die direkt aus dem Menu erreichbar sind. Die erste View User Profile ermöglicht dem User, Details über sich preiszugeben. Er kann zusätzlich das Passwort ändern. Inder Friends view kann er neue Friendrequests erstellen, und pendente Friendrequests annehmen oder ablehnen. Die Social Account View bietet eine Verknüpfung von Social Accounts mit der Applikation an.
+
+\subsection{Court Section}
+Die Court Section beinhaltet vier Views sowie eine Aktion. In der new Court View kann ein neues Racketsportzentrum registriert werden. In der List Courts view findet man alle  Racketsportzentren und erreicht bei klick auf ein Zentrum die View Court Details View. In dieser View kann man alle Details des Racketsportzentrum anschauen, sowie alle Spieler, welche in diesem Racketsportzentrum spielen. Durch klick auf den Spieler kann in die New Match View gewechselt werden, um einen Spieler herauszufordern. Von der Detail View kann man zusätzlich das Court löschen, sofern man das Court erstellt hat oder ein Admin ist.
+
+\subsection{League Section}
+Die League Section beinhaltet vier Views sowie eine Aktion. In der New League View kann ein neues Liga registriert werden. In der List League View findet man alle  Ligen und erreicht bei klick auf eine Liga die View League Details View. In dieser View kann man alle Details die Liga anschauen, sowie alle Spieler, welche in dieser Liga spielen. Durch klick auf den Spieler kann in die New Match View gewechselt werden, um einen Spieler herauszufordern. Von der Detail View kann man zusätzlich die Liga löschen, sofern man die Liga erstellt hat oder ein Admin ist.
+
+\subsection{Match View}

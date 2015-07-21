@@ -1,5 +1,145 @@
 % !TeX spellcheck = de_CH
 \chapter{Implementation}
 \section{REST API}
+Die REST API besteht aus fünf Endpunkten:
+\begin{itemize}
+	\itemsep-0.8em
+	\item /matches - Stellt alle Operationen für Matches zur Verfügung
+	\item /leagues - Stellt alle Operationen für Liga Management zur Verfügung
+	\item /courts - Stellt alle Operationen für die Verwaltung von Racketsportzentren zur Verfügung
+	\item /users - Stellt alle Operationen für das Usermanagemnt zur Verfügung
+	\item /core - Stellt Core-Funktionalitäten (Home Seite) zur Verfügung
+\end{itemize}
+Die Endpunkte /users und /core waren im MEANJS Stack schon vorhanden. Der User Endpunkt wurde jedoch modifiziert. Die Modifizierungen sind in dem Kapitel dokumentiert, die schon vorhandenen Endpunkte nicht. 
+
+
+
+
+
+\subsection{Spiel Endpunkt /matches}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Graphics/api_match.png}
+	\caption{API für Spiele}
+	\label{MatchAPI}
+\end{figure}
+
+Bei allen Match Endpunkten muss der User als Spieler registriert sein, um Informationen über das Spiel zu erhalten. Ausnahme ist, wenn er direkt die ID eingibt und direkt auf Spiel Detauls zugreift. 
+
+Mit einem Post fügt man der Datenbank ein Spiel hinzu, mit PUT aktualisiert man das Spiel mit neuen oder geänderten Daten. Hinter dem PUT interface gibt es gewisse Input Validations um Missbrauch zu verhindern. In dieser ersten Version sin ddie Validations jedoch relativ einfach gehalten. 
+
+Um eine gute Übersicht aller Spiele auf der List Matches View zu erstelllen, gibt es für jeden Status eines Spieles einen eigenen API Call (/matches/new, /matches/open, /matches/inprogress, /matches/proposed, /matches/r2c, /matches/done). 
+
+Der API Endpunkt /matches/broadcast listet zusätzlich alle broadcasting Anfragen auf. Der Conntroller des Enpunkt Korreliert, in welchen Racketsportzentren der User registriert ist und die Matches ohne zweiten Spieler und gibt das Resultat dem Client.
+
+\subsection{Liga Endpunkt /leagues}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Graphics/api_league.png}
+	\caption{API für Ligen}
+	\label{LeagueAPI}
+	\end{figure}
+
+Bei der Liga gibt es - wie bei allen Endpunkten - CRUD Endpunkte (/leagues für list all, /leagues/:id für Show Element, POST /leagues für Create League, PUT /leagues/:id für Update League). Zusätzlich gbit es eine Join Action, welche den authentisierten User einer Liga hinzufügt sowie ein Leave Endpunkt um die Registriertung zu löschen.
+
+Ein zusätzlicher Endpunkt ist /leagues/invite, welcher ermöglicht einen User zu einer Liga einzuladen.
+	\newpage
+\subsection{Racketsportzentrum Endpunkt /courts}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Graphics/api_court.png}
+	\caption{API für Racketsportzentren}
+	\label{CourtAPI}
+\end{figure}
+Gleich wie beim Liga Endpunkt gibt es die CRUD Endpunkte sowie ein Join/Leave Endpunkt
+
+\subsection{Benutzer Endpunkt /users}
+Neben den üblichen Benutzerverwaltungs Endpunkten (/user/signin, /user/signout, /user signup, /auth/forgot), welche hier nicht Dokumentiert werden, gibt es Endpunkte für das Freunde-System:
+\begin{itemize}
+	\itemsep-0.5em
+	\item GET /users/friend - Auflistung aller Freunde
+	\item DELETE /users/friend - Löschen eines Freundes
+	\item GET /users/request -  Senden eines Freund Requests
+	\item DELETE /users/request - Löschen eines Freund Requests
+\end{itemize}
+
 \section{Web Applikation}
+
+
 \section{Android Applikation}
+Als Grundlage für die Android Applikation wurde eine Applikation von gonative.io generiert. Im Laufe des Projektes - nach erheblicher Überschreitung des vorgeschriebenen Aufwandes - wurde entschieden keine vollständig Native Webapplikation zu erstellen. Stattdessen wird eine WebView erstellt, welche die Mobile Webseite darstellt. Um alle Funktionalität zu behalten, wird über die WebView und Interception Algorithmen Push-Nachriten ermöglicht. Der einzige Setback ist, das die Website offline nicht verfügbar ist.
+
+
+
+\section{Workflows}
+\section{Allgemeine Workflows}
+\subsection{CRUD für Datenobjekte}
+Alle Datenobjekte haben einen Endpunkt. Jeder Endpunkt stellt CRUD Operationen zur Verfügung:
+\begin{itemize}
+	\itemsep -0.5em
+	\item C - Neues Objekt erstellen
+	\item R - Ein Objekt anzeigen
+	\item U - Ein Objekt aktualisieren
+	\item D - Ein Objekt löschen
+	\end{itemize}
+	
+	Zusätzlich wird noch einen Endpunkt zur Auflistung aller Objekte angeboten. 
+
+\newpage
+\section{Court}
+\subsection{Court Registrierung}
+Wenn der User den Knopf im User Interface zur Registrierung das Racketsportzentrums drückt, wird im Hintergrund der /courts/join API Call ausgeführt. Dieser Call fügt der User der Anfrage in ein Array - bestehend aus allen registrierten Usern - ein. 
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.7\textwidth]{Graphics/workflow_court.png}
+	\caption{Racketsportzentrum Workflow}
+	\label{CourtWorkflow}
+\end{figure}
+\newpage
+
+\section{Liga}
+\subsection{Liga Registrierung}
+Identisch zu der Court Registrierung funktioniert die Liga Registrierung
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.7\textwidth]{Graphics/workflow_league.png}
+	\caption{Liga Workflow}
+	\label{LegueWorkflow}
+\end{figure}
+\begin{landscape}
+	
+	\subsection{Autoherausforderung Liga}
+	
+
+\section{Match}
+\subsection{Match Workflow}
+Der Matchworkflow ist das Hauptelement der Applikation. Der Workflow regelt, wie der Match als Business Prozess durchgeführt wird. 
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=1.3\textwidth]{Graphics/match_workflow.png}
+	\caption{Spiel Workflow}
+	\label{MatchWorkflow}
+\end{figure}
+\end{landscape}
+
+Der Workflow wird über drei verschiedene Fälle gestartet: 
+\begin{itemize}
+	\itemsep -0.5em
+	\item Das System erstellt Auto-Herausforderungen für die Liga
+	\item Der User erstellt ein Broadcast Spiel
+	\item Der User erstellt ein reguläres spiel.
+	
+	\end{itemize}
+	
+Wenn der User ein \textbf{reguläres Spiel} erstellt, sind beide Spieler, sowie Terminvorschläge schon definiert. Es folgt die Aktion \grqq Termin auswählen\grqq.
+
+Erstellt der User ein \textbf{broadcast Spiel}, hat das Spiel den Status \grqq New\grqq, jedoch noch keinen zweiten Spieler definiert. Zusätzlich werden keine Terminvorschläge ausgefüllt, sondern einen fixen Termin. Akzeptiert jemand den Broadcast wird der zweite Spieler eingetragen und der Status ändert sich direkt auf Open.
+ 
+Sind User in einer Liga, erstellt die \textbf{Liga eine Herausforderung}. Das Spiel enthält kein Court und keine Terminvorschläge. Der User muss nun Terminvorschläge ausfüllen und ein Court definieren. 
+
+Anschliessend haben alle Use Cases den gleichen Workflow. Ist das Spiel und der Termin definiert. Geht der Status des Spiels zu \grqq Open\grqq . Danach kann von beiden Spielern der Status auf \grqq In progress\grqq gesetzt werden. Beide können ein Resultat eintragen. Der jeweil andere Spieler bestätigt anschliessend das Resultat. Bei der Bestätigung des Resultats wird das Spiel archiviert und optional die Rangliste der Liga aktualisiert.
+
+
+\section{User}
+\subsection{Freunde System}

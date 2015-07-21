@@ -83,75 +83,285 @@ Clubmitglieder Spielen regelmässig und haben dafür fix Vereinbarte Clubtrainings
 \newpage
 \subsubsection{Use Cases}
 Neue Clubs ohne Infrastruktur könnten diese Applikation für ihre Administration verwenden.
-
+\newpage
 \section{Use Cases}
 
-\subsection{UC1: Identifizierung von Partnern}
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.7\textwidth]{Graphics/UC1.png}
-	\caption{Grobplanung für Applikation}
-	\label{fig1}
-\end{figure}
+\subsection{UC1 - Identifizierung von Partnern}
+\begin{table*}[ht]
+	
+	
+	\tabulinesep = 1mm
+	\begin{tabu} to \linewidth [m]{|[2pt]X[-1,m, l]|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}
+		
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}UC1}}  &   
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Identifizierung von Partnern }}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+		\cellcolor{testblau}{Zwei Partner - A und B - wollen einen bestimmten Racketsport in einer bestimmten Region spielen. Der User A oder B kann Spielvorschläge an andere User senden. Dafür kann er nach Region filtern.  }
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Diagramm}} & 	\cellcolor{testblau}\includegraphics[width=0.7\textwidth]{Graphics/UC1.png}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+		\cellcolor{testblau} 1.0
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Vorbedingung}} &
+		\cellcolor{testblau} -
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Anforderungen}} &
+		\cellcolor{testblau}REQ 1.1 - Zuteilung zu Regionen \\
+		\cellcolor{airforceblue}&\cellcolor{testblau}REQ 1.2 - Broadcast Herausforderungen\\
+		\cellcolor{airforceblue}&\cellcolor{testblau}REQ 1.3 - Details zu Spieler\\
+		\cellcolor{airforceblue}&\cellcolor{testblau}REQ 1.4 - Friend System
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testfälle}} &
+		\cellcolor{testblau} Test1.1: TBD \\
+		\cellcolor{airforceblue}&\cellcolor{testblau}Test 1.2: TBD
+		\tabularnewline
+		\tabucline[2pt]{-}
+		
+	\end{tabu}
+	
+\end{table*}
 \FloatBarrier
-
-Der erste Use Case beschreibt die Identifizierung von Partnern. Zwei Partner - A und B - wollen einen bestimmten Racketsport in einer bestimmten Region spielen. Der User A oder B kann Spielvorschläge an andere User senden. Dafür kann er nach Region filtern.
 \newpage
-\subsection{UC2: Terminvereinbarung}
- Für den User Case Terminvereinbarung wurde in zwei Teil Use Cases unterteilt. 
- 
-\subsubsection{UC 2.1: Gelegenheitspiele}
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.7\textwidth]{Graphics/UC2_2.png}
-	\caption{Grobplanung für Applikation}
-	\label{fig1}
-\end{figure}
+\subsection{UC2 - Terminvereinbarung}
+\begin{table*}[ht]
+	
+	
+	\tabulinesep = 1mm
+	\begin{tabu} to \linewidth [m]{|[2pt]X[-1,m, l]|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}
+		
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}UC2}}  &   
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Terminvereinbarung}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+		\cellcolor{testblau}{Der Spieler A kann einen oder mehrere Spielvorschläge senden. Anschliessend kann der Spieler B einer dieser Spielvorschläge \textbf{annehmen}, \textbf{ablehnen} oder \textbf{neue Spielvorschläge senden}. Sobald beide Nutzer einen Spielvorschlag angenommen hat, gilt der Termin als vereinbart.  }
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Diagramm}} & 	\cellcolor{testblau}\includegraphics[width=0.7\textwidth]{Graphics/UC2_2.png}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+		\cellcolor{testblau} 1.0
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Vorbedingung}} &
+		\cellcolor{testblau} keine
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Anforderungen}} &
+		\cellcolor{testblau} REQ 2.1 - Spiel erstellen \\
+		\cellcolor{airforceblue}&\cellcolor{testblau}REQ 2.2: Spielterminvorschläge erstellen\\
+		\cellcolor{airforceblue}&\cellcolor{testblau}REQ 2.3: Spielterminvorschläge annehmen\\
+		\cellcolor{airforceblue}&\cellcolor{testblau}REQ 2.3: Spielterminvorschläge ablehnen\\
+		\cellcolor{airforceblue}&\cellcolor{testblau}REQ 2.3: Regelmässiges Spiel erstellen
+				\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testfälle}} &
+		\cellcolor{testblau} Test1.1: Test \\
+		\cellcolor{airforceblue}&\cellcolor{testblau}Test 1.2: Test2
+		\tabularnewline
+		\tabucline[2pt]{-}
+		
+	\end{tabu}
+	
+\end{table*}
+
 \FloatBarrier
-Bei Gelegenheitsspielen kann der Spieler A oder B einen oder mehrere Spielvorschläge senden. Anschliessend kann der Spieler B einer dieser Spielvorschläge \textbf{annehmen}, \textbf{ablehnen} oder \textbf{neue Spielvorschläge senden}. Sobald beide Nutzer einen Spielvorschlag angenommen hat, wurde der Termin vereinbart.
+
 \newpage
 
-\subsection{UC 3: Spiel Protokollieren}
+\subsection{UC 3 - Spiel Protokollieren}
+\begin{table*}[ht]
+	
+	
+	\tabulinesep = 1mm
+	\begin{tabu} to \linewidth [m]{|[2pt]X[-1,m, l]|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}
+		
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}UC3}}  &   
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Spiel protokollieren}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+		\cellcolor{testblau}{Nachdem ein Spiel durchgeführt wurde, kann der Spieler B sowie der Spieler A die Scores eintragen oder bestätigen. Anschliessend können beide Spieler die jeweiligen vergangenen Spiele jederzeit in der Applikation nachschlagen. Optional wird das protokollierte Spiel in einer Liga gewertet (falls vor dem Spiel so deklariert.) }
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Diagramm}} & 	\cellcolor{testblau}	\includegraphics[width=0.6\textwidth]{Graphics/UC3.png}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+		\cellcolor{testblau} 1.0
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Vorbedingung}} &
+		\cellcolor{testblau} UC2 - Spiel vereinbaren
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Anforderungen}} &
+		\cellcolor{testblau} REQ 3.1 - Ergebnisse des Spiels eintragen \\
+		\cellcolor{airforceblue}&\cellcolor{testblau}REQ 3.2: Bestätigung der Ergebnisse	\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testfälle}} &
+		\cellcolor{testblau} Test1.1: Test \\
+		\cellcolor{airforceblue}&\cellcolor{testblau}Test 1.2: Test2
+		\tabularnewline
+		\tabucline[2pt]{-}
+		
+	\end{tabu}
+	
+\end{table*}
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.7\textwidth]{Graphics/UC3.png}
-	\caption{Grobplanung für Applikation}
-	\label{fig1}
-\end{figure}
 \FloatBarrier
-
-Nachdem ein Spiel durchgeführt wurde, kann der Spieler B sowie der Spieler A die Scores eintragen oder bestätigen. Anschliessend können beide Spieler die jeweiligen vergangenen Spiele jederzeit in der Applikation nachschlagen. Optional wird das protokollierte Spiel in einer Liga gewertet (falls vor dem Spiel so deklariert.)
 \newpage
-\subsection{UC4: Liga Management}
-\subsubsection{UC 4.1: Liga erstellen}
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.7\textwidth]{Graphics/UC4_1.png}
-\caption{Grobplanung für Applikation}
-\label{fig1}
-\end{figure}
-\FloatBarrier
-Jeder Spieler kann eine Liga erstellen. Diese Liga generiert eine Rangliste. Der Spieler kann anschliessend andere Spieler in die Liege einladen. Spieler können zusätzlich bei öffentlichen Ligen beitreten.  
+\subsection{UC4 - Liga Management}
+\subsubsection{UC 4.1 - Liga erstellen}
+\begin{table*}[ht]
+	
+	
+	\tabulinesep = 1mm
+	\begin{tabu} to \linewidth [m]{|[2pt]X[-1,m, l]|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}
+		
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}UC4.1}}  &   
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Liga erstellen}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+		\cellcolor{testblau}{Jeder Spieler kann eine Liga erstellen. Diese Liga generiert eine Rangliste. Der Spieler kann anschliessend andere Spieler in die Liege einladen. Spieler können zusätzlich bei öffentlichen Ligen beitreten.) }
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Diagramm}} & 	\cellcolor{testblau}	\includegraphics[width=0.7\textwidth]{Graphics/UC4_1.png}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+		\cellcolor{testblau} 1.0
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Vorbedingung}} &
+		\cellcolor{testblau} -
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Anforderungen}} &
+		\cellcolor{testblau} REQ 4.1 -Liga erstellen \\
+		\cellcolor{airforceblue}&\cellcolor{testblau}REQ 4.2 - User zur Liga einladen\\
+		\cellcolor{airforceblue}&\cellcolor{testblau}REQ 4.3 - User kann Liga beitreten 
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testfälle}} &
+		\cellcolor{testblau} Test1.1: Test \\
+		\cellcolor{airforceblue}&\cellcolor{testblau}Test 1.2: Test2
+		\tabularnewline
+		\tabucline[2pt]{-}
+		
+	\end{tabu}
+	
+\end{table*}
 
-\subsubsection{Rangliste durch Spiele aktualisieren}
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=0.7\textwidth]{Graphics/UC4_2.png}
-	\caption{Grobplanung für Applikation}
-	\label{fig1}
-	\end{figure}
 \FloatBarrier
-Nachdem ein Spiel gespielt ist, können beide Spieler ihre Scores eintragen. Stimmt diese überein oder bestätigt ein Spieler der eingetragene Score des anderen Spielers, wird dieser zur Rangliste hinzugerechnet.
-\subsubsection{Spiele automatisch anfordern}
-	\begin{figure}[ht]
-		\centering
-		\includegraphics[width=0.7\textwidth]{Graphics/UC4_3.png}
-		\caption{Grobplanung für Applikation}
-		\label{fig1}
-		\end{figure}
+\newpage
+\subsubsection{UC 4.2 -Rangliste durch Spiele aktualisieren}
+\begin{table*}[ht]
+	
+	
+	\tabulinesep = 1mm
+	\begin{tabu} to \linewidth [m]{|[2pt]X[-1,m, l]|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}
+		
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}UC4.2}}  &   
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Rangliste durch Spiele aktualisieren}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+		\cellcolor{testblau}{Nachdem ein Spiel gespielt ist, können beide Spieler ihre Scores eintragen. Stimmt diese überein oder bestätigt ein Spieler der eingetragene Score des anderen Spielers, wird dieser zur Rangliste hinzugerechnet.) }
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Diagramm}} & 	\cellcolor{testblau}		\includegraphics[width=0.7\textwidth]{Graphics/UC4_2.png}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+		\cellcolor{testblau} 1.0
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Vorbedingung}} &
+		\cellcolor{testblau} UC4.1 - Liga erstellen
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Anforderungen}} &
+		\cellcolor{testblau}REQ 4.4 - Spiele zu Liga zuordnen \\
+	\cellcolor{airforceblue}&\cellcolor{testblau}REQ 4.5 - Aktualisierung der Ranglist bei gespielten Spielen
+	\tabularnewline
+	\tabucline[2pt]{-}
+	\textcolor{white}{\textbf{\cellcolor{airforceblue}Testfälle}} &
+	\cellcolor{testblau} Test1.1: Test \\
+	\cellcolor{airforceblue}&\cellcolor{testblau}Test 1.2: Test2
+	\tabularnewline
+	\tabucline[2pt]{-}
+	
+\end{tabu}
+
+\end{table*}
+
+\FloatBarrier
+\newpage
+\subsubsection{UC 4.3 - Spiele automatisch anfordern}
+\begin{table*}[ht]
+	
+	
+	\tabulinesep = 1mm
+	\begin{tabu} to \linewidth [m]{|[2pt]X[-1,m, l]|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}
+		
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}UC4.3}}  &   
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Spiele automatisch anfordern}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+		\cellcolor{testblau}{Bei der Erstellung der Liga kann einen Algorithmus zur automatischen Spielvereinbarung ausgewählt werden. Dieser Algorithmus schlägt jedem Spieler nach der definierten Regelmässigkeit Terminvorschläge vor und stellt so sicher, das alle Spieler regelmässig gegen alle andere Spieler spielen. Die Spieler können sich auf einen der vorgeschlagenen Termine - oder ein anderer individuell vorgeschlagener Termin festlegen.) }
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Diagramm}} & 	\cellcolor{testblau}		\includegraphics[width=0.7\textwidth]{Graphics/UC4_3.png}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+		\cellcolor{testblau} 1.0
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Vorbedingung}} &
+		\cellcolor{testblau} UC4.1 - Liga erstellen
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Anforderungen}} &
+		\cellcolor{testblau}REQ 4.6 - Automatische Spielaufforderungen 
+			\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testfälle}} &
+		\cellcolor{testblau} Test1.1: Test \\
+		\cellcolor{airforceblue}&\cellcolor{testblau}Test 1.2: Test2
+		\tabularnewline
+		\tabucline[2pt]{-}
+		
+	\end{tabu}
+	
+\end{table*}
+	
 		\FloatBarrier
-Bei der Erstellung der Liga kann einen Algorithmus zur automatischen Spielvereinbarung ausgewählt werden. Dieser Algorithmus schlägt jedem Spieler nach der definierten Regelmässigkeit Terminvorschläge vor und stellt so sicher, das alle Spieler regelmässig gegen alle andere Spieler spielen. Die Spieler können sich auf einen der vorgeschlagenen Termine - oder ein anderer individuell vorgeschlagener Termin festlegen.
+
 
 
 \section{Anforderungsanalyse}
@@ -168,8 +378,7 @@ Der User muss zu einer Region zugeordnet werden können. Regionen sind im Rackets
 \textbf{REQ1.1.3 - Suche nach Spielern per Racketsport Zentrum}: User können andere Spieler suchen die sich an ein Racketsport Zentrum zugeordnet haben. 
 \subsubsection{REQ1.2 - Broadcast Herausforderung für Region}
 Der Spieler kann kann für eine Region einen Broadcast Spielvorschlag versenden für eine bestimmte Zeit.
-\subsubsection{REQ1.3 - Privatsphäre Einstellungen für Herausforderungen}
-Der Spieler kann in der Applikation einstellen ob er Broadcasts (REQ1.2) empfangen will und ob er von fremden Spielern Spielvorschläge empfangen will.
+
 
 \subsubsection{REQ1.4 - Details zur Spielerselektion}
 Der Spieler soll von anderen Spielern verschiedene Merkmale herauslesen können:
@@ -225,8 +434,6 @@ Bei einem beendeten Spiel wird die Rangliste der Liga neu berechnet um die korre
 \subsubsection{REQ4.6 - Automatisch Spielaufforderungen}
 In einem bestimmten Turnus werden alle Spieler aufgefordert ein Spiel mit einem anderen Spieler aus der Liga zu Spielen
 
-\subsubsection{REQ4.7 - Abwesenheit}
-Bei längeren Abwesenheiten kann einer Liga signalisiert werden, das der User aus der Automatischen Spielaufforderung herausgenommen werden soll.
 
 
 

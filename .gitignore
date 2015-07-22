@@ -6,3 +6,4 @@ node_modules/
 .bower-*/
 .idea/
 Documentation/RacketManager.*
+public/lib/

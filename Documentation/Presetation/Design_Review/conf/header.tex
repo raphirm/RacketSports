@@ -1,0 +1,43 @@
+%************************************************************************************
+%*                             Header Datei für Informatik Texte/Aufgaben/Zusammenfassungen                             *
+%************************************************************************************
+\documentclass[pdftex,a4paper,10pt]{scrreprt}
+
+%packages
+
+\usepackage [T1] {fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{ngerman}
+\usepackage {marvosym}
+\DeclareUnicodeCharacter {20AC} {\EUR}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{color}
+\usepackage{pifont}
+\usepackage{amsmath}
+\usepackage{paralist}
+
+\usepackage[T1]{fontenc}
+\newcommand{\changefont}[3]{
+\fontfamily{#1} \fontseries{#2} \fontshape{#3} \selectfont}
+
+\pagestyle{fancy}
+\fancyhf{}
+
+%A-4 Seite: 210mm x 297 mm (Dies sollte die Summe ergeben bei allen Definitionen!!!!
+
+\setlength{\topmargin}{-15mm}		%Definiert den Abstand zwischen dem oberen Rand jeder logischen Seite und der Kopfzeile. 
+\setlength{\leftmargin}{20mm}		%linker Seitenabstand
+\setlength{\rightmargin}{-20mm}		%rechter Seitenabstand
+\setlength{\headheight}{50pt}		%Legt die Hoehe des Leerraumes fest, der am oberen Seitenrand fuer eine Kopfzeile reserviert wird.
+\setlength{\textheight}{235mm}		%Definiert die GesamtHoehe des Textrumpfes fuer alle nachfolgenden Seiten.
+\setlength{\textwidth}{168mm}		%Definiert die GesamtBreite des Textrumpfes fuer alle nachfolgenden Seiten.
+\setlength{\headwidth}{168mm}		%Kopfzeilenbreite
+
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\pagenumbering{arabic}
+
+\setlength{\hoffset}{-5mm}		%Definiert den Abstand der gesamten Seite zum linken Rand des Blattes.
+\setlength{\voffset}{-5mm}		%Definiert den Abstand der gesamten Seite zum oberen Rand des Blattes.

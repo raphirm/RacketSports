@@ -1,0 +1,10 @@
+\beamer@endinputifotherversion {3.33pt}
+\beamer@sectionintoc {1}{Stand der Arbeit}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Plan}{3}{0}{1}
+\beamer@subsectionintoc {1}{2}{Dokumentation}{4}{0}{1}
+\beamer@sectionintoc {2}{Konzepte und Techniken}{7}{0}{2}
+\beamer@subsectionintoc {2}{1}{Use Cases}{7}{0}{2}
+\beamer@subsectionintoc {2}{2}{Programm}{8}{0}{2}
+\beamer@sectionintoc {3}{Probleme}{9}{0}{3}
+\beamer@subsectionintoc {3}{1}{Probleme}{9}{0}{3}
+\beamer@sectionintoc {4}{\"Anderung Aufgabenstellung}{10}{0}{4}

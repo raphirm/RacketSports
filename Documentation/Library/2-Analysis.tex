@@ -87,11 +87,11 @@ Neue Clubs ohne Infrastruktur könnten diese Applikation für ihre Administration 
 \section{Use Cases}
 
 \subsection{UC1 - Identifizierung von Partnern}
-\begin{table*}[ht]
+\begin{center}
 	
 	
 	\tabulinesep = 1mm
-	\begin{tabu} to \linewidth [m]{|[2pt]X[-1,m, l]|[2pt]X[1, m , l]|[2pt]}
+	\begin{longtabu} to \linewidth [m]{|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
 		\arrayrulecolor{white}
 		
 		\tabucline[2pt]{-}
@@ -127,9 +127,9 @@ Neue Clubs ohne Infrastruktur könnten diese Applikation für ihre Administration 
 		\tabularnewline
 		\tabucline[2pt]{-}
 		
-	\end{tabu}
+	\end{longtabu}
 	
-\end{table*}
+\end{center}
 \FloatBarrier
 \newpage
 \subsection{UC2 - Terminvereinbarung}
@@ -273,12 +273,12 @@ Neue Clubs ohne Infrastruktur könnten diese Applikation für ihre Administration 
 
 \FloatBarrier
 \newpage
-\subsubsection{UC 4.2 -Rangliste durch Spiele aktualisieren}
-\begin{table*}[ht]
-	
+\subsubsection{UC 4.3 -Rangliste durch Spiele aktualisieren}
+
+	\begin{center}
 	
 	\tabulinesep = 1mm
-	\begin{tabu} to \linewidth [m]{|[2pt]X[-1,m, l]|[2pt]X[1, m , l]|[2pt]}
+	\begin{longtabu} to \linewidth [m]{|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
 		\arrayrulecolor{white}
 		
 		\tabucline[2pt]{-}
@@ -311,14 +311,21 @@ Neue Clubs ohne Infrastruktur könnten diese Applikation für ihre Administration 
 	\cellcolor{airforceblue}&\cellcolor{testblau}Test 1.2: Test2
 	\tabularnewline
 	\tabucline[2pt]{-}
+	\textcolor{white}{\textbf{\cellcolor{airforceblue}Szenarien}} & 	\cellcolor{testblau}		\includegraphics[width=0.7\textwidth]{Graphics/UC4_2.png}
+	\tabularnewline
+	\tabucline[2pt]{-}
+	\textcolor{white}{\textbf{\cellcolor{airforceblue}Alternative Szenarien}} & 	\cellcolor{testblau}		\includegraphics[width=0.7\textwidth]{Graphics/UC4_2.png}\\
+	\cellcolor{airforceblue}&\cellcolor{testblau}\includegraphics[width=0.7\textwidth]{Graphics/UC4_2.png}
+	\tabularnewline
+	\tabucline[2pt]{-}
 	
-\end{tabu}
+	\end{longtabu}
+\end{center}
 
-\end{table*}
 
 \FloatBarrier
 \newpage
-\subsubsection{UC 4.3 - Spiele automatisch anfordern}
+\subsubsection{Spiele automatisch anfordern}
 \begin{table*}[ht]
 	
 	
@@ -366,8 +373,9 @@ Neue Clubs ohne Infrastruktur könnten diese Applikation für ihre Administration 
 
 \section{Anforderungsanalyse}
 Die Anforderung in diesem Abschnitt werden direkt in User Stories übertragen in das Tool Yodiz: \url{https://app.yodiz.com/plan/pages/task-board.vz?cid=14274&pid=1&iid=1}
+\subsection{Nicht Funtionale Anforderungen}
 
-\subsection{Anforderungen für UC1}
+\subsection{Funtionale Anforderungen}
 \subsubsection{REQ1.1.x - Zuteilung zu Regionen}
 Der User muss zu einer Region zugeordnet werden können. Regionen sind im Racketsport Zentren, die der Spieler vorzugsweise benutzt. Geographische nähen sind in diesem Use Case viel weniger präzise, da je nach Verkehrsanbindung oder Lebensumstände nicht Racketsport Zentren in der unmittelbaren Geografischen nähe referenziert werden. 
 \\

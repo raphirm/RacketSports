@@ -7,3 +7,4 @@ node_modules/
 .idea/
 Documentation/RacketManager.*
 public/lib/
+.env

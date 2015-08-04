@@ -10,21 +10,70 @@
 Die Applikation besteht aus drei Teilen. Einem Webserver, der eine API und statische Clientfiles zur Verfügung stellt, der Client im Browser, welcher die API konsumiert sowie eine Android Applikation welche die Website lädt. 
  
 \section{Technologiestack}
-Wie in dem Grobkonzept beschrieben, wird für die Applikation einen Technologiestack gebraucht, welcher einfach eine skalierbare API sowie eine gute Integration der API mit einer Browser Frontend Anwendung bietet. Folgende Anforderungen werden an den Technologiestack gestellt:
+Wie in dem Grobkonzept beschrieben, wird für die Applikation einen Technologiestack gebraucht, welcher  eine skalierbare API sowie eine gute Integration der API mit einer Browser Frontend Anwendung bietet. Folgende Anforderungen werden an den Technologiestack gestellt:
 \begin{itemize}
-		 \itemsep-0.5em
-	\item Skalierbare API
+	\itemsep-0.5em
+	\item Skalierbare REST API
 	\item Einfacher und schneller Umgang mit AJAX
 	\item Gute Integration zwischen API und HTML/JS Client
-	\item Responsive Design, integration mit OAUTH für 3rd Party Authentisierung
+	\item Responsive Design, Integration mit OAUTH für 3rd Party Authentisierung
 	\item Persistance Layer (Datenbankunterstützung)
 \end{itemize} 
 
-Um diese Kriterien zu erfüllen braucht es ein MVC Framework auf Server, sovie auf Client. Durch das MVC Pattern ist es möglich, ein Responsive Design durch Single Page Applikationen zu entwickeln. MVC Patterns eignen sich zusätzlich auf dem Server hervorragend um APIs zu implementieren. Folgenden zwei Technologien kann die Funktionalität implementiertweden:
+\subsection{MVC Frameworks}
+Komplexe Applikationen werden vorzugsweise mit MVC Frameworks erstellt. Über MVC APIs sind Routing,  Logik sowie Präsentationsschicht gut voneinander Abstrahiert. Es ist gut möglich, für Views mit verschiedenen Daten über ein Model zu versehen, oder auch ein Logisches Routing für eine API zu entwickeln. Folgende Graphik zeigt ein MVC Konzept. Der Client sendet einen Request zu dem Server und wird vom Routing zur Logik im System weitergeleitet. Die Logik findet das richtige Model sowie die dazugehörige View.  Die View wird mit dem Model gerendert und es entsteht eine Antwort, welche dem Client zurückgesendet wird. In einer REST API ist die View JSON. Das Model wird in JSON umgewandelt und versendet. 
+
+Folgendes Code-Beispiel - die Funktion list() -  zeigt, wie alle Courts aus dem Persistance Layer selektiert werden und per JSON zum Client gesendet werden. Dies ist ein API Endpunkt zur auflistung von Courts (http://webserver/courts). Gut zu sehen ist, dass die jsonp() Funktion als Renderer gebraucht wird anstatt eine Standard-View. 
+\begin{lstlisting}
+exports.list = function(req, res) { 
+	Court.find().sort('-created').populate('user')
+	 .exec(function(err, courts) {
+		if (err) {
+			return res.status(400).send({
+				message: 
+				 errorHandler.getErrorMessage(err)
+			});
+		} else {
+		res.jsonp(courts);
+		}
+	});
+};
+\end{lstlisting}
+
+Mit einem MVC Framework auf der Server-Seite kann man so gut abstrahierte und ausbaufähige - skalierbare - APIs erstellen. Diese APIs müssen nun jedoch vom Client Browser verarbeitet werden können. Folgende Möglichkeiten bieten sich an:
 \begin{itemize}
-		 \itemsep-0.5em
-	\item Klassisch: J2EE MVC Framework (Spring) + Client MVC Library (AngularJS)
-	\item Modern: MEAN Stack 
+	\item Parallel zu der REST API werden Renderer gebaut, welche das Model mit einer View in eine - für den Client statische - Website rendern. Der Client verfügt hier ausschliesslich Logik um die verschiedenen Webseiten abzurufen. 
+	\item Ein Website-Skelett mit Logik wird beim ersten Aufruf an den Client verschickt. Der Client bezieht nun Daten aus der REST API und reichert die schon vorhandenen Views mit den Objekten - gesendet über AJAX - selber an. 
+\end{itemize}
+Eine parallele Implementierung zur Rest API geht entgegen dem Basis Konzept, dass alle Applikationen so gut wie möglich von der REST API profitieren. Zusätzlich würde bei einer parallelen Implementierung jeder Klick in einer Aktualisierung der Applikation resultieren. Dies ist unerwünscht, da sich die Website nicht schnell und intuitiv anfühlt. Man hat bei jedem Klick eine Downtime, da viel Daten übertragen werden müssen, und der Browser den DOM jedes mal neu Aufbauen muss. Bei der zweiten Option wird die Website nur einmal heruntergeladen. Der DOM wird nach dem Download aufgebaut und von der Logik verändert. Klicks lösen einen viel geringeren Aufwand von Server bis Client aus und somit ist die Downtime viel kleiner. Die Applikation fühlt sich schneller und intuitiver an. 
+
+Wie bei dem Server, kann man auch bei der Applikation ein MVC Pattern implementieren. Ein Routing definiert, bei welchr URL welche View aufgerufen wird. Bei dem Aufruf einer View ist ein Controller hinterlegt, welcher bei der API das Model und Objekt besorgt. Die View rendert die vom Controller generierten Daten
+
+\glqq Figure Angular JS \grqq 
+
+Server und Client MVCs können so miteinander Kombiniert werden und es entsteht eine skalierbare und wartbare Applikationsumgebung.
+
+
+\subsubsection{Server MVCs}
+MVCs für den Server gibt es verschiedene:
+\begin{itemize}
+	\item Spring Framework - Java
+	\item ExpressJS - JSON
+	\item Rails - Ruby
+\end{itemize}
+
+\subsubsection{Client MVCs}
+MVC für den Server sind ausschliesslich in Javascript geschrieben:
+\begin{itemize}
+	\item AngularJS
+	\item ???
+	\end{itemize}
+
+\subsubsection{Stacks}
+Eine Konfiguration des Client- sowie Server MVCs, damit beide gut miteinander Funktionieren ist zusätzlich wichtig. In der Evaluation wird somit folgende Konfigurationen abgewogen:
+\begin{itemize}
+	\item Spring Framework mit AngularJS
+	\item Express Framework mit AngularJS
 \end{itemize}
 
 \subsection{Spring + AngularJS}

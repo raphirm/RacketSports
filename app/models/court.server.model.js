@@ -26,6 +26,7 @@ var CourtSchema = new Schema({
 	},
 	lng: {
 		type: String,
+
 		required: "Please fill in a correct address (select it from the dropdown)"
 	},
 	sports: {

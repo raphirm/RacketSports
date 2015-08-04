@@ -1,6 +1,6 @@
-% !TeX spellcheck = de_CH
+% !TeX spellcheck = de_DE
 \chapter{Analyse}
-Das Ziel der Software ist, den User in der Terminfindung, Protokollierung und Partnerfindung optimal zu unterstützen. Dieser Teil der Dokumentation dient zur Findung exakter Anforderungen an die Software die den User optimal unterstützen. Zusätzlich wird Anfangs untersucht wie das Marktumfeld rund um die geplante Applikation aussieht, um einen möglichen Erfolg einer solchen Applikation zu schätzen sowie mögliche Synergieeffekte zu identifizieren. 
+Das Ziel der Software ist, den User in der Terminfindung, Protokollierung und Partnerfindung optimal zu unterstützen. Dieser Teil der Dokumentation dient zur Findung exakter Anforderungen an die Software, die den User optimal unterstützen. Zusätzlich wird Anfangs untersucht wie das Marktumfeld rund um die geplante Applikation aussieht, um einen möglichen Erfolg einer solchen Applikation zu schätzen sowie mögliche Synergieeffekte zu identifizieren. 
 
 \section{Marktumfeld}
 Um mögliche Synergien oder Wettbewerber zu identifizieren, müssen zuerst die geplanten Basis Funktionalitäten aufgelistet werden:
@@ -37,7 +37,7 @@ wird die Konkurrenz nicht als erheblich eingeschätzt.
 \textbf{Excel} von Microsoft wird oft als Tracking und Organisation für Ligen verwendet. Die Einfachheit und das breite Skillset spricht für diese Lösung. Jedoch ist Zusammenarbeit und Organisation umständlich. Als alternative, welche die Zusammenarbeit vereinfacht bietet sich auch \textbf{Google Docs} an.
 
 
-\section{Benutzergruppen}
+\section{Benutzergruppen/Ist-Analyse}
 Die geplante Applikation wird nicht für alle Benutzergruppen interessant sein. Um das Zielklientel zu finden wird  erstellt diese Kapitel eine Kategorisierung in verschiedene Benutzergruppen. Anschliessend wird abgeschätzt, wie welche Benutzergruppe von der Applikation profitieren kann. 
 
 \subsection{Gelegenheitsspieler}
@@ -52,6 +52,7 @@ Zusammengefasst lassen Sich folgende Charakteristiken zusammenfassen:
 	\item Fehlende Vergleichsmöglichkeiten, da wenige Partner und meist keine Protokollierung der Ergebnisse
 	\item Wenig Anreize um nächstes Spiel zu organisieren
 \end{itemize}
+
 \subsubsection{Use Cases}
 Gelegenheitsspieler können ausserordentlich von der geplante Applikation profitieren. \\
 Neue \textbf{Partner} in der Nähe können unkompliziert mit der Applikation identifiziert werden. So ist es möglich längere Pausen, wenn der originale Partner in den Ferien ist oder schlicht verhindert ist, zu verhindern.
@@ -84,8 +85,71 @@ Clubmitglieder Spielen regelmässig und haben dafür fix Vereinbarte Clubtrainings
 \subsubsection{Use Cases}
 Neue Clubs ohne Infrastruktur könnten diese Applikation für ihre Administration verwenden.
 \newpage
-\section{Use Cases}
-\subsection{UC0 - Login in das System}
+\section{Anforderungsanalyse}
+
+\subsection{Vision}
+Erleichterung zur Terminfindung und Administration von Racketsportspieleren
+
+\subsection{Ziele}
+Folgende Business Prozesse sollten unterstützt werden:
+\begin{itemize}
+	\itemsep -0.2em
+ \item Identifizierung von Partnern
+ \item Terminvereinbarung
+ \item Amateur-Liga Management
+ \item Protokollierung eines Spiels
+\end{itemize}
+
+
+\subsection{Rahmenbedingungen}
+\subsubsection{Allgemein}
+Die Applikation hat keine konkreten Rahmenbedingungen. Sie ist eine Standalone Applikation und hat keine externen Abhängigkeiten. 
+\subsubsection{Technologie}
+Es gibt keine Einschränkungen, welche Technologie benutzt werden sollte, solange die Anforderungen erfüllt werden.
+\subsubsection{Erweiterbarkeit}
+Die Applikation soll möglicht einfach erweiterbar sein. Zusätzliche Sicherheit, neue Funktionalitäten sowie skalierbarkeit in Performance sowie Stabilität sollten mit der eingesetzten Technologie möglich sein. 
+\subsubsection{Sicherheit}
+Technologien sollten Stanard Sicherheitsanforderungen im Web umsetzen können. Privacy und Integrity Anforderungen sind in diesem Proof of Concept noch nicht geplant.
+\subsubsection{Stabilität und Performance}
+Für den Proof of Concept sind keine Stabilitäts- und Performance Anforderungen nötig. 
+\newpage
+\subsection{Schnittstellen}
+Folgende Tabelle zeigt interne sowie externe Schnittstellen auf:
+\begin{center}
+	\tabulinesep = 1mm
+	\begin{longtabu} to \linewidth [m]{|[2pt]p{1cm}|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}
+		
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}ID}}  &  
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Name	}}&
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung	}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}I1}} &
+		\cellcolor{testblau}  API $\longrightarrow$ Client &
+		\cellcolor{testblau}Der Client greift auf die API zu um die aktuellen Daten dem Benutzers anzuzeigen. API sollte HTTP REST benutzen.
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}I2}} &
+		\cellcolor{testblau}  Client $\longrightarrow$ Browser &
+		\cellcolor{testblau}Der Client läuft innerhalb eines Browsers. Der Browser führt die Applikation - bestehend aus HTML, CSS und Javascript - aus. 
+		\tabularnewline
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}I3}} &
+		\cellcolor{testblau}  Browser $\longrightarrow$ Android &
+		\cellcolor{testblau}Der Browser läuft innerhalb der Android Applikation. Die Android Applikation Emuliert den Browser und zeigt die Applikation als App dem Benutzer an.
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\tabucline[2pt]{-}
+	\end{longtabu}\end{center}
+
+\FloatBarrier
+
+
+\subsection{Anwendungsfälle}
+
+
+\subsubsection{UC0 - Login in das System}
 
 \begin{center}
 	
@@ -153,7 +217,7 @@ Neue Clubs ohne Infrastruktur könnten diese Applikation für ihre Administration 
 							
 							\end{center}
 
-\subsection{UC1 - Identifizierung von Partnern}
+\subsubsection{UC1 - Identifizierung von Partnern}
 \begin{center}
 	
 	
@@ -214,7 +278,7 @@ Neue Clubs ohne Infrastruktur könnten diese Applikation für ihre Administration 
 \end{center}
 \FloatBarrier
 \newpage
-\subsection{UC2 - Terminvereinbarung}
+\subsubsection{UC2 - Terminvereinbarung}
 
 \begin{center}
 	
@@ -284,7 +348,7 @@ Neue Clubs ohne Infrastruktur könnten diese Applikation für ihre Administration 
 
 \newpage
 
-\subsection{UC 3 - Spiel Protokollieren}
+\subsubsection{UC 3 - Spiel Protokollieren}
 
 \begin{center}
 	
@@ -355,7 +419,7 @@ Neue Clubs ohne Infrastruktur könnten diese Applikation für ihre Administration 
 
 \FloatBarrier
 \newpage
-\subsection{UC4 - Liga Management}
+
 \subsubsection{UC 4.1 - Liga erstellen}
 \begin{center}
 	
@@ -517,11 +581,16 @@ Neue Clubs ohne Infrastruktur könnten diese Applikation für ihre Administration 
 
 
 
-\section{Anforderungsanalyse}
-Die Anforderung in diesem Abschnitt werden direkt in User Stories übertragen in das Tool Yodiz: \url{https://app.yodiz.com/plan/pages/task-board.vz?cid=14274&pid=1&iid=1}
-\subsection{Nicht Funtionale Anforderungen}
+\subsection{Anforderungen}
+Notwendigkeit und Kritikalität
 
-\subsection{Funtionale Anforderungen}
+\subsubsection{Funktionale Anforderungen}
+
+
+
+\subsubsection{Nicht funtionale Anforderungen}
+Die Anforderung in diesem Abschnitt werden direkt in User Stories übertragen in das Tool Yodiz: \url{https://app.yodiz.com/plan/pages/task-board.vz?cid=14274&pid=1&iid=1}
+
 \subsubsection{REQ1.1.x - Zuteilung zu Regionen}
 Der User muss zu einer Region zugeordnet werden können. Regionen sind im Racketsport Zentren, die der Spieler vorzugsweise benutzt. Geographische nähen sind in diesem Use Case viel weniger präzise, da je nach Verkehrsanbindung oder Lebensumstände nicht Racketsport Zentren in der unmittelbaren Geografischen nähe referenziert werden. 
 \\

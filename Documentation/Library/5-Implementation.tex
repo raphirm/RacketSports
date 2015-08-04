@@ -12,6 +12,8 @@ Die REST API besteht aus fünf Endpunkten:
 \end{itemize}
 Die Endpunkte /users und /core waren im MEANJS Stack schon vorhanden. Der User Endpunkt wurde jedoch modifiziert. Die Modifizierungen sind in dem Kapitel dokumentiert, die schon vorhandenen Endpunkte nicht. 
 
+\subsection{Routing}
+
 
 
 
@@ -32,6 +34,8 @@ Um eine gute Übersicht aller Spiele auf der List Matches View zu erstelllen, gib
 
 Der API Endpunkt /matches/broadcast listet zusätzlich alle broadcasting Anfragen auf. Der Conntroller des Enpunkt Korreliert, in welchen Racketsportzentren der User registriert ist und die Matches ohne zweiten Spieler und gibt das Resultat dem Client.
 
+\subsubsection{Codebeispiel - Filtering}
+
 \subsection{Liga Endpunkt /leagues}
 
 \begin{figure}[ht]
@@ -44,6 +48,10 @@ Der API Endpunkt /matches/broadcast listet zusätzlich alle broadcasting Anfragen
 Bei der Liga gibt es - wie bei allen Endpunkten - CRUD Endpunkte (/leagues für list all, /leagues/:id für Show Element, POST /leagues für Create League, PUT /leagues/:id für Update League). Zusätzlich gbit es eine Join Action, welche den authentisierten User einer Liga hinzufügt sowie ein Leave Endpunkt um die Registriertung zu löschen.
 
 Ein zusätzlicher Endpunkt ist /leagues/invite, welcher ermöglicht einen User zu einer Liga einzuladen.
+
+\subsubsection{Codebeispiel - Join/Leave Funktionen}
+
+
 	\newpage
 \subsection{Racketsportzentrum Endpunkt /courts}
 \begin{figure}[ht]
@@ -64,11 +72,20 @@ Neben den üblichen Benutzerverwaltungs Endpunkten (/user/signin, /user/signout, 
 	\item DELETE /users/request - Löschen eines Freund Requests
 \end{itemize}
 
+\subsubsection{Codebeispiel - OAuth Integration}
+
 \section{Web Applikation}
+\subsection{BootStrap/AngularJS}
+
+\subsection{Google Maps Integration}
+
+
 
 
 \section{Android Applikation}
 Als Grundlage für die Android Applikation wurde eine Applikation von gonative.io generiert. Im Laufe des Projektes - nach erheblicher Überschreitung des vorgeschriebenen Aufwandes - wurde entschieden keine vollständig Native Webapplikation zu erstellen. Stattdessen wird eine WebView erstellt, welche die Mobile Webseite darstellt. Um alle Funktionalität zu behalten, wird über die WebView und Interception Algorithmen Push-Nachriten ermöglicht. Der einzige Setback ist, das die Website offline nicht verfügbar ist.
+
+\subsubsection{Codebeispiel - Push Interception}
 
 
 
@@ -107,6 +124,7 @@ Identisch zu der Court Registrierung funktioniert die Liga Registrierung
 	\caption{Liga Workflow}
 	\label{LegueWorkflow}
 \end{figure}
+
 	\newpage
 	\subsection{Automatische Herausforderung Liga}
 	
@@ -122,6 +140,10 @@ Identisch zu der Court Registrierung funktioniert die Liga Registrierung
 		\caption{Schedule Workflow}
 		\label{ScheduleWorkflow}
 	\end{figure}
+	\subsubsection{Codebeispiel - Scheduling}
+	
+	\subsubsection{Random Herausforderungen / Rang Herausforderungen}
+	
 \begin{landscape}
 
 \section{Match}

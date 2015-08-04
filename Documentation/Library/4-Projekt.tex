@@ -110,10 +110,11 @@ Folgende Vor- / Nachteile bring das MEAN Stack Setup mit:
 	\item - Wenig Markt erprobt
 \end{itemize}
 
-\subsection{Entscheidung}
+\subsection{Evaluation}
 Da das Ergebnis dieser Arbeit ein Proof of Concept darstellt, und die Applikation nicht ausgereift sein wird zum Zeitpunkt der Abgabe, sowie eine produktiver Nutzen nicht das Ziel dieser Aufgabenstellung ist, will der Autor mit möglichst innovativen, flexiblen und einfachen Technologien arbeiten. Der MEAN Stack scheint dadurch der optimale Kandidat für dieses Projekt.
 
 \section{Architektur}
+\subsection{Kontext}
 Die Applikation ist aufgeteilt auf einen Server, sowie auf einen Client, welcher ein Browser oder eine Android App ist. Auf dem Server sind alle Daten hinterlegt:
 \begin{itemize}
 	\itemsep -0.5em
@@ -132,8 +133,12 @@ Die Logik von Server wie auch Client benutzt das M(V)C Pattern. Objecte werden i
 	\label{DetAppArch}
 \end{figure}
 
+\subsubsection{Continues Integration}
 
-\section{DB Design}
+
+
+\subsection{Businessschicht}
+\subsubsection{DB Design}
 In der Applikation gibt es kein Relationales Datenbankmodel. MongoDB arbeiet mit Dokumenten, sowie Referenzen. Dokumente sind JSON-Objekte in JavasScript, welche in MongoDB als Dokument gespeichert werden. Ein Objekt ist eine Representation von Business Objekten in der Applikation.
 
 Das User-Objekt repräsentiert der User der Applikation. Der User hat einen Namen, einen Usernamen, ein Passwort (encrypted und salted), Berechtigungen und Freunde. Zusätzlich werden Ihm andere Objekte zugeordnet sowie andere User (Repräsentation als Freund).
@@ -153,7 +158,7 @@ Folgende Grafik zeigt die Beziehung der Verschiedenen Schemas auf, das Datenbank
 \end{figure}
 
 \newpage
-\section{GUI}
+\subsection{Präsentationsschicht} 
 Als GUI wird ein standard Bootstrap Design verwendet. Ohne Authentisierung kann nur die Home-Page gesehen werden sowie die Login und Signup Page. Für alle anderen Seiten muss der Benutzer authentisiert sein. Sobald die Authentisierung durchgeführt wurde, gibt es können die Elemente (Nach Datenbank) Benutzer, Liga, Racketsportzentrum sowie Spiele selektiert werden. Innerhalb der einzelnen Menu kann man verschiedene Operationen direkt ansteuern, einige nur über andere Operationen. Folgendes Diagram zeigt die Interaktion durch die verschiedenen Views.
 \begin{figure}[ht]
 	\centering
@@ -162,15 +167,17 @@ Als GUI wird ein standard Bootstrap Design verwendet. Ohne Authentisierung kann 
 	\label{GUIInteraction}
 \end{figure}
 
-\subsection{User Section}
+\subsubsection{User Section}
 Die User Section einhaltet drei Views die direkt aus dem Menu erreichbar sind. Die erste View User Profile ermöglicht dem User, Details über sich preiszugeben. Er kann zusätzlich das Passwort ändern. Inder Friends view kann er neue Friendrequests erstellen, und pendente Friendrequests annehmen oder ablehnen. Die Social Account View bietet eine Verknüpfung von Social Accounts mit der Applikation an.
 
-\subsection{Court Section}
+\subsubsection{Court Section}
 Die Court Section beinhaltet vier Views sowie eine Aktion. In der new Court View kann ein neues Racketsportzentrum registriert werden. In der List Courts view findet man alle  Racketsportzentren und erreicht bei klick auf ein Zentrum die View Court Details View. In dieser View kann man alle Details des Racketsportzentrum anschauen, sowie alle Spieler, welche in diesem Racketsportzentrum spielen. Durch klick auf den Spieler kann in die New Match View gewechselt werden, um einen Spieler herauszufordern. Von der Detail View kann man zusätzlich das Court löschen, sofern man das Court erstellt hat oder ein Admin ist.
 
-\subsection{League Section}
+\subsubsection{League Section}
 Die League Section beinhaltet vier Views sowie eine Aktion. In der New League View kann ein neues Liga registriert werden. In der List League View findet man alle  Ligen und erreicht bei klick auf eine Liga die View League Details View. In dieser View kann man alle Details die Liga anschauen, sowie alle Spieler, welche in dieser Liga spielen. Durch klick auf den Spieler kann in die New Match View gewechselt werden, um einen Spieler herauszufordern. Von der Detail View kann man zusätzlich die Liga löschen, sofern man die Liga erstellt hat oder ein Admin ist.
 
-\subsection{Match Section}
+\subsubsection{Match Section}
 Die Match Section beinhaltet alle Interaktionen im Match. Drei Views sind direkt aus dem Menu erreichbar. Auf der New Match View kann man ein neues Spiel erstellen. Man kann Court, Spieler in einem Formular auswählen. Über den Menupunkt New Broadcast Match View, wählt man ein Court sowie eine Zeit und alle Spieler, welche in diesem Court spielen werden angefragt für eine spontanes Spiel. In der List Match View werden alle Spiele aufgelistet. Von da kommt man in die View Match Details View, welche den Matchworkflow abdeckt.
+
+\subsection{Sicherheitssicht}
 

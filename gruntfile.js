@@ -140,7 +140,7 @@ module.exports = function(grunt) {
 		},
 		karma: {
 			unit: {
-				configFile: 'karma.co	nf.js'
+				configFile: 'karma.conf.js'
 			}
 		}
 	});

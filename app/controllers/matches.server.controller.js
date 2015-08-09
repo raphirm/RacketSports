@@ -168,7 +168,9 @@ exports.update = function(req, res) {
 			}
 		});
 	}
-
+	if(!match.court){
+		match.court = new Court();
+	}
 	match.save(function(err) {
 		if (err) {
 			return res.status(400).send({

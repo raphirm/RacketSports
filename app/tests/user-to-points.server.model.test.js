@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 var should = require('should'),
+	app = require('../../server'),
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
 	UserToPoints = mongoose.model('UserToPoints');
@@ -26,12 +27,15 @@ describe('User to points Model Unit Tests:', function() {
 			username: 'username',
 			password: 'password'
 		});
+		userToPoints = new UserToPoints({
+			user: user,
+			points: 0,
+			winds: 0,
+			draws: 0,
+			loss: 0
+		});
+		user.save(function() {
 
-		user.save(function() { 
-			userToPoints = new UserToPoints({
-				// Add model fields
-				// ...
-			});
 
 			done();
 		});

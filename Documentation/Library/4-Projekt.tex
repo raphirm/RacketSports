@@ -66,32 +66,127 @@ MVCs für den Server gibt es verschiedene:
 MVC für den Server sind ausschliesslich in Javascript geschrieben:
 \begin{itemize}
 	\item AngularJS
-	\item ???
+	\item Backbone.js
+	\item Ember.js
 	\end{itemize}
 
 \subsubsection{Stacks}
 Eine Konfiguration des Client- sowie Server MVCs, damit beide gut miteinander Funktionieren ist zusätzlich wichtig. In der Evaluation wird somit folgende Konfigurationen abgewogen:
 \begin{itemize}
-	\item Spring Framework mit AngularJS
-	\item Express Framework mit AngularJS
+	\item Spring Framework 
+	\item Express Framework 
 \end{itemize}
 
-\subsection{Spring + AngularJS}
-Spring ist ein MVC Framework in Java. Man Programmiert in der J2EE Umgebung und bietet eine API zum Client. Gleichzeitig sendet man den AngularJS Stack zum Client, welcher anschliessend die API konsumiert. Als Persistance Layer können Relationale Datenbanken wie MySQL, Oracle oder Sybase verwendet werden. Über Data Access Object wird dieser Layer angesprochen und in Models Emuliert. 
+\subsubsection{Anforderungen an Stacks}
+Die Anforderungen an einen Frameworkstack gehen aus den nicht funktionalen Anforderungen heraus. Einige Anforderungen, welche sich auf die User Experience beziehen (Benutzbarkeit) sind für die Anforderungen an den Stack nicht relevant. 
+\begin{center}
+	\tabulinesep = 1mm
+	\begin{longtabu} to \linewidth [m]{X[1, m , l]|[2pt]p{2.95cm}|[2pt]p{2.5cm}|[2pt]}
+		\arrayrulecolor{white}
+		
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Anforderung}}  &  
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Notwendigkeit}}&
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Kritikalität}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\multicolumn{3}{l}{\cellcolor{bluegray}  Qualitätsmerkmal:  Funktionalität }
+		\tabularnewline
+		\cellcolor{testblau}  NREQ0.01 - Sicherheit &
+		\cellcolor{testblau}  Conditional &
+		\cellcolor{testblau}High
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\multicolumn{3}{l}{\cellcolor{bluegray}  Qualitätsmerkmal:  Zuverlässigkeit  }
+		\tabularnewline
+		\cellcolor{testblau}  NREQ1.01 - Fehlertoleranz  &
+		\cellcolor{testblau}Conditional &
+		\cellcolor{testblau}High
+		\tabularnewline		
+		\cellcolor{testblau}  NREQ1.02 - Wiederherstellbarkeit  &
+		\cellcolor{testblau}Essential &
+		\cellcolor{testblau}High
+		\tabularnewline	
+		\tabucline[2pt]{-}
+		\multicolumn{3}{l}{\cellcolor{bluegray}  Qualitätsmerkmal:  Effizienz  }
+		\tabularnewline
+		\cellcolor{testblau}  NREQ3.01 - Effizient in Programmierung  &
+		\cellcolor{testblau} Essential &
+		\cellcolor{testblau} High
+		\tabularnewline		
+		\cellcolor{testblau}  NREQ3.02 - Effizient in Installation  &
+		\cellcolor{testblau} Essential &
+		\cellcolor{testblau}High
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\multicolumn{3}{l}{\cellcolor{bluegray}  Qualitätsmerkmal:  Wartbarkeit  }
+		\tabularnewline
+		\cellcolor{testblau}  NREQ4.01 - Einfach erweiterbar/änderbar &
+		\cellcolor{testblau} Essential &
+		\cellcolor{testblau} High
+		\tabularnewline		
+		\cellcolor{testblau}  NREQ4.02 - Stabilität  &
+		\cellcolor{testblau} Optional &
+		\cellcolor{testblau} High
+		\tabularnewline
+		\cellcolor{testblau}  NREQ4.03 - Testbarkeit  &
+		\cellcolor{testblau} Essential &
+		\cellcolor{testblau} High
+		\tabularnewline
+		\cellcolor{testblau}  NREQ4.04 - Analysierbarkeit    &
+		\cellcolor{testblau} Optional &
+		\cellcolor{testblau} High
+		\tabularnewline		
+		
+		
+	\end{longtabu}\end{center}
 
-Folgende Vor- / Nachteile bring das Spring-Angular Setup mit:
-\begin{itemize}
-		 \itemsep-0.5em
-	\item + reife Technologien, Markt erprobt
-	\item + viel Know-How auf dem Markt in Java/Spring
-	\item + Anbindung an Zahlreiche Persistance Layer Applikationen
-	\item - Viele Daten-Transformationen (Relationale DB <-> Java Objekt <-> JSON Object)
-	\item - Kompliziertes Setup
-\end{itemize}
+\subsubsection{Spring}
+Spring ist ein MVC Framework in Java. Man programmiert in der J2EE Umgebung und bietet eine API zum Client. Gleichzeitig sendet man den AngularJS Stack zum Client, welcher anschliessend die API konsumiert. Als Persistance Layer können Relationale Datenbanken wie MySQL, Oracle oder Sybase verwendet werden. Über Data Access Object wird dieser Layer angesprochen und in Models Emuliert. 
+
+\paragraph{Installation und Konfiguration}
+Die Installation und Konfiguration von Spring mit Ember.js ist komplex. Die Installation funktioniert über Maven, einzelne Komponenten nach der Installation müssen aufeinander konfiguriert werden. Security sowie ORM für den Persistance Layer sind nicht im Spring Package enthalten und müssen zusätzlich hinzugefügt und auf Spring konfiguriert werden. Es gibt Templates, welche dies etwas einfacher gestalten, jedoch in meinen Recherchen habe ich kein Funktionierendes Modell gefunden
+
+\paragraph{Portabilität} Durch Maven ist eine Spring installation einfach auf einer anderen Maschiene installierbar. Einmal eingerichtet ist es einfach möglich den Code auszutauschen und die Applikation laufen zu lassen.
+
+\paragraph{Funktonalität} Out of the Box bringt Spring keine Funktionalität ausser den MVC Workflow. Es gibt kein Basis User Management, kein Front End MVC, keine CSS Frameworks oder sonstiges. Ember.js muss zusätzlich selber installiert und integriert werden.
+\textcolor{red}{QUELLEN!!???}
+\paragraph{Stabilität} Spring gilt das eines der meist eingesetzten Frameworks auf dem Markt. Es ist bekannt für seine Stabilität und Enterprise Readiness.  
+
+\paragraph{Skalierbarkeit} Spring ist skalierbar innerhalb des Application Servers. Es gibt jedoch limitationen im Clustering.  
+
+\paragraph{Erweiterbarkeit} Die Programmiersprache von Spring ist Java oder Scala. Diese Programmiersprachen bieten eine breite Palette an Funktionen und Objekten, welche benutzt werden könnnen. Spring ist somit sehr gut erweiterbar.
+
+\paragraph{Stacks} Ein Stack für Spring, der alle Plug-Ins und Client MVCs mitbringt heisst JHipster \cite{jhipster}. Dieser Stack bringt eine Userverwaltung, Integration von Persistance Layer, Client MVC (AngularJS) und vieles weiter. Die Installation ist komplex und schwer verständlich. 
+
+\paragraph{Objekte / API} Ein integraler Bestandteil der Applikation soll eine API mit JSON sein. Bei Spring muss man Javaobjekte zu JSON objekte serialisieren und umgekehrt. Folgender Workflow existiert für Objekte von Persistance Layer bis zum Ausgang der API:
+\begin{enumerate}
+	\itemsep -0.4em
+	\item Relationale Datenbankfelder
+	\item Konvertierung zu einem Objekt über ein ORM(Object-relational Mapping) Interface
+	\item Konvertierung von Objekt zu einem JSON-Objekt
+	\item JSON Objekt wird versendet
+\end{enumerate}
+
+Diese Konversionen müssen oft manuell erstellt werden und sind negativ um effizient zu programmieren.
 
 \newpage
-\subsection{MEAN Stack}
-Der MEAM Stack besteht aus folgender Produkten:
+\subsubsection{NodeJS / ExpressJS}
+
+\paragraph{Installation und Konfiguration} ExpressJS wird über npm installiert. Die Installation ist sehr simpel. Zusätzlich existieren für NodeJS und ExpressJS eine grosse Anzahl Stacks, welche sehr einfach zu installieren sind. Der Persistance Layer benutzt Mongodb, d.h. Objekte werden nativ im JSON Format in der Datenbank gespeichert. Konfigurationen über die Stacks sind sehr intuitiv.
+
+\paragraph{Portabilität} NPM lässt sich wie Maven so konfigurieren, das eine automatische Installation ausgeführt wird der benötigten Plug-ins. Die Portabilität ist somit wie bei Spring sehr gut.
+
+\paragraph{Funktionalität} NodeJS bzw. ExpressJS besitzten out of the box keine Funktionalität. Diverse Stacks unterstüzten jedoch Userverwaltung, Plugin-Handling, Client sowie Server MVCs.
+
+\paragraph{Stabilität} NodeJS ist nicht so viel benutzt wie Spring. Die Stabilität ist somit nicht endgültig bewiesen. einige grosse Firmen setzten jedoch schon NodeJS ein und es ist bis jetzt noch nichts bekannt über Probleme mit der Stabilität.
+
+\paragraph{Skalierbarkeit} NodeJS ist sehr gut skalierbar. Über Loadbalancer kann man HTTP Anfragen an mehrere NodeJS prozesse verteilen. Da der ganze Kontext im Persistance Layer existiert  - und MongoDB im Cluster läuft - ist NodeJS super skalierbar.
+
+\paragraph{Erweiterbarkeit} JavaScript ist sehr populär und es existieren Zahlreiche Bibliotheken. Stacks sind in Module aufgebaut und die Erweiterbarkeit und Wartbarkeit von Code ist sehr effizient. 
+
+\paragraph{Stacks}
+In NodeJS ist der MEAN Stack weit verbreitet. Der MEAM Stack besteht aus folgenden Produkten:
 \begin{itemize}
 		 \itemsep-0.5em
 	\item M - MongoDB, der Skalierbare Persistance Layer
@@ -100,20 +195,78 @@ Der MEAM Stack besteht aus folgender Produkten:
 	\item N - NodeJS, JavaScript Applikationsserver, welcher sehr gut skalierbar ist.
 \end{itemize}
 
-Folgende Vor- / Nachteile bring das MEAN Stack Setup mit:
-\begin{itemize}
-		 \itemsep-0.5em
-	\item + Kleine Daten Transformationen (JSON Object wird in MongoDB gespeichert)
-	 \item + Gleiche Programmiersprachen (JavaScript, HTML, CSS)
-	\item + Einfaches Setup, grosse Flexibilitäten
-	\item + Innovative Technologien
-	\item - Wenig Markt erprobt
-\end{itemize}
+\paragraph{Objekte / API} Ein integraler Bestandteil der Applikation soll eine API mit JSON sein. Bei einem Mean Stack gibt es keine Konversionen. Von der Datenbank bis zum Output der API existiert immer genau das gleiche Objekt.
 
-\subsection{Evaluation}
-Da das Ergebnis dieser Arbeit ein Proof of Concept darstellt, und die Applikation nicht ausgereift sein wird zum Zeitpunkt der Abgabe, sowie eine produktiver Nutzen nicht das Ziel dieser Aufgabenstellung ist, will der Autor mit möglichst innovativen, flexiblen und einfachen Technologien arbeiten. Der MEAN Stack scheint dadurch der optimale Kandidat für dieses Projekt.
+\subsubsection{Evaluation}
+Für die Stacks MEAN sowie JHipster wird nun eine Evaluation durchgeführt. Es soll herausgefunden werden, welcher Stack besser geeignet ist für eine effiziente Programmierung.
 
-\section{Architektur}
+Die nicht funktionalen Anforderungen werden somit mit einer Bewertung von 1-10 für jedes Framework versehen. Die Bewertung entsteht auf Basis der Erfahrung des Autors dieser Arbeit aufgrund von Recherchen. Argumente sind in dem Kapitel der einzelnen Frameworks aufgelistet.
+\begin{center}
+	\tabulinesep = 1mm
+	\begin{longtabu} to \linewidth [m]{X[1, m , l]|[2pt]p{2.95cm}|[2pt]p{2.95cm}|[2pt]}
+		\arrayrulecolor{white}
+		
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Anforderung}}  &  
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}MEAN}}&
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}JHipster}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\multicolumn{3}{l}{\cellcolor{bluegray}  Qualitätsmerkmal:  Funktionalität }
+		\tabularnewline
+		\cellcolor{testblau}  NREQ0.01 - Sicherheit &
+		\cellcolor{testblau}  9 &
+		\cellcolor{testblau}10
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\multicolumn{3}{l}{\cellcolor{bluegray}  Qualitätsmerkmal:  Zuverlässigkeit  }
+		\tabularnewline
+		\cellcolor{testblau}  NREQ1.01 - Fehlertoleranz  &
+		\cellcolor{testblau}10 &
+		\cellcolor{testblau}9
+		\tabularnewline		
+		\cellcolor{testblau}  NREQ1.02 - Wiederherstellbarkeit  &
+		\cellcolor{testblau}10 &
+		\cellcolor{testblau}9
+		\tabularnewline	
+		\tabucline[2pt]{-}
+		\multicolumn{3}{l}{\cellcolor{bluegray}  Qualitätsmerkmal:  Effizienz  }
+		\tabularnewline
+		\cellcolor{testblau}  NREQ3.01 - Effizient in Programmierung  &
+		\cellcolor{testblau} 10 &
+		\cellcolor{testblau} 6
+		\tabularnewline		
+		\cellcolor{testblau}  NREQ3.02 - Effizient in Installation  &
+		\cellcolor{testblau} 10 &
+		\cellcolor{testblau}7
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\multicolumn{3}{l}{\cellcolor{bluegray}  Qualitätsmerkmal:  Wartbarkeit  }
+		\tabularnewline
+		\cellcolor{testblau}  NREQ4.01 - Einfach erweiterbar/änderbar &
+		\cellcolor{testblau} 10 &
+		\cellcolor{testblau} 7
+		\tabularnewline		
+		\cellcolor{testblau}  NREQ4.02 - Stabilität  &
+		\cellcolor{testblau} 8&
+		\cellcolor{testblau} 10
+		\tabularnewline
+		\cellcolor{testblau}  NREQ4.03 - Testbarkeit  &
+		\cellcolor{testblau} 10 &
+		\cellcolor{testblau}10 
+		\tabularnewline
+		\cellcolor{testblau}  NREQ4.04 - Analysierbarkeit    &
+		\cellcolor{testblau} 9 &
+		\cellcolor{testblau} 9
+		\tabularnewline		
+		\tabucline[2pt]{-}
+		\cellcolor{bluegray}  Total &
+		\cellcolor{bluegray} 86 &
+		\cellcolor{bluegray} 77
+	\end{longtabu}\end{center}
+	
+Die Applikation wird somit mit dem MEAN Stack entwickelt. 
+
 \subsection{Kontext}
 Die Applikation ist aufgeteilt auf einen Server, sowie auf einen Client, welcher ein Browser oder eine Android App ist. Auf dem Server sind alle Daten hinterlegt:
 \begin{itemize}
@@ -134,6 +287,12 @@ Die Logik von Server wie auch Client benutzt das M(V)C Pattern. Objecte werden i
 \end{figure}
 
 \subsubsection{Continues Integration}
+Die Applikation wird auf dem Server des Autors gehostet. 
+
+Um Updates der Applikation direkt zu installieren besitzt der Server eine Applikation für Continues Integration namens Jenkins. Jenkins führt ein Deployment der Applikation automatisch aus bei Anforderung eines solchen Deployments. In Jenkins werden diese Deployments Jobs genannt. 
+
+Dieser Jenkins Job wird bei jedem Push nach Github ausgeführt. Das heisst bei jedem Update der Applikation wird die neuste Version direkt auf dem Server unter der Adresse https://racket.marques.pw aktualisiert. 
+
 
 
 
@@ -179,5 +338,12 @@ Die League Section beinhaltet vier Views sowie eine Aktion. In der New League Vi
 \subsubsection{Match Section}
 Die Match Section beinhaltet alle Interaktionen im Match. Drei Views sind direkt aus dem Menu erreichbar. Auf der New Match View kann man ein neues Spiel erstellen. Man kann Court, Spieler in einem Formular auswählen. Über den Menupunkt New Broadcast Match View, wählt man ein Court sowie eine Zeit und alle Spieler, welche in diesem Court spielen werden angefragt für eine spontanes Spiel. In der List Match View werden alle Spiele aufgelistet. Von da kommt man in die View Match Details View, welche den Matchworkflow abdeckt.
 
-\subsection{Sicherheitssicht}
+\subsubsection{GUI Design}
+Als Design wurde Bootstrap benutzt. Das Design besteht aus einem Header sowie einem Hauptfenster. 
 
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.9\textwidth]{Graphics/website.png}
+	\caption{GUI Design}
+	\label{GUIInteraction}
+\end{figure}

@@ -45,14 +45,40 @@
 			$location = _$location_;
 
 			// Initialize the Match broadcast controller controller.
-			MatchBroadcastControllerController = $controller('MatchBroadcastControllerController', {
+			MatchBroadcastControllerController = $controller('MatchBroadcastController', {
 				$scope: scope
 			});
 		}));
 
-		it('Should do some controller test', inject(function() {
-			// The test logic
-			// ...
+		it('$scope.create() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Matches) {
+			// Create a sample Match object
+			var sampleMatchPostData = new Matches({
+			"spieler":[{}],"court":"Vitis","sport":"Squash","state":"new"
+			});
+
+			// Create a sample Match response
+			var sampleMatchResponse = new Matches({
+				_id: '525cf20451979dea2c000001',
+			});
+
+			// Fixture mock form input values
+			scope.match = new Matches()
+
+			scope.match.court =  "Vitis";
+			scope.match.sport = "Squash";
+
+			// Set POST response
+			$httpBackend.expectGET('/users/me').respond();
+			$httpBackend.expectGET('/courts').respond();
+			$httpBackend.expectPOST('matches', sampleMatchPostData).respond(sampleMatchResponse);
+
+			// Run controller functionality
+			scope.create();
+			$httpBackend.flush();
+
+			// Test form inputs are reset
+			expect(scope.name).toEqual('');
+
 		}));
 	});
 }());

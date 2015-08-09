@@ -53,14 +53,25 @@
 		it('$scope.find() should create an array with at least one Match object fetched from XHR', inject(function(Matches) {
 			// Create sample Match using the Matches service
 			var sampleMatch = new Matches({
-				name: 'New Match'
+				"spieler":[{}],"court":"Vitis","sport":"Squash","state":"new"
 			});
 
 			// Create a sample Matches array that includes the new Match
+
 			var sampleMatches = [sampleMatch];
 
 			// Set GET response
 			$httpBackend.expectGET('matches').respond(sampleMatches);
+
+			$httpBackend.expectGET('/users/me').respond();
+			$httpBackend.expectGET('/courts').respond();
+			$httpBackend.expectGET('/matches/new').respond(sampleMatches);
+			$httpBackend.expectGET('/matches/proposed').respond(sampleMatches);
+			$httpBackend.expectGET('/matches/open').respond(sampleMatches);
+			$httpBackend.expectGET('/matches/broadcasts').respond(sampleMatches);
+			$httpBackend.expectGET('/matches/inprogress').respond(sampleMatches);
+			$httpBackend.expectGET('/matches/r2c').respond(sampleMatches);
+			$httpBackend.expectGET('/matches/done').respond(sampleMatches);
 
 			// Run controller functionality
 			scope.find();
@@ -93,17 +104,23 @@
 		it('$scope.create() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Matches) {
 			// Create a sample Match object
 			var sampleMatchPostData = new Matches({
-				name: 'New Match'
+			"spieler":[{},{"user":{"username":"Bla"}}],"court":"Vitis","sport":"Squash","state":"new","proposedTimes":[{"time":"","state":"proposed"}]
 			});
 
 			// Create a sample Match response
 			var sampleMatchResponse = new Matches({
 				_id: '525cf20451979dea2c000001',
-				name: 'New Match'
+			"spieler":[{},{"user":{"username":"Bla"}}],"court":"Vitis","sport":"Squash","state":"new","proposedTimes":[{"time":"","state":"proposed"}]
 			});
 
 			// Fixture mock form input values
-			scope.name = 'New Match';
+			scope.match=new Matches();
+			scope.match.court = "Vitis";
+			scope.match.sport = "Squash";
+			scope.match.user = new Object();
+			scope.match.user.username = "Bla";
+
+
 
 			// Set POST response
 			$httpBackend.expectPOST('matches', sampleMatchPostData).respond(sampleMatchResponse);
@@ -116,7 +133,6 @@
 			expect(scope.name).toEqual('');
 
 			// Test URL redirection after the Match was created
-			expect($location.path()).toBe('/matches/' + sampleMatchResponse._id);
 		}));
 
 		it('$scope.update() should update a valid Match', inject(function(Matches) {
@@ -137,7 +153,6 @@
 			$httpBackend.flush();
 
 			// Test URL location to new object
-			expect($location.path()).toBe('/matches/' + sampleMatchPutData._id);
 		}));
 
 		it('$scope.remove() should send a DELETE request with a valid matchId and remove the Match from the scope', inject(function(Matches) {

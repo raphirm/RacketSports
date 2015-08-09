@@ -1,5 +1,47 @@
 % !TeX spellcheck = de_CH
 \chapter{Implementation}
+
+\section{Projektaufbau}
+Um den Projektaufbau zu erklären wird zuerst die Ordnerstruktur angeschaut:
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.3\textwidth]{Graphics/projectsetup.png}
+	\caption{Projekt Ordner Struktur}
+	\label{ProjectSetup}
+	\end{figure}
+Wie auf der Graphik ersichtlich besteht das Projekt aus den Überordnern App, Documentation und public. Node\textunderscore modules ist ein System-Ordner und muss hier nicht betrachtet werden.
+\subsection{app}
+Der Ordner App beinhaltet alle Serverseitige Logik für die Applikation. Es beinhaltet die ExpressJS Komponenten welche für das MVC Framework notwendig sind:
+\begin{itemize}
+	\itemsep-0.4em
+	\item Controller - Kontroller im MVC
+	\item Models - Definition der Datenobjekte
+	\item Routers - Routing definition durch das MVC
+	\item Tests - Unittests für Controller und Models
+	\item Views - Verschiedene Basisviews, welche noch nicht zum Client gesendet wurden
+\end{itemize}
+
+\subsection{Documentation}
+Der Ordner Documentation beinhaltet diese Dokumentation sowie alle Präsentationen.
+
+\subsection{public}
+Public beinhaltet alle Files, welche an den Client gesendet werden.
+\begin{itemize}
+	\itemsep-0.4em
+	\item dist - Beinhaltet definitionen, welche Ordner gesendet werden, was für Module wo registriert werden sollen
+	\item lib - binhaltet statische Libraries, welche der Client braucht. Hier befinden sich nodeJS, AngularJS und Bootstrap als libraries.
+	\item modules - Hier ist die Eigentliche Client Logik versteckt. Für jedes Modul gibt es folgende Ordner:
+	\begin{itemize}
+	\itemsep -0.4 em
+		\item config - Konfiguration von Modul und Client Routing. Definiert z.b. was für Items über den Header ansprechbar sind
+		\item controller - AngularJS Controller
+		\item services - Definiert den Link zur API
+		\item tests - Unit Tests für die AngularJS Module
+		\item views - Definiert views für die einzelnen Seiten der Applikation.
+	\end{itemize}
+
+\end{itemize}
+
 \section{REST API}
 Die REST API besteht aus fünf Endpunkten:
 \begin{itemize}
@@ -13,9 +55,38 @@ Die REST API besteht aus fünf Endpunkten:
 Die Endpunkte /users und /core waren im MEANJS Stack schon vorhanden. Der User Endpunkt wurde jedoch modifiziert. Die Modifizierungen sind in dem Kapitel dokumentiert, die schon vorhandenen Endpunkte nicht. 
 
 \subsection{Routing}
+Um die REST API anzusteuern gibt es ein zentrales Routing in der Applikation. Dieses Routing definiert, welche URL welche Funktion aufruft. Jedes Modul hat eine eigene Routing Definition um das die einzelnen Files übersichtlich zu halten. 
 
+Folgendes Codebeispiel zeigt das Routing des Courts Moduls. Es definiert URLs und HTTP Methoden wie die URL aufgerufen wird. Je nach Methode werden anschliessend verschiedene Parameter definiert, zum Beispiel wie der Endpunkt geschützt ist (requires Login, hat Autorisierung) und anschliessend welche Funktion aufgerufen wird (courts.update)
 
+\begin{lstlisting}
+module.exports = function(app) {
+var users = require('../../app/controllers/
+		users.server.controller');
+var courts = require('../../app/controllers/
+		courts.server.controller');
 
+// Courts Routes
+app.route('/courts')
+.get(courts.list)
+.post(users.requiresLogin, courts.create);
+
+app.route('/courts/:courtId')
+.get(courts.read)
+.put(users.requiresLogin, courts.hasAuthorization, courts.update)
+.delete(users.requiresLogin, courts.hasAuthorization,
+ courts.delete);
+app.route('/courts/:courtId/join')
+.get(users.requiresLogin, courts.join);
+app.route('/courts/:courtId/leave')
+.get(users.requiresLogin, courts.leave);
+// Finish by binding the Court middleware
+app.param('courtId', courts.courtByID);
+};
+
+\end{lstlisting}
+
+Am Anfang (Linie 2 und 4) der Routen werden die Controller inkludiert, damit die Funktionen auch gefunden werden.
 
 
 \subsection{Spiel Endpunkt /matches}
@@ -34,9 +105,34 @@ Um eine gute Übersicht aller Spiele auf der List Matches View zu erstelllen, gib
 
 Der API Endpunkt /matches/broadcast listet zusätzlich alle broadcasting Anfragen auf. Der Conntroller des Enpunkt Korreliert, in welchen Racketsportzentren der User registriert ist und die Matches ohne zweiten Spieler und gibt das Resultat dem Client.
 
-\subsubsection{Codebeispiel - Filtering}
+\subsubsection{Codebeispiel - Filtering und Population von Unterobjekten}
+Um bei den Spielen nur die offene Spiele zu finden, wird in der Datenbank auf den Status des Spiels gefiltert. Dies wird über einen Select auf die JSON Eigenschaft gemacht:
+\begin{lstlisting}
+exports.listOpen = function(req, res) {
+	var user = req.user;
+Match.find({'spieler.user': req.user, state: 'open'})
+	.sort('-created').populate('spieler court')
+	.exec(function(err, matches) {
+		User.populate(matches, {path: 'spieler.user'},
+		function (err, user) {
+		if (err) {
+			return res.status(400).send({
+			message: errorHandler.getErrorMessage(err)
+		});
+		} else {
+			res.jsonp(matches);
+		}
+		});
+	});
+};
+\end{lstlisting}
+Auf der Zeile 3 ist der Select für die Datenbank zu finden. Ein Teil des zu suchenden Objektes wird definiert als erster Parameter der Match.find() Methode.
 
-\subsection{Liga Endpunkt /leagues}
+Das Match Objekt beinhaltet Spieler sowie Courts. Diese Felder sind jedoch nur IDs auf andere Objekte (Als Beispiel: ObjectID(AA4335GE0DE9EV88A) ). Um auf Datenfehler der Unterobjekte zugreifen zu können, müssen die Objekte popularisiert werden. Auf der Zeile 4 erkennt man, dass für das Objekt Match die Unterobjekte Spieler sowie Courts popularisiert werden. Nun hat das Objekt Spieler zusätzlich Unterobjekte. Hier muss man eine neue Population des Objektes User ausführen (siehe Zeile 6).
+
+
+
+\subsection{Liga Endpunkt}
 
 \begin{figure}[ht]
 	\centering
@@ -51,6 +147,41 @@ Ein zusätzlicher Endpunkt ist /leagues/invite, welcher ermöglicht einen User zu 
 
 \subsubsection{Codebeispiel - Join/Leave Funktionen}
 
+Die Join/Leave Funktionalität besteht aus zwei API Endpunkten. Wenn man nun die URL /leagues/join aufruft, wird folgender Code ausgeführt:
+
+\begin{lstlisting}
+exports.join = function (req, res) {
+
+    var league = req.league;
+    var user = req.user;
+    var userToPoints = new UserToPoints();
+    userToPoints.user = req.user;
+    userToPoints.save();
+
+    league.users.push(userToPoints);
+    user.leagues.push(league)
+
+    console.log(league);
+    league.save(function (err) {
+        ....
+\end{lstlisting}
+
+Auf der Zeile 3 und 4 werden User und Liga aus dem Request gelesen. Diese Daten werden implizit von AngularJS mitgeliefert. 
+
+Nun wird ein neues Liga-Spieler Objekt, ein Objekt welches den Spieler und seine Ranglistenpunkte beinhaltet erstellt und gespeichert (Zeile 5-7). Dieses Objekt wird nun in die Liste aller Liga-Spieler Objekte hinzugefügt und die Liga wird abgespeichert (Zeile 13).
+
+\begin{lstlisting}
+exports.leave = function (req, res) {
+    var league = req.league;
+    var user = req.user;
+    var i = league.users.indexOf(req.user);
+    league.users.splice(i, 1);
+    var j = user.leagues.indexOf(req.league);
+    user.leagues.splice(j, 1);
+    league.save(function (err) {
+    ....
+\end{lstlisting}
+Will ein User die Liga verlassen, wird sein Objekt aus der Liste von Spielern gelöscht.
 
 	\newpage
 \subsection{Racketsportzentrum Endpunkt /courts}
@@ -73,20 +204,137 @@ Neben den üblichen Benutzerverwaltungs Endpunkten (/user/signin, /user/signout, 
 \end{itemize}
 
 \subsubsection{Codebeispiel - OAuth Integration}
+Der MEAN Stack bietet ein OAuth Integrations Plugin an. Man muss nur noch das Plugin konfigurieren. Dafür wird für jeden Authentication Provider eine Strategie definiert:
+\begin{lstlisting}
+....
+	GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
+....
+module.exports = function() {
+	// Use google strategy
+	passport.use(new GoogleStrategy({
+			clientID: config.google.clientID,
+			clientSecret: config.google.clientSecret,
+			callbackURL: config.google.callbackURL,
+			passReqToCallback: true
+		},
+		function(req, accessToken, refreshToken, profile, done) {
+			// Set the provider data and include tokens
+			var providerData = profile._json;
+			providerData.accessToken = accessToken;
+			providerData.refreshToken = refreshToken;
+
+			// Create the user OAuth profile
+			var providerUserProfile = {
+				firstName: profile.name.givenName,
+				lastName: profile.name.familyName,
+				displayName: profile.displayName,
+				email: profile.emails[0].value,
+				username: profile.username,
+				provider: 'google',
+				providerIdentifierField: 'id',
+				providerData: providerData
+			};
+
+			// Save the user OAuth profile
+			users.saveOAuthUserProfile(req, providerUserProfile, done);
+		}
+	));
+};
+\end{lstlisting}
+
+Die Daten werden bei Registrierung über OAuth in das Userprofil abgelegt. (Siehe Zeile 19-27 ). Zusätzlich ist es nötig bei jedem Provider ein Access Token anzufordern und in die Produktionsumgebung der Applikation einzupflegen.
 
 \section{Web Applikation}
-\subsection{BootStrap/AngularJS}
+
+Die WebApplikation ist wie bereits erwähnt mit Bootstrap und AngularJS programmiert. In AngularJS werden Direktiven erstellt, um einzelne API Endpunkte anzusprechen und diese Realtime in die View zu injecten. Hier ein Beispiel einer Direktive:
+\begin{lstlisting}
+$scope.find = function() {
+			$scope.courts = Courts.query();
+		};
+
+\end{lstlisting}
+
+Wenn die Operation find() in der View aufgerufen wird, erstellt AngularJS eine Query zum Endpunkt /courts und bekommt alle Court Objekte zurück. Diese Courtobjekte werden nun in die globale Variable courts im \textdollar scope abgefüllt. AngularJS updatet nun die View, welche die Variable courts anzeigt:
+\begin{lstlisting}
+<section data-ng-controller="CourtsController" data-ng-init="find()">
+    ....
+        <table id="courtslist" class="table">
+            <tr>
+                <th>Name</th><th>Adresse</th><th>Verfügbare Sportarten</th>
+            </tr>
+
+            <tr data-ng-repeat="court in courts" id="{{court._id}}" ng-click="go(court)"  onMouseover="this.bgColor='#DDDDDD'" onMouseout="this.bgColor='#FFFFFF'">
+                <td data-ng-bind="court.name"></td>
+                <td data-ng-bind="court.address"></td>
+                <td data-ng-bind="court.sports"></td>
+            </tr>
+        </table>
+....
+\end{lstlisting}
+
+Das ganze Webinterface ist auf solchen Direktiven aufgebaut.
 
 \subsection{Google Maps Integration}
+ Eine Adresse wie z.B. \lq Vitis \rq hat das Problem, dass man geographische Nähe suchen kann. Darum ist es wichtig, das die Racketsport zentren ein Geographisch Valides Objekt haben. Um dies zu erreichen wurde die API von Google Maps integriert. Der Benutzer muss nun noch einem Objekt in Google Maps suchen, und dieses Selektieren um eine Valide Addresse zu bekommen. Folgendes Formularelement existiert in der View:
+ \begin{lstlisting}
+ <div class="form-group">
+   <label for="address">Adresse</label>
+   <input type="text" onFocus="geolocate()" id="address" name="address" class="form-control" data-ng-model="address" required>
+ </div>
+ \end{lstlisting}
+ 
+ Wie auf Zeile 3 ersichtlich wird die direktive geolocate() aufgerufen. Diese Funktion ist Bestandteil der Google API, welche im Header von \url{https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places} gedownloadet wird. Die ID address wird von dem Court Controller aufgerufen und folgender Listener wird hinzugefügt:
+ \begin{lstlisting}
+ var placeSearch, autocomplete;
+ 		if(document.getElementById('address')) {
+ 			autocomplete = new google.maps.places.Autocomplete(
+ 				/** @type {HTMLInputElement} */(document.getElementById('address')));
+ 			// When the user selects an address from the dropdown,
+ 			// populate the address fields in the form.
+ 
+ 			google.maps.event.addListener(autocomplete, 'place_changed', function () {
+ 				$scope.updateAddress();
+ 			});
+ 		}
+ \end{lstlisting}
+Der autocomplete Listener ruft nun die AngularJS direktive updateAddress() auf:
 
+\begin{lstlisting}
+$scope.updateAddress =function() {
+			var place = autocomplete.getPlace();
+			document.getElementById('address').value = place.formatted_address;
+			document.getElementById('lat').value = place.geometry.location.A;
+			document.getElementById('lng').value = place.geometry.location.F;
+			if ($scope.court) {
+				$scope.court.address = place.formatted_address;
+				$scope.court.lat = place.geometry.location.A;
+				$scope.court.lng = place.geometry.location.F;
+			}else{
+				this.address = place.formatted_address;
+				this.lat = place.geometry.location.A;
+				this.lng = place.geometry.location.F;
+			}
+		};
+\end{lstlisting}
 
+UpdateAddress sucht das Google Maps Objekt und speichert die Values - Addresse sowie Koordinaten - in die View. Bei dem Abschicken des Formulares wird nun geprüft ob die Koordinaten existieren, falls nicht, ist es keine valide Adresse, wie man im Court-Model sieht (Zeile 3 und 7):
+\begin{lstlisting}
+lat: {
+		type: String,
+		required: "Please fill in a correct address (select it from the dropdown)"
+	},
+lng: {
+		type: String,
+		required: "Please fill in a correct address (select it from the dropdown)"
+	}
+\end{lstlisting}
 
 
 \section{Android Applikation}
 Als Grundlage für die Android Applikation wurde eine Applikation von gonative.io generiert. Im Laufe des Projektes - nach erheblicher Überschreitung des vorgeschriebenen Aufwandes - wurde entschieden keine vollständig Native Webapplikation zu erstellen. Stattdessen wird eine WebView erstellt, welche die Mobile Webseite darstellt. Um alle Funktionalität zu behalten, wird über die WebView und Interception Algorithmen Push-Nachriten ermöglicht. Der einzige Setback ist, das die Website offline nicht verfügbar ist.
 
 \subsubsection{Codebeispiel - Push Interception}
-
+TBD!!!!
 
 
 \section{Workflows}
@@ -132,7 +380,8 @@ Identisch zu der Court Registrierung funktioniert die Liga Registrierung
 	\begin{itemize}
 		\item Weeklyall: Wöchentliche Herausforderung, jeder gegen jeder, zufälliger Gegner
 		\item Biweeklyall: Herausforderung alle zwei Wochen, jeder gegen  jeder, zufälliger Gegner
-		\item Weekly 
+		\item WeeklyTopTwo: Herausforderung jede Woche, immer die zwei Nächsten in der Rangliste
+		\item BiweeklTopTwo: Herausforderung alle zwei Wochen, immer die zwei Nächsten in der Rangliste
 	\end{itemize}
 	\begin{figure}[ht]
 		\centering
@@ -140,9 +389,117 @@ Identisch zu der Court Registrierung funktioniert die Liga Registrierung
 		\caption{Schedule Workflow}
 		\label{ScheduleWorkflow}
 	\end{figure}
+	\newpage
 	\subsubsection{Codebeispiel - Scheduling}
+	Für das  Scheduling wird eine Externe Scheduling Libary für NodeJS gebraucht. Diese Library wird in den Startup der Applikation eingebunden:
+\begin{lstlisting}
+	var agenda = new Agenda({db: {address: config.dbagenda}});
+	console.log("starting agenda");
+	app.use('/agenda-ui', agendaUI(agenda, {poll: 1000}));
+	agenda.start();
+\end{lstlisting}
+	Die Scheduling Libary - weiterführen Referenziert mit dem Namen Agenda - benützt nun MongoDB um die Schedules zu persistieren. Wenn nun eine Liga erstellt wird, wird angegeben ob man Automatische Herausforderungen wünscht. Falls dies gewünscht ist, wird in der Funktion bei der Erstellung der Liga das Scheduling eingerichtet:
+	\begin{lstlisting}
+	if(league.requestShedule){
+	    var agenda = new Agenda({db: {address: config.dbagenda}})
+	    console.log("execute schedulematches sending ID: "+ league);
+	    agenda.define(league._id+' schedule', League.scheduleMatches);
+	    var job = agenda.create(league._id+' schedule',league.id);
+	    if(league.requestShedule == 'weeklyAll'){
+	        job.repeatAt('in 1 weeks');
+	    }
+	    if(league.requestShedule == 'biweeklyAll'){
+	        job.repeatAt('in 2 weeks');
+	    }
+	    if(league.requestShedule == 'biweeklyTwoTop'){
+	        job.repeatAt('in 2 weeks');
+	    }
+	    if(league.requestShedule == 'weeklyTwoTop'){
+	        job.repeatAt('in 1 weeks');
+	    }
+	
+	    //agenda.every('10 minutes', league._id+' schedule', league.id);
+	
+	    job.save()
+	    agenda.start();
+	}
+	\end{lstlisting}
 	
 	\subsubsection{Random Herausforderungen / Rang Herausforderungen}
+	Das Scheduling hat nun keinen Kontext der Applikation. Es beinhaltet nur das Model sowie alle Funktionen des Models. Aus diesem Grund wurde eine Funktion für das Starten der Herausforderungen innerhalb des Models erstellt:
+	\begin{lstlisting}
+	LeagueSchema.statics.scheduleMatches = function(job){
+	    var League = mongoose.model('League'),
+	        UserToPoints = mongoose.model('UserToPoints'),
+	        Matches = mongoose.model('Match');
+	    var leagueid = job.attrs.data;
+	    League.findById(leagueid).populate("users").exec(function(err, league) {
+	        UserToPoints.populate(league.users, {path: 'user', select: 'username'}, function (err, user) {
+	
+	            if (league) {
+	                var l = league.users.length;
+	                var player1, player2;
+	                var k = league.users.length;
+	                while (true){
+	                if(league.requestShedule == 'biweeklyTwoTop' || league.requestShedule == 'weeklyTwoTop' ) {
+	
+	                        if (league.users.length > 1) {
+	                             player1 = league.users[0].user;
+	                            player2 = league.users[1].user;
+	                            leage.users.splice(0,2);
+	                        }
+	                        else {
+	                            break;
+	                        }
+	
+	                }else {
+	
+	                        if (league.users.length > 1) {
+	                            var p1 = Math.floor(Math.random() * l);
+	                             player1 = league.users[p1].user;
+	                            league.users.splice(p1, 1);
+	                            l--;
+	                            var p2 = Math.floor(Math.random() * l);
+	                             player2 = league.users[p2].user;
+	                            league.users.splice(p2, 1);
+	                            l--;
+	
+	                        }
+	                        else {
+	                            break;
+	                        }
+	
+	                    }
+	                    var match = new Matches();
+	                    match.spieler.push({user: player1});
+	                    match.spieler.push({user: player2});
+	                    match.sport = league.sport;
+	                    match.league = league;
+	                    match.state = 'new';
+	                    match.save(function (err) {
+	                        if (err) {
+	                            console.log(err);
+	                        }
+	                    });
+	                    if (l == 0) {
+	                        break;
+	                    }
+	                }
+	
+	            } else {
+	                console.log("no league with ID " + leagid + " found");
+	            }
+	        });
+	    }
+	    );
+	
+	}
+	\end{lstlisting}
+	Bis zur Zeile 9 sucht sich nun diese statische Funktion der Kontext aus der Datenbank zusammen. Es sucht sich selber, popularisiert die User und startet ab Zeile 14 das erstellen von Herausforderungen. 
+	
+	Je nach Modus (Random Herausforderungen, oder nach Rangliste) wird nun der Rangliste nach Spieler herausgefordert und diese aus der Rangliste gelöscht. Da das Liga Objekt nicht gespeichert wird, sind die Änderungen der Rangliste nur temporär. 
+	
+	Ist nun der Modus Random, wird das ganze etwas Komplexer. Zuerst wird aus der Rangliste ein Spieler zufällig ausgewählt (Zeile 28). Dieser Spieler wird nun von der Liste gelöscht und der Zeite Spieler wird ausgewählt (Zeile 32). Dieser wird nun auch gelöscht und der Match zwischen den zwei Spielern wird vereinbart. Das ganze wiederholt sich, bis keine Spieler mehr in der Rangliste sind. 
 	
 \begin{landscape}
 
@@ -173,7 +530,28 @@ Erstellt der User ein \textbf{broadcast Spiel}, hat das Spiel den Status \grqq N
 Sind User in einer Liga, erstellt die \textbf{Liga eine Herausforderung}. Das Spiel enthält kein Court und keine Terminvorschläge. Der User muss nun Terminvorschläge ausfüllen und ein Court definieren. 
 
 Anschliessend haben alle Use Cases den gleichen Workflow. Ist das Spiel und der Termin definiert. Geht der Status des Spiels zu \grqq Open\grqq . Danach kann von beiden Spielern der Status auf \grqq In progress\grqq gesetzt werden. Beide können ein Resultat eintragen. Der jeweil andere Spieler bestätigt anschliessend das Resultat. Bei der Bestätigung des Resultats wird das Spiel archiviert und optional die Rangliste der Liga aktualisiert.
-
+\newpage
 
 \section{User}
 \subsection{Freunde System}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.7\textwidth]{Graphics/friendworkflow.png}
+	\caption{Freunde Workflow}
+	\label{FriendWorkflow}
+\end{figure}
+\FloatBarrier
+Spieler1 sendet eine Einladung zur Freundschaft an Spieler 2. Diese Einladung ist eine Liste bei Spieler2 sowie bei Spieler1:
+\begin{lstlisting}
+friendrequests: [{
+		type: Schema.ObjectId,
+		ref: "User"
+	}],
+\end{lstlisting}
+Bei der Bestätigung der Einladung trägt sich Spieler2 sowie Spieler1 das User-Objekt von dem friendrequests Feld in das friends Feld:
+\begin{lstlisting}
+friends: [{
+		type: Schema.ObjectId,
+		ref: "User"
+	}],
+\end{lstlisting}

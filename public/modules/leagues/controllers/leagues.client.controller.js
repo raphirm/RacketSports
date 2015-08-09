@@ -6,13 +6,13 @@ angular.module('leagues').controller('LeaguesController', ['$http', '$resource' 
 		$scope.invite = '';
 		$scope.authentication = Authentication;
 		$scope.listRequests = '';
-		$scope.find = function () {
+		$scope.spec = function () {
 			var Resource = $resource('/leagues/requests');
 			Resource.query(function (leagues) {
 				$scope.listRequests = leagues;
 			});
 		};
-			$scope.find();
+			$scope.spec();
 		var placeSearch, autocomplete;
 		if (document.getElementById('address')) {
 			autocomplete = new google.maps.places.Autocomplete(

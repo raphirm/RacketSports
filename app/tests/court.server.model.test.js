@@ -4,6 +4,8 @@
  * Module dependencies.
  */
 var should = require('should'),
+	app = require('../../server'),
+
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
 	Court = mongoose.model('Court');
@@ -47,6 +49,14 @@ describe('Court Model Unit Tests:', function() {
 
 		it('should be able to show an error when try to save without name', function(done) { 
 			court.name = '';
+
+			return court.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+		it('should be able to show an error when try to save without coordinates', function(done) {
+			court.lat = '';
 
 			return court.save(function(err) {
 				should.exist(err);

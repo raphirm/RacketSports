@@ -4,6 +4,8 @@
  * Module dependencies.
  */
 var should = require('should'),
+	app = require('../../server'),
+
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
 	Match = mongoose.model('Match');
@@ -45,14 +47,7 @@ describe('Match Model Unit Tests:', function() {
 			});
 		});
 
-		it('should be able to show an error when try to save without name', function(done) { 
-			match.name = '';
 
-			return match.save(function(err) {
-				should.exist(err);
-				done();
-			});
-		});
 	});
 
 	afterEach(function(done) { 

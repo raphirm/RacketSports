@@ -4,6 +4,8 @@
  * Module dependencies.
  */
 var should = require('should'),
+	app = require('../../server'),
+
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
 	League = mongoose.model('League'),
@@ -36,9 +38,22 @@ describe('League Model Unit Tests:', function() {
 
 		user.save(function() {
 			league = new League({
-				name: 'League Name',
-				users: usertopoints,
-				sport: 'Squash'
+				"description": "Bla",
+				"enddate": "2015-07-14T12:25:46.790Z",
+				"gender": "mixed",
+				"lat": 48.245015,
+				"lng": 10.36567500000001,
+				"matches": [],
+				"name": "Cooli Liga",
+				"niveau": 3,
+				"ort": "Karl-Mantel-Straße 41, 86381 Krumbach (Schwaben), Germany",
+				"price": "none",
+				"private": false,
+				"rules": "Ein Match alle zwei Wochen, autogeneriert, win 3 Punkte, unentschieden 1 Punkt, verlieren: 0 Punkte",
+				"sport": "Tennis",
+				"startdate": "2015-07-14T12:25:46.790Z",
+				"users": usertopoints,
+				"user": user
 			});
 			done();
 		});

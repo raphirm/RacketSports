@@ -16,7 +16,7 @@ angular.module('matches').controller('MatchesController', ['$scope', '$statePara
         $scope.broadcastMatches = '';
         $scope.progressMatches = '';
         $scope.doneMatches = '';
-        $scope.find = function () {
+        $scope.spec = function () {
             var Resource = $resource('/users/me');
             Resource.get(function (user) {
                 $scope.user = user;
@@ -56,7 +56,6 @@ angular.module('matches').controller('MatchesController', ['$scope', '$statePara
 
         };
 
-        $scope.find();
         // Create new Match
         $scope.create = function () {
             // Create new Match object
@@ -135,6 +134,7 @@ angular.module('matches').controller('MatchesController', ['$scope', '$statePara
         // Find a list of Matches
         $scope.find = function () {
             $scope.matches = Matches.query();
+            $scope.spec()
 
         };
 

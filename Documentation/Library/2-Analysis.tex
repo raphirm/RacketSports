@@ -81,7 +81,7 @@ Eine \textbf{Liga} kann zwischen mehreren regelmässigen Spielern arrangiert werd
 \subsection{Clubmitglieder}
 \subsubsection{Analyse}
 Clubmitglieder Spielen regelmässig und haben dafür fix Vereinbarte Clubtrainings. Diese sind nicht flexibel. Zusätzlich besteht auch eine Infrastruktur für Ranking über die Liga sowie eine Protokollierung von Spielen in den meisten Fällen.	Clubmitglieder sind somit nicht im Hauptfokus dieser Applikation. Höchstens Ausserhalb des Clublebens ist es gut möglich das ein Clubmitglied diese Applikation braucht um neue Spiele zu vereinbaren oder in einer privaten Liga mitzuspielen. 
-\newpage
+
 \subsubsection{Use Cases}
 Neue Clubs ohne Infrastruktur könnten diese Applikation für ihre Administration verwenden.
 \newpage
@@ -135,6 +135,7 @@ Folgende Tabelle zeigt interne sowie externe Schnittstellen auf:
 		\cellcolor{testblau}  Client $\longrightarrow$ Browser &
 		\cellcolor{testblau}Der Client läuft innerhalb eines Browsers. Der Browser führt die Applikation - bestehend aus HTML, CSS und Javascript - aus. 
 		\tabularnewline
+		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}I3}} &
 		\cellcolor{testblau}  Browser $\longrightarrow$ Android &
 		\cellcolor{testblau}Der Browser läuft innerhalb der Android Applikation. Die Android Applikation Emuliert den Browser und zeigt die Applikation als App dem Benutzer an.
@@ -181,8 +182,9 @@ Folgende Tabelle zeigt interne sowie externe Schnittstellen auf:
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Anforderungen}} &
 		\cellcolor{testblau}
 		\begin{tabular}[x]{@{}l@{}}
-			REQ 0.1 - Anmeldung an das System\\
-			REQ 0.2 - Registrierung im System 
+			REQ0.01 - Anmeldung an das System\\
+			REQ0.02 - Registrierung eines Users mit dem System\\
+			REQ0.03 - Authentisierung über OAuth 
 			\end{tabular}
 			\tabularnewline
 			\tabucline[2pt]{-}
@@ -214,7 +216,7 @@ Folgende Tabelle zeigt interne sowie externe Schnittstellen auf:
 							
 							
 							\end{longtabu}
-							
+			\newpage				
 							\end{center}
 
 \subsubsection{UC1 - Identifizierung von Partnern}
@@ -242,16 +244,17 @@ Folgende Tabelle zeigt interne sowie externe Schnittstellen auf:
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Vorbedingung}} &
-		\cellcolor{testblau} -
+		\cellcolor{testblau} UC0 - Anmeldung an das System
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Anforderungen}} &
 		\cellcolor{testblau}
 		\begin{tabular}[x]{@{}l@{}}
-			REQ 1.1 - Zuteilung zu Regionen\\
-			REQ 1.2 - Broadcast Herausforderungen\\
-			REQ 1.3 - Details zu Spieler\\
-			REQ 1.4 - Friend System
+			REQ1.01 - Zuteilung von User zu Racketsportzentren\\
+			REQ1.02 - Details zu Spielern\\
+			REQ1.03 - Friend System\\
+			REQ3.01 - Court erstellen \\
+			REQ3.02 - Spieler können sich in Courts eintragen
 		\end{tabular}
 		\tabularnewline
 		\tabucline[2pt]{-}
@@ -304,17 +307,17 @@ Folgende Tabelle zeigt interne sowie externe Schnittstellen auf:
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Vorbedingung}} &
-		\cellcolor{testblau} UC0
+		\cellcolor{testblau} UC0 - Anmeldung an das System
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Anforderungen}} &
 		\cellcolor{testblau}
 		\begin{tabular}[x]{@{}l@{}}
-			REQ 2.1 - Spiel erstellen \\
-			REQ 2.2: Spielterminvorschläge erstellen\\
-			REQ 2.3: Spielterminvorschläge annehmen\\
-			REQ 2.4: Spielterminvorschläge ablehnen\\
-			REQ 2.5: Regelmässiges Spiel erstellen
+			REQ2.01 - Spiel erstellen \\
+			REQ2.02 - Spielterminvorschläge erstellen\\
+			REQ2.03 - Spielterminvorschläge annehmen und ablehnen\\
+			REQ2.04 - Wiederkehrende Spiele erstellen\\
+			REQ2.06 - Privatsphäreeinstellungen berücksichtigen
 		\end{tabular}
 		\tabularnewline
 		\tabucline[2pt]{-}
@@ -376,16 +379,16 @@ Folgende Tabelle zeigt interne sowie externe Schnittstellen auf:
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Vorbedingung}} &
 		\cellcolor{testblau} 
 		\begin{tabular}[x]{@{}l@{}}
-			UC0\\
-			UC1
+			UC0 - Anmeldung an das System\\
+			UC1 - Terminvereinbarung
 		\end{tabular}
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Anforderungen}} &
 		\cellcolor{testblau}
 		\begin{tabular}[x]{@{}l@{}}
-			REQ 3.1 - Ergebnisse des Spiels eintragen \\
-			REQ 3.2: Bestätigung der Ergebnisse
+			REQ2.07 - Ergebnissedes Spiels eintragen \\
+			REQ2.08 - Bestätigung des Spiels eintragen
 		
 		\end{tabular}
 		\tabularnewline
@@ -447,15 +450,15 @@ Folgende Tabelle zeigt interne sowie externe Schnittstellen auf:
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Vorbedingung}} &
 		\cellcolor{testblau} 
 		\begin{tabular}[x]{@{}l@{}}
-			UC0
+			UC0 - Anmeldung an das System
 		\end{tabular}
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Anforderungen}} &
 		\cellcolor{testblau}
 		\begin{tabular}[x]{@{}l@{}}
-			REQ 4.1: User in die Liga einladen \\
-			REQ 4.2: Als User einer Liga beitreten
+		REQ4.01 - Liga erstellen \\
+		REQ4.02 - Spieler können sich in Liga eintragen
 			
 		\end{tabular}
 		\tabularnewline
@@ -472,7 +475,7 @@ Folgende Tabelle zeigt interne sowie externe Schnittstellen auf:
 				\begin{tabular}[x]{@{}l@{}}
 					Standard\\
 					Sequenz
-				\end{tabular}}} & 	\cellcolor{testblau}	\includegraphics[width=0.7\textwidth]{Graphics/SEQSUC2.png}
+				\end{tabular}}} & 	\cellcolor{testblau}	\includegraphics[width=0.7\textwidth]{Graphics/SEQSUC4_1.png}
 				\tabularnewline
 				\tabucline[2pt]{-}
 				
@@ -483,7 +486,7 @@ Folgende Tabelle zeigt interne sowie externe Schnittstellen auf:
 
 \FloatBarrier
 \newpage
-\subsubsection{UC 4.3 -Rangliste durch Spiele aktualisieren}
+\subsubsection{UC 4.2 -Rangliste durch Spiele aktualisieren}
 
 	\begin{center}
 	
@@ -497,7 +500,7 @@ Folgende Tabelle zeigt interne sowie externe Schnittstellen auf:
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
-		\cellcolor{testblau}{Nachdem ein Spiel gespielt ist, können beide Spieler ihre Scores eintragen. Stimmt diese überein oder bestätigt ein Spieler der eingetragene Score des anderen Spielers, wird dieser zur Rangliste hinzugerechnet.) }
+		\cellcolor{testblau}{Nachdem ein Spiel gespielt ist, können beide Spieler ihre Scores eintragen. Stimmt diese überein oder bestätigt ein Spieler der eingetragene Score des anderen Spielers, wird dieser zur Rangliste hinzugerechnet. }
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Diagramm}} & 	\cellcolor{testblau}		\includegraphics[width=0.7\textwidth]{Graphics/UC4_2.png}
@@ -512,22 +515,18 @@ Folgende Tabelle zeigt interne sowie externe Schnittstellen auf:
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Anforderungen}} &
-		\cellcolor{testblau}REQ 4.4 - Spiele zu Liga zuordnen \\
-	\cellcolor{airforceblue}&\cellcolor{testblau}REQ 4.5 - Aktualisierung der Ranglist bei gespielten Spielen
-	\tabularnewline
+		\cellcolor{testblau}REQ4.03 - Rangliste der Liga durch Spiele
+		aktualisieren 	\tabularnewline
 	\tabucline[2pt]{-}
 	\textcolor{white}{\textbf{\cellcolor{airforceblue}Testfälle}} &
 	\cellcolor{testblau} Test1.1: Test \\
 	\cellcolor{airforceblue}&\cellcolor{testblau}Test 1.2: Test2
 	\tabularnewline
 	\tabucline[2pt]{-}
-	\textcolor{white}{\textbf{\cellcolor{airforceblue}Szenarien}} & 	\cellcolor{testblau}		\includegraphics[width=0.7\textwidth]{Graphics/UC4_2.png}
+	\textcolor{white}{\textbf{\cellcolor{airforceblue}Szenarien}} & 	\cellcolor{testblau}		\includegraphics[width=0.7\textwidth]{Graphics/SEQSUC4_2.png}
 	\tabularnewline
 	\tabucline[2pt]{-}
-	\textcolor{white}{\textbf{\cellcolor{airforceblue}Alternative Szenarien}} & 	\cellcolor{testblau}		\includegraphics[width=0.7\textwidth]{Graphics/UC4_2.png}\\
-	\cellcolor{airforceblue}&\cellcolor{testblau}\includegraphics[width=0.6\textwidth]{Graphics/UC4_2.png}
-	\tabularnewline
-	\tabucline[2pt]{-}
+	
 	
 	\end{longtabu}
 \end{center}
@@ -535,128 +534,264 @@ Folgende Tabelle zeigt interne sowie externe Schnittstellen auf:
 
 \FloatBarrier
 \newpage
-\subsubsection{Spiele automatisch anfordern}
-\begin{table*}[ht]
-	
-	
-	\tabulinesep = 1mm
-	\begin{tabu} to \linewidth [m]{|[2pt]X[-1,m, l]|[2pt]X[1, m , l]|[2pt]}
-		\arrayrulecolor{white}
+\subsubsection{UC 4.3 - Spiele automatisch anfordern}
+	\begin{center}
 		
-		\tabucline[2pt]{-}
-		\textcolor{white}{\textbf{\cellcolor{airforceblue}UC4.3}}  &   
-		\textcolor{white}{\textbf{\cellcolor{airforceblue}Spiele automatisch anfordern}}
-		\tabularnewline
-		\tabucline[2pt]{-}
-		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
-		\cellcolor{testblau}{Bei der Erstellung der Liga kann einen Algorithmus zur automatischen Spielvereinbarung ausgewählt werden. Dieser Algorithmus schlägt jedem Spieler nach der definierten Regelmässigkeit Terminvorschläge vor und stellt so sicher, das alle Spieler regelmässig gegen alle andere Spieler spielen. Die Spieler können sich auf einen der vorgeschlagenen Termine - oder ein anderer individuell vorgeschlagener Termin festlegen.) }
-		\tabularnewline
-		\tabucline[2pt]{-}
-		\textcolor{white}{\textbf{\cellcolor{airforceblue}Diagramm}} & 	\cellcolor{testblau}		\includegraphics[width=0.7\textwidth]{Graphics/UC4_3.png}
-		\tabularnewline
-		\tabucline[2pt]{-}
-		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
-		\cellcolor{testblau} 1.0
-		\tabularnewline
-		\tabucline[2pt]{-}
-		\textcolor{white}{\textbf{\cellcolor{airforceblue}Vorbedingung}} &
-		\cellcolor{testblau} UC4.1 - Liga erstellen
-		\tabularnewline
-		\tabucline[2pt]{-}
-		\textcolor{white}{\textbf{\cellcolor{airforceblue}Anforderungen}} &
-		\cellcolor{testblau}REQ 4.6 - Automatische Spielaufforderungen 
+		\tabulinesep = 1mm
+		\begin{longtabu} to \linewidth [m]{|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
+			\arrayrulecolor{white}
+			
+			\tabucline[2pt]{-}
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}UC4.3}}  &   
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}Spiele automatisch anfordern}}
 			\tabularnewline
-		\tabucline[2pt]{-}
-		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testfälle}} &
-		\cellcolor{testblau} Test1.1: Test \\
-		\cellcolor{airforceblue}&\cellcolor{testblau}Test 1.2: Test2
-		\tabularnewline
-		\tabucline[2pt]{-}
-		
-	\end{tabu}
-	
-\end{table*}
+			\tabucline[2pt]{-}
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+			\cellcolor{testblau}{Bei der Erstellung der Liga kann einen Algorithmus zur automatischen Spielvereinbarung ausgewählt werden. Dieser Algorithmus schlägt jedem Spieler nach der definierten Regelmässigkeit Terminvorschläge vor und stellt so sicher, das alle Spieler regelmässig gegen alle andere Spieler spielen. Die Spieler können sich auf einen der vorgeschlagenen Termine - oder ein anderer individuell vorgeschlagener Termin festlegen. }
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}Diagramm}} & 	\cellcolor{testblau}		\includegraphics[width=0.7\textwidth]{Graphics/UC4_3.png}
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+			\cellcolor{testblau} 1.0
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}Vorbedingung}} &
+			\cellcolor{testblau} UC4.1 - Liga erstellen
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}Anforderungen}} &
+			\cellcolor{testblau}REQ4.04 - Erstellen eines automatischen Spiels 
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}Testfälle}} &
+			\cellcolor{testblau} Test1.1: Test \\
+			\cellcolor{airforceblue}&\cellcolor{testblau}Test 1.2: Test2
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}Szenarien}} & 	\cellcolor{testblau}		\includegraphics[width=0.7\textwidth]{Graphics/SEQSUC4_3.png}
+			\tabularnewline
+			\tabucline[2pt]{-}
+			
+			
+		\end{longtabu}
+	\end{center}
+
+
+
+
 	
 		\FloatBarrier
 
 
 
 \subsection{Anforderungen}
-Notwendigkeit und Kritikalität
+Folgende Anforderungen resultieren aus den Use Cases und sind kategorisiert in funktionale- sowie nicht funktionale Anforderungen. Zusätzlich werden die Anforderungen bewertet mit den Attributen Notwendigkeit und Kritikalität.
 
-\subsubsection{Funktionale Anforderungen}
-
-
-
-\subsubsection{Nicht funtionale Anforderungen}
-Die Anforderung in diesem Abschnitt werden direkt in User Stories übertragen in das Tool Yodiz: \url{https://app.yodiz.com/plan/pages/task-board.vz?cid=14274&pid=1&iid=1}
-
-\subsubsection{REQ1.1.x - Zuteilung zu Regionen}
-Der User muss zu einer Region zugeordnet werden können. Regionen sind im Racketsport Zentren, die der Spieler vorzugsweise benutzt. Geographische nähen sind in diesem Use Case viel weniger präzise, da je nach Verkehrsanbindung oder Lebensumstände nicht Racketsport Zentren in der unmittelbaren Geografischen nähe referenziert werden. 
-\\
-\textbf{REQ1.1.1 - Racketsport Zentren registrieren}: Der User der Applikation kann Racketsport Zentren registrieren.
-\\
-\textbf{REQ1.1.2 - Zuordnung zu Racketsport Zentren}: Der User kann sich zu Racketsport Zentren zuordnen und so anderen Spielern signalisieren, dass er da bevorzugt Spielt.
-\\
-\textbf{REQ1.1.3 - Suche nach Spielern per Racketsport Zentrum}: User können andere Spieler suchen die sich an ein Racketsport Zentrum zugeordnet haben. 
-\subsubsection{REQ1.2 - Broadcast Herausforderung für Region}
-Der Spieler kann kann für eine Region einen Broadcast Spielvorschlag versenden für eine bestimmte Zeit.
-
-
-\subsubsection{REQ1.4 - Details zur Spielerselektion}
-Der Spieler soll von anderen Spielern verschiedene Merkmale herauslesen können:
+Folgende Kategorien können für Notwendigkeit vergeben werden:
 \begin{itemize}
-	\item Username
-	\item Spielstärke
-	\item Freiwillige Beschreibung
-	\item Absichten (Regelmässige Spielpartner, Gelegenheitspartner, Spass spiele, Training, ...)
-	\item Sportzeiten (z.b. nur abends, flexibel, nur Montags - Mittwoch)
+	\itemsep-0.4em
+	\item Essential - Anforderung in der Aufgabenstellung enthalten und/oder Notwendig für den PoC
+	\item Conditional - Anforderung verbessert die App massiv und würde Lösung erweitern. Ein nicht Erfüllen der Anforderung macht die Lösung jedoch nicht inakzeptabel und kann in zukünftigen Releases umgesetzt werden
+	\item Optional - Können umgesetzt werden, müssen jedoch nicht. Je nach Feedback von zukünftigen Kunden könnten optionale Anforderungen in Zukunft berücksichtigt werden
 \end{itemize}
 
-\subsubsection{REQ1.5 - Friend System}
-User können andere User zu ihrer Freundesliste hinzufügen. Privatsphäre Einstellungen können anschliessend drauf abgestimmt werden.
+Für Kritikalität gibt es folgende Kategorien:
+\begin{itemize}
+	\itemsep -0.4em
+	\item High - Anforderung ist Basis von anderen essential Anforderungen und muss schnell erstellt werden
+	\item Medium - Anforderung sollte innerhalb des POC implementiert werden um Benutzerfälle vollständig abzudecken
+	\item Low - Anforderung kann in zukünftigen Releases umgesetzt werden
+\end{itemize}
 
-\subsection{Anforderungen für UC2}
-\subsubsection{REQ2.1  - Spiel erstellen}
-Der User kann ein Spiel erstellen. Darin wird der Gegner, die Spielart sowie Terminvorschläge definiert. 
-\subsubsection{REQ2.2 - Spielterminvorschläge erstellen}
-Der User kann mehrere Terminvorschläge für ein Spiel registrieren (Terminvorschlag besteht aus einer Lokation und einem Datum/Uhrzeit). Diese Terminvorschläge werden einem Spiel zugeordnet.
-
-\subsubsection{REQ2.3 - Spielterminvorschläge annehmen}
-Der Empfänger der Terminvorschläge kann einen Spielterminvorschlag annehmen.
-
-\subsubsection{REQ2.4 - Spielterminvorschläge ablehnen}
-Der Empfänger der Terminvorschläge kann alle Vorschläge ablehnen und neue Vorschläge erstellen. 
-
-\subsubsection{REQ2.5 - Regelmässige Spiele erstellen}
-Der User kann ein regelmässiges Spiel mit einem Gegner registrieren. Beide User können Vorschläge zur Abweichung einreichen
-
-\subsection{Anforderungen für UC3}
-\subsubsection{REQ3.1 - Ergebnisse des Spiels eintragen}
-Der User kann das erzielte Ergebnis des Spiels eintragen. Informationen über Sätze sowie Punkte werden in der App für das jeweilige Spiel eingetragen.
-
-\subsubsection{REQ3.2 - Bestätigung der Ergebnisse}
-Der Gegner kann das eingetragene Ergebnis (REQ3.1)  bestätigen oder korrigieren. Bei Korrektur wird das Ergebnis dem originalen User zur Bestätigung zurückgesendet.
-
-\subsection{Anforderungen für UC4} 
-\subsubsection{REQ4.1 - Liga erstellen}
-Der User kann eine neue Liga erstellen. Die Liga kann öffentlich (jeder kann sich einschreiben) oder privat (Einschreibung nur per Einladung möglich) sein. Bei der Erstellung der Liga wird eine Rangliste erstellt. Die Rangliste beinhaltet alle User, welche der Liga zugeordnet sind sowie Punkte. 
-
-\subsubsection{REQ4.2 - User zur Liga einladen}
-Der User kann einen oder mehrere andere User zur Liga einladen. Diese User können die Einladung anschiessend annehmen oder ablehnen.
-
-\subsubsection{REQ4.3 - User kann Liga beitreten}
-Der User kann eine Übersicht der Liga abrufen und einer gewünschten Liga beitreten.
-
-\subsubsection{REQ4.4 - Spiele zu Liga zuordnen}
-Der User kann ein Spiel- bevor gespielt wird - einer Liga zuordnen. 
-
-\subsubsection{REQ4.5 - Aktualisierung er Rangliste bei gespieltem Spiel}
-Bei einem beendeten Spiel wird die Rangliste der Liga neu berechnet um die korrekte Punktezahl zu erhalten.
-
-\subsubsection{REQ4.6 - Automatisch Spielaufforderungen}
-In einem bestimmten Turnus werden alle Spieler aufgefordert ein Spiel mit einem anderen Spieler aus der Liga zu Spielen
+Die Anforderung in diesem Abschnitt werden  in User Stories übertragen in das Tool Yodiz: \url{https://app.yodiz.com/plan/pages/task-board.vz?cid=14274&pid=1&iid=1}
 
 
+\subsubsection{Funktionale Anforderungen}
+Funktionale Anforderungen definierten spezifische, aus den Anwendungsfällen benötigte, Funktionalitäten der Applikation. 
+\begin{center}
+	\tabulinesep = 1mm
+	\begin{longtabu} to \linewidth [m]{X[1, m , l]|[2pt]p{2.95cm}|[2pt]p{2.5cm}|[2pt]}
+		\arrayrulecolor{white}
+		
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Anforderung}}  &  
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Notwendigkeit}}&
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Kritikalität}}
+		\tabularnewline
+			\tabucline[2pt]{-}
+		\multicolumn{3}{l}{\cellcolor{bluegray}  Kategorie Bedienbarkeit  }
+		\tabularnewline
+		\cellcolor{testblau}  REQ0.01 - Anmeldung an das System  &
+		\cellcolor{testblau}  Essential &
+		\cellcolor{testblau}High
+		\tabularnewline
+		\cellcolor{testblau}  REQ0.02 - Registrierung eines Users mit dem System  &
+		\cellcolor{testblau}  Essential &
+		\cellcolor{testblau}High
+		\tabularnewline
+		\cellcolor{testblau}  REQ0.02 - Authentisierung über OAuth  &
+		\cellcolor{testblau}  Conditional &
+		\cellcolor{testblau}High
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\multicolumn{3}{l}{\cellcolor{bluegray}  Kategorie User  }
+		\tabularnewline
+		\cellcolor{testblau}  REQ1.01 - Zuteilung von User zu Racketsportzentren  &
+		\cellcolor{testblau}Essential &
+		\cellcolor{testblau}High
+		\tabularnewline
+		\cellcolor{testblau}  REQ1.02 - Details zu Spielern  &
+		\cellcolor{testblau}Essential &
+		\cellcolor{testblau}High
+		\tabularnewline
+		\cellcolor{testblau}  REQ1.03 - Friend System  &
+		\cellcolor{testblau}Conditional &
+		\cellcolor{testblau}Medium
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\multicolumn{3}{l}{\cellcolor{bluegray}  Kategorie Spiele  }
+		\tabularnewline
+		\cellcolor{testblau}  REQ2.01 - Spiel erstellen  &
+		\cellcolor{testblau}Essential &
+		\cellcolor{testblau}High
+		\tabularnewline
+		\cellcolor{testblau}  REQ2.02 - Spiel Terminvorschläge erstellen  &
+		\cellcolor{testblau}Essential &
+		\cellcolor{testblau}High
+		\tabularnewline
+		\cellcolor{testblau}  REQ2.03 - Spiel Terminvorschläge annehmen und ablehnen  &
+		\cellcolor{testblau}Essential &
+		\cellcolor{testblau}High
+		\tabularnewline
+		\cellcolor{testblau}  REQ2.04 - Wiederkehrende Spiele erstellen  &
+		\cellcolor{testblau}Essential &
+		\cellcolor{testblau}High
+		\tabularnewline
+		\cellcolor{testblau}  REQ2.05 -  Spiele erstellen  &
+		\cellcolor{testblau}Conditional &
+		\cellcolor{testblau}Medium
+		\tabularnewline
+		\cellcolor{testblau}REQ2.06 -  Privatsphäreeinstellungen berücksichtigen  &
+		\cellcolor{testblau}Optional &
+		\cellcolor{testblau}Low
+		\tabularnewline
+		\cellcolor{testblau}REQ2.07 -  Ergebnissedes Spiels Eintragen  &
+		\cellcolor{testblau}Essential &
+		\cellcolor{testblau}High
+		\tabularnewline
+		\cellcolor{testblau}REQ2.08 -  Bestätigung des Spiels eintragen &
+		\cellcolor{testblau}Essential &
+		\cellcolor{testblau}High
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\multicolumn{3}{l}{\cellcolor{bluegray} Kategorie Courts  }
+		\tabularnewline
+		\cellcolor{testblau}REQ3.01 -  Courts erstellen &
+		\cellcolor{testblau}Essential &
+		\cellcolor{testblau}High
+		\tabularnewline
+		\cellcolor{testblau}REQ3.02 -  Spieler können sich in Courts eintragen &
+		\cellcolor{testblau}Essential &
+		\cellcolor{testblau}High
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\multicolumn{3}{l}{\cellcolor{bluegray} Kategorie Liga  }
+		\tabularnewline		
+		\cellcolor{testblau}REQ4.01 -  Liga erstellen &
+		\cellcolor{testblau}Essential &
+		\cellcolor{testblau}High
+		\tabularnewline
+		\cellcolor{testblau}REQ4.02 -  Spieler können sich in Liga eintragen &
+		\cellcolor{testblau}Essential &
+		\cellcolor{testblau}High
+		\tabularnewline
+		\cellcolor{testblau}REQ4.03 - Rangliste der Liga durch Spiele aktualisieren &
+		\cellcolor{testblau}Essential &
+		\cellcolor{testblau}High
+		\tabularnewline
+		\cellcolor{testblau}REQ4.04 -  Erstellen eines automatischen Spiels&
+		\cellcolor{testblau}Essential &
+		\cellcolor{testblau}High
+		\tabularnewline
+	\end{longtabu}\end{center}
+\subsubsection{Nicht funktionale Anforderungen}
+Die nicht funktionalen Anforderungen definieren Eigenschaften der Applikation, welche erfüllt werden sollten, jedoch nicht für den User ersichtlich sind. Diese Anforderungen sind wichtig sobald eine solche Applikation in einen produktiven Status übergeht. Im Moment ist die Applikation in einem PoC Status geplant, deshalb sind viele nicht funktionale Anforderungen optional.
 
-
+\begin{center}
+	\tabulinesep = 1mm
+	\begin{longtabu} to \linewidth [m]{X[1, m , l]|[2pt]p{2.95cm}|[2pt]p{2.5cm}|[2pt]}
+		\arrayrulecolor{white}
+		
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Anforderung}}  &  
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Notwendigkeit}}&
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Kritikalität}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\multicolumn{3}{l}{\cellcolor{bluegray}  Qualitätsmerkmal:  Funktionalität }
+		\tabularnewline
+		\cellcolor{testblau}  NREQ0.01 - Sicherheit &
+		\cellcolor{testblau}  Conditional &
+		\cellcolor{testblau}High
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\multicolumn{3}{l}{\cellcolor{bluegray}  Qualitätsmerkmal:  Zuverlässigkeit  }
+		\tabularnewline
+		\cellcolor{testblau}  NREQ1.01 - Fehlertoleranz  &
+		\cellcolor{testblau}Conditional &
+		\cellcolor{testblau}High
+		\tabularnewline		
+		\cellcolor{testblau}  NREQ1.02 - Wiederherstellbarkeit  &
+		\cellcolor{testblau}Essential &
+		\cellcolor{testblau}High
+		\tabularnewline	
+		\tabucline[2pt]{-}
+		\multicolumn{3}{l}{\cellcolor{bluegray}  Qualitätsmerkmal:  Benutzbarkeit  }
+		\tabularnewline
+		\cellcolor{testblau}  NREQ2.01 - Verständlichkeit  &
+		\cellcolor{testblau}Optional &
+		\cellcolor{testblau}Medium
+		\tabularnewline		
+		\cellcolor{testblau}  NREQ2.02 - Bedienbarkeit  &
+		\cellcolor{testblau}Conditional &
+		\cellcolor{testblau}High
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\multicolumn{3}{l}{\cellcolor{bluegray}  Qualitätsmerkmal:  Effizienz  }
+		\tabularnewline
+		\cellcolor{testblau}  NREQ3.01 - Effizient in Programmierung  &
+		\cellcolor{testblau} Essential &
+		\cellcolor{testblau} High
+		\tabularnewline		
+		\cellcolor{testblau}  NREQ3.02 - Effizient in Installation  &
+		\cellcolor{testblau} Essential &
+		\cellcolor{testblau}High
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\multicolumn{3}{l}{\cellcolor{bluegray}  Qualitätsmerkmal:  Wartbarkeit  }
+		\tabularnewline
+		\cellcolor{testblau}  NREQ4.01 - Einfach erweiterbar/änderbar &
+		\cellcolor{testblau} Essential &
+		\cellcolor{testblau} High
+		\tabularnewline		
+		\cellcolor{testblau}  NREQ4.02 - Stabilität  &
+		\cellcolor{testblau} Optional &
+		\cellcolor{testblau} High
+		\tabularnewline
+				\cellcolor{testblau}  NREQ4.03 - Testbarkeit  &
+				\cellcolor{testblau} Essential &
+				\cellcolor{testblau} High
+				\tabularnewline
+		\cellcolor{testblau}  NREQ4.04 - Analysierbarkeit    &
+		\cellcolor{testblau} Optional &
+		\cellcolor{testblau} High
+		\tabularnewline		
+		
+	
+	\end{longtabu}\end{center}
+	
+	Diese nicht funktionalen Anforderungen müssen immer im PoC angeschaut werden. Optionale Anforderungen können für einen produktiven Einsatz neu als essential ne kategorisiert werden.
+	
+	

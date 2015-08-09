@@ -2,6 +2,8 @@
 
 module.exports = {
 	db: 'mongodb://localhost/racketsports-test',
+	dbagenda: 'localhost/racketsports-test-agenda',
+
 	port: 3001,
 	app: {
 		title: 'RacketSports - Test Environment'

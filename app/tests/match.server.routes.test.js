@@ -6,12 +6,14 @@ var should = require('should'),
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
 	Match = mongoose.model('Match'),
+	Court = mongoose.model('Court'),
+
 	agent = request.agent(app);
 
 /**
  * Globals
  */
-var credentials, user, match;
+var credentials, user, match, user2;
 
 /**
  * Match routes tests
@@ -37,9 +39,39 @@ describe('Match CRUD tests', function() {
 
 		// Save a user to the test db and create new Match
 		user.save(function() {
-			match = {
-				name: 'Match Name'
-			};
+			user2 = new User({
+				firstName: 'Full',
+				lastName: 'Name',
+				displayName: 'Full Name',
+				email: 'test@test.com',
+				username: credentials.username,
+				password: credentials.password,
+				provider: 'local'
+			});
+			user2.save(function(){
+				match = {
+					spieler: [
+						{
+							user: user,
+							outcome: 'win',
+							sets: []
+						},
+						{
+							user: user2,
+							outcome: 'win',
+							sets: []
+						}
+					],
+					state: 'new',
+					propBy: user,
+					sport: 'Squash',
+					proposedTimes: [],
+					schedule: 'daily'
+
+
+				}
+			})
+
 
 			done();
 		});
@@ -74,8 +106,7 @@ describe('Match CRUD tests', function() {
 								var matches = matchesGetRes.body;
 
 								// Set assertions
-								(matches[0].user._id).should.equal(userId);
-								(matches[0].name).should.match('Match Name');
+								(matches[0].spieler[0].user._id).should.equal(userId);
 
 								// Call the assertion callback
 								done();
@@ -94,111 +125,13 @@ describe('Match CRUD tests', function() {
 			});
 	});
 
-	it('should not be able to save Match instance if no name is provided', function(done) {
-		// Invalidate name field
-		match.name = '';
-
-		agent.post('/auth/signin')
-			.send(credentials)
-			.expect(200)
-			.end(function(signinErr, signinRes) {
-				// Handle signin error
-				if (signinErr) done(signinErr);
-
-				// Get the userId
-				var userId = user.id;
-
-				// Save a new Match
-				agent.post('/matches')
-					.send(match)
-					.expect(400)
-					.end(function(matchSaveErr, matchSaveRes) {
-						// Set message assertion
-						(matchSaveRes.body.message).should.match('Please fill Match name');
-						
-						// Handle Match save error
-						done(matchSaveErr);
-					});
-			});
-	});
-
-	it('should be able to update Match instance if signed in', function(done) {
-		agent.post('/auth/signin')
-			.send(credentials)
-			.expect(200)
-			.end(function(signinErr, signinRes) {
-				// Handle signin error
-				if (signinErr) done(signinErr);
-
-				// Get the userId
-				var userId = user.id;
-
-				// Save a new Match
-				agent.post('/matches')
-					.send(match)
-					.expect(200)
-					.end(function(matchSaveErr, matchSaveRes) {
-						// Handle Match save error
-						if (matchSaveErr) done(matchSaveErr);
-
-						// Update Match name
-						match.name = 'WHY YOU GOTTA BE SO MEAN?';
-
-						// Update existing Match
-						agent.put('/matches/' + matchSaveRes.body._id)
-							.send(match)
-							.expect(200)
-							.end(function(matchUpdateErr, matchUpdateRes) {
-								// Handle Match update error
-								if (matchUpdateErr) done(matchUpdateErr);
-
-								// Set assertions
-								(matchUpdateRes.body._id).should.equal(matchSaveRes.body._id);
-								(matchUpdateRes.body.name).should.match('WHY YOU GOTTA BE SO MEAN?');
-
-								// Call the assertion callback
-								done();
-							});
-					});
-			});
-	});
-
-	it('should be able to get a list of Matches if not signed in', function(done) {
-		// Create new Match model instance
-		var matchObj = new Match(match);
-
-		// Save the Match
-		matchObj.save(function() {
-			// Request Matches
-			request(app).get('/matches')
-				.end(function(req, res) {
-					// Set assertion
-					res.body.should.be.an.Array.with.lengthOf(1);
-
-					// Call the assertion callback
-					done();
-				});
-
-		});
-	});
 
 
-	it('should be able to get a single Match if not signed in', function(done) {
-		// Create new Match model instance
-		var matchObj = new Match(match);
 
-		// Save the Match
-		matchObj.save(function() {
-			request(app).get('/matches/' + matchObj._id)
-				.end(function(req, res) {
-					// Set assertion
-					res.body.should.be.an.Object.with.property('name', match.name);
 
-					// Call the assertion callback
-					done();
-				});
-		});
-	});
+
+
+
 
 	it('should be able to delete Match instance if signed in', function(done) {
 		agent.post('/auth/signin')

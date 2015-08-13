@@ -1,5 +1,1263 @@
 % !TeX spellcheck = de_CH
 \chapter{Test}
 \section{Unit Tests}
+Der MEAN Stack bietet ein Framework direkt an. Es wird unterschieden zwischen dem Client Test Framework und dem Server Test Framework.
+
+Als Client Test Framework wird Karma - ein Framework um AngularJS zu testen - verwendet. Für jeden Controller werden die verschiedenen Methoden getestet.  Als Beispiel testet dieser Test, ob die find() Methode gewünscht funktioniert:
+\begin{lstlisting}
+it('$scope.find() should create an array with at least one Court object fetched from XHR', inject(function(Courts) {
+	// Create sample Court using the Courts service
+	var sampleCourt = new Courts({
+		'name':'Vitis','address':'Vitis','contact':'000000000','sports':['Squash','Tennis','Badminton','Tabletennis']
+	});
+
+	// Create a sample Courts array that includes the new Court
+	var sampleCourts = [sampleCourt];
+
+	// Set GET response
+	$httpBackend.expectGET('courts').respond(sampleCourts);
+
+	// Run controller functionality
+	scope.find();
+	$httpBackend.flush();
+
+	// Test scope value
+	expect(scope.courts).toEqualData(sampleCourts);
+}));
+\end{lstlisting}
+
+Zuerst wird ein Beispiel-Court Objekt erstellt (Zeile 3-5). Auf Zeile 11 wird ein Mock-Objekt erstellt, das den API Call /courts abfängt, und das Beispiel-Court zurücksendet. Anschliessend wird (Zeile 14) die Methode aufgerufen und auf Zeile 18 die Antwort mit dem Anfang verglichen. Sind die Daten gleich, ist der Test für die Methode geglückt.
+
+Als Server Test Framework wird Mocha - eins NodeJS/ExpressJS Testsquite verwendet. Models sowie Controller werden hier getestet. 
+
+Als Beispiel testet dieser Code, ob die Datenfelder richtig spezifiziert sind, und verschiedene Save-Funktionen funktionieren, oder einen Fehler zurückgeben:
+\begin{lstlisting}
+describe('Method Save', function() {
+	it('should be able to save without problems', function(done) {
+		return court.save(function(err) {
+			should.not.exist(err);
+			done();
+		});
+	});
+
+	it('should be able to show an error when try to save without name', function(done) { 
+		court.name = '';
+
+		return court.save(function(err) {
+			should.exist(err);
+			done();
+		});
+	});
+	it('should be able to show an error when try to save without coordinates', function(done) {
+		court.lat = '';
+
+		return court.save(function(err) {
+			should.exist(err);
+			done();
+		});
+	});
+});
+\end{lstlisting}
+Der erste Test prüft, ob ein valides (zuvor erstelltes) Court-Objekt  problemlos gespeichert werden kann. Dafür wird die court.save() Funktion aufgerufen und geprüft ob es ein Error gibt.
+
+Anschliessend (ab Zeile 9) wird der Name oder die Koordinaten (ab Zeile 17) gelöscht, was nicht zulässig ist. Das Resultat bei dem Speichern des Objekt sollte ein Error sein. Ist dem so, ist der Test erfolgreich.
+
+Bei den Controller Tests wird die Applikation in der Test-Umgebung gestartet. Verschiedene Objekte werden bei Teststart in die Test-Datenbank eingefügt:
+\begin{lstlisting}
+....
+beforeEach(function(done) {
+		// Create user credentials
+		credentials = {
+			username: 'username',
+			password: 'password'
+		};
+
+		// Create a new user
+		user = new User({
+			firstName: 'Full',
+			lastName: 'Name',
+			displayName: 'Full Name',
+			email: 'test@test.com',
+			username: credentials.username,
+			password: credentials.password,
+			provider: 'local'
+		});
+
+		// Save a user to the test db and create new Court
+		user.save(function() {
+....
+\end{lstlisting}
+Anschliessend wird die Applikation mit verschieden Requests angesprochen und die Response auf Validität überprüft:
+\begin{lstlisting}
+it('should not be able to save Court instance if not logged in', function(done) {
+		agent.post('/courts')
+			.send(court)
+			.expect(401)
+			.end(function(courtSaveErr, courtSaveRes) {
+				// Call the assertion callback
+				done(courtSaveErr);
+			});
+	});
+\end{lstlisting}
+In diesem Beispiel wird versucht ein Court anzulegen, ohne vorher einzuloggen. Ein Access Denied Fehler muss von der API zurückgesendet werden (siehe Zeile 4).
+
 \section{System Tests}
-\section{User Acceptance Tests}
+Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe eines Systemtests. Zuerst werden Testfälle für Anforderungen erstellt, diese Ausgeführt und das erwartete mit dem tatsächlichem Ergebnis verglichen. 
+\newpage
+\subsection{Testfälle}
+\begin{center}
+	\tabulinesep = 1mm
+	\begin{longtabu} to \linewidth [m]{|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}	
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE0.01}}  &   
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erfolgreiche Anmeldung an das System }}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+		\cellcolor{testblau}{Dieser Test prüft ob eine Anmeldung an das System funktioniert mit gültigen Anmeldedaten. }
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+		\cellcolor{testblau} 1.0
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
+		\cellcolor{testblau} REQ0.01 - Anmeldung an das System
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
+		\cellcolor{testblau}
+		\begin{enumerate}
+		\itemsep -0.4em
+			\item Navigieren zur Anmeldeseite (webserver/signin)
+			\item Eingeben von gültigen Anmeldedaten
+		\end{enumerate}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
+		\cellcolor{testblau}	
+		Erfolgreicher Login, Weiterleitung zur Startseite. 
+	\end{longtabu}
+\end{center}
+\begin{center}
+	\tabulinesep = 1mm
+	\begin{longtabu} to \linewidth [m]{|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}	
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE0.02}}  &   
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Fehlgeschlagene Anmeldung an das System }}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+		\cellcolor{testblau}{Dieser Test prüft ob eine Anmeldung an das System fehlschlägt mit falschen Anmeldedaten }
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+		\cellcolor{testblau} 1.0
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
+		\cellcolor{testblau} REQ0.01 - Anmeldung an das System
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
+		\cellcolor{testblau}
+		\begin{enumerate}
+		\itemsep -0.4em
+			\item Navigieren zur Anmeldeseite (webserver/signin)
+			\item Eingeben von ungültigen Anmeldedaten
+		\end{enumerate}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
+		\cellcolor{testblau}	
+		Fehlgeschlagener Login, Fehlermeldung (z.B. Wrong Username/Password)
+	\end{longtabu}
+\end{center}
+\begin{center}
+	\tabulinesep = 1mm
+	\begin{longtabu} to \linewidth [m]{|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}	
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE0.03}}  &   
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erfolgreiche Anmeldung an das System mittels OAuth}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+		\cellcolor{testblau}{Dieser Test prüft ob eine Anmeldung an das System mit OAuth funktioniert. }
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+		\cellcolor{testblau} 1.0
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
+		\cellcolor{testblau} REQ0.03 - Authentisierung über OAuth
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
+		\cellcolor{testblau}
+		\begin{enumerate}
+		\itemsep -0.4em
+			\item Navigieren zur Anmeldeseite (webserver/signin)
+			\item Auf das OAuth Symbol von Google klicken
+			\item Bei Google Anmelden
+			\item Autorisierung (wenn noch nicht gemacht) freigeben
+		\end{enumerate}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
+		\cellcolor{testblau}	
+		Erfolgreicher Login, Weiterleitung zur Startseite.
+	\end{longtabu}
+\end{center}
+\begin{center}
+	\tabulinesep = 1mm
+	\begin{longtabu} to \linewidth [m]{|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}	
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE0.04}}  &   
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erfolgreiche Registrierung mit dem System}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+		\cellcolor{testblau}{Dieser Test prüft, ob die Registrierung mit einem validen User funktioniert }
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+		\cellcolor{testblau} 1.0
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
+		\cellcolor{testblau} REQ0.02 - Registrierung eines Users mit dem System
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
+		\cellcolor{testblau}
+		\begin{enumerate}
+		\itemsep -0.4em
+			\item Navigieren zur Registrierungsseite (webserver/signup)
+			\item Einen neuen validen User registrieren
+
+		\end{enumerate}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
+		\cellcolor{testblau}	
+		Erfolgreiche Registrierung, Weiterleitung zur Profil oder Startseite.
+	\end{longtabu}
+\end{center}
+\begin{center}
+	\tabulinesep = 1mm
+	\begin{longtabu} to \linewidth [m]{|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}	
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE0.05}}  &   
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Gleiche e-Mail bei Registrierung}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+		\cellcolor{testblau}{Dieser Test prüft, ob die Registrierung mit einem schon User  einen Fehler gibt }
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+		\cellcolor{testblau} 1.0
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
+		\cellcolor{testblau} REQ0.02 - Registrierung eines Users mit dem System
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
+		\cellcolor{testblau}
+		\begin{enumerate}
+		\itemsep -0.4em
+			\item Navigieren zur Registrierungsseite (webserver/signup)
+			\item Einen existierenden User mit gleicher e-Mail registrieren
+
+		\end{enumerate}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
+		\cellcolor{testblau}	
+		Fehlermeldung, der User ist vorhanden
+	\end{longtabu}
+\end{center}
+\begin{center}
+	\tabulinesep = 1mm
+	\begin{longtabu} to \linewidth [m]{|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}	
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE1.01}}  &   
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}User registriert und de registriert sich in Racketsportzentrum}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+		\cellcolor{testblau}{Der User wählt ein Racketsportzentrum aus und registriert sich in das Racketsportzentrum }
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+		\cellcolor{testblau} 1.0
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
+		\cellcolor{testblau} REQ0.02 - Registrierung eines Users mit dem System
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
+		\cellcolor{testblau}
+		\begin{enumerate}
+		\itemsep -0.4em
+			\item Navigieren zur Courtsite (webserver/courts)
+			\item Ein Racketsportzentrum auswählen.
+			\item Auf Ich will mitspielen drücken, um sich mit dem Racketsportzentrum zu registrieren.
+			\item Auf ich will nicht mehr mitspielen drücken, um sich auszutragen.
+		\end{enumerate}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
+		\cellcolor{testblau}	
+		Nach Schritt 3 muss der User in der Liste des Racketsportzentrums auftauchen. Nach Schritt 4 muss der User aus der Liste verschwinden
+	\end{longtabu}
+\end{center}
+\begin{center}
+	\tabulinesep = 1mm
+	\begin{longtabu} to \linewidth [m]{|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}	
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE1.02}}  &   
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Details zu Spielern}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+		\cellcolor{testblau}{Der Spieler kann Details über sich preisgeben. Es gibt eine Seite, auf der er die Informationen über ein Formular eintragen kann.}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+		\cellcolor{testblau} 1.0
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
+		\cellcolor{testblau} REQ1.01 - Zuteilung von User zu Racketsportzentren
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
+		\cellcolor{testblau}
+		\begin{enumerate}
+		\itemsep -0.4em
+			\item Navigieren zur Profilseite (webserver/profile)
+			\item Informationen über das Formular eintragen
+			\item Formular abschicken
+		
+		\end{enumerate}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
+		\cellcolor{testblau}	
+		Informationen nach einem Reload immer noch auf der Profilseite vorhanden.
+	\end{longtabu}
+\end{center}
+\begin{center}
+	\tabulinesep = 1mm
+	\begin{longtabu} to \linewidth [m]{|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}	
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE1.03}}  &   
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Friend System - Freund einladen}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+		\cellcolor{testblau}{Spieler 1 lädt Spieler 2 ein, einen Freund zu werden. Spieler 2 sieht die Einladung und kann sie annehmen oder ablehnen}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+		\cellcolor{testblau} 1.0
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
+		\cellcolor{testblau} REQ1.03 - Friend System
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
+		\cellcolor{testblau}
+		\begin{enumerate}
+		\itemsep -0.4em
+			\item Navigieren zur Freundeseite (webserver/friends)
+			\item Name von Spieler 2 in Formular eingeben
+			\item Einladung senden
+		\end{enumerate}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
+		\cellcolor{testblau}	
+		Spieler 2 sieht eine Einladung von Spieler 1
+	\end{longtabu}
+\end{center}
+\begin{center}
+	\tabulinesep = 1mm
+	\begin{longtabu} to \linewidth [m]{|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}	
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE1.04}}  &   
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Friend System - Einladung annehmen}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+		\cellcolor{testblau}{Spieler 2 nimmt die Einladung an. Beide Spieler sehen sich nun als Freunde}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+		\cellcolor{testblau} 1.0
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
+		\cellcolor{testblau} REQ1.03 - Friend System
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
+		\cellcolor{testblau}
+		\begin{enumerate}
+		\itemsep -0.4em
+			\item Navigieren zur Freundeseite (webserver/friends)
+			\item Einladung von Spieler 1 annehmen
+		\end{enumerate}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
+		\cellcolor{testblau}	
+		Beide sehen sich als Freunde auf der Freundeseite.
+	\end{longtabu}
+\end{center}
+\begin{center}
+	\tabulinesep = 1mm
+	\begin{longtabu} to \linewidth [m]{|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}	
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE1.05}}  &   
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Friend System - Einladung ablehnen}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+		\cellcolor{testblau}{Spieler 2 lehnt die Einladung ab. Beide Spieler sehen sich nicht als freunde}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+		\cellcolor{testblau} 1.0
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
+		\cellcolor{testblau} REQ1.03 - Friend System
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
+		\cellcolor{testblau}
+		\begin{enumerate}
+		\itemsep -0.4em
+			\item Navigieren zur Freundeseite (webserver/friends)
+			\item Einladung von Spieler 1 ablehnen
+		\end{enumerate}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
+		\cellcolor{testblau}	
+		Beide sehen sich nicht als Freunde auf der Freundeseite.
+	\end{longtabu}
+\end{center}
+\begin{center}
+	\tabulinesep = 1mm
+	\begin{longtabu} to \linewidth [m]{|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}	
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE1.06}}  &   
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Friend System - nicht vorhandenen User einladen}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+		\cellcolor{testblau}{Spieler 1 lädt einen nicht vorhandenen User ein.}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+		\cellcolor{testblau} 1.0
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
+		\cellcolor{testblau} REQ1.03 - Friend System
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
+		\cellcolor{testblau}
+		\begin{enumerate}
+		\itemsep -0.4em
+			\item Navigieren zur Freundeseite (webserver/friends)
+			\item Einladung an Username senden, welcher nicht existiert
+		\end{enumerate}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
+		\cellcolor{testblau}	
+		Ein Fehler wird zurückgegeben, das der User nicht gefunden wurde.
+	\end{longtabu}
+\end{center}
+\begin{center}
+	\tabulinesep = 1mm
+	\begin{longtabu} to \linewidth [m]{|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}	
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE2.01}}  &   
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Spiel mit Terminvorschlag erstellen}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+		\cellcolor{testblau}{Ein Spieler erstellt ein Spiel}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+		\cellcolor{testblau} 1.0
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
+		\cellcolor{testblau} 
+		\begin{itemize}
+		\item REQ2.01 - Spiel erstellen
+		\item REQ2.02 - Spiel Terminvorschläge erstellen
+		\end{itemize}REQ2.01 - Spiel erstellen
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
+		\cellcolor{testblau}
+		\begin{enumerate}
+		\itemsep -0.4em
+			\item Navigieren zur Spieleseite (webserver/matches)
+			\item Erstellen eines Spiels
+			\item Alle Felder einfüllen , inklusive Terminvorschläge
+			\item Spiel abschicken
+		\end{enumerate}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
+		\cellcolor{testblau}	
+		Spieler 2 sollte nun das Spiel sehen
+	\end{longtabu}
+\end{center}
+\begin{center}
+	\tabulinesep = 1mm
+	\begin{longtabu} to \linewidth [m]{|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}	
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE2.02}}  &   
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Nicht valides Spiel erstellen}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+		\cellcolor{testblau}{Ein Spieler erstellt ein Spiel}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+		\cellcolor{testblau} 1.0
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
+		\cellcolor{testblau} 
+		\begin{itemize}
+		\item REQ2.01 - Spiel erstellen
+		\item REQ2.02 - Spiel Terminvorschläge erstellen
+		\end{itemize}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
+		\cellcolor{testblau}
+		\begin{enumerate}
+		\itemsep -0.4em
+			\item Navigieren zur Spieleseite (webserver/matches)
+			\item Erstellen eines Spiels
+			\item Kein Sport ausfüllen
+			\item Spiel abschicken
+		\end{enumerate}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
+		\cellcolor{testblau}	
+		Bei abschicken sollte ein Fehler erscheinen das das Spiel nicht vollständig ausgefüllt wurde.
+	\end{longtabu}
+\end{center}
+
+\begin{center}
+	\tabulinesep = 1mm
+	\begin{longtabu} to \linewidth [m]{|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}	
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE2.03}}  &   
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Spiel Terminvorschlag annehmen}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+		\cellcolor{testblau}{Ein Spieler nimmt ein Spiel an.}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+		\cellcolor{testblau} 1.0
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
+		\cellcolor{testblau} 
+		 REQ2.03 - Spiel Terminvorschläge annehmen und ablehnen
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
+		\cellcolor{testblau}
+		\begin{enumerate}
+		\itemsep -0.4em
+			\item Navigieren zur Spieleseite (webserver/matches)
+			\item Ein Spielvorschlag auswählen
+			\item Ein Terminvorschlag wählen
+			\item Spiel abschicken
+		\end{enumerate}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
+		\cellcolor{testblau}	
+		Der User sieht das Spiel nicht mehr, der andere Spieler kann nun den Vorschlag bestätigen
+	\end{longtabu}
+\end{center}
+\begin{center}
+	\tabulinesep = 1mm
+	\begin{longtabu} to \linewidth [m]{|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}	
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE2.04}}  &   
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Spiel Terminvorschlag ablehnen}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+		\cellcolor{testblau}{Ein Spieler nimmt ein Spiel an.}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+		\cellcolor{testblau} 1.0
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
+		\cellcolor{testblau} 
+		 REQ2.03 - Spiel Terminvorschläge annehmen und ablehnen
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
+		\cellcolor{testblau}
+		\begin{enumerate}
+		\itemsep -0.4em
+			\item Navigieren zur Spieleseite (webserver/matches)
+			\item Ein Spielvorschlag auswählen
+			\item Neue Termine auswählen drücken
+			\item Neue Termine auswählen
+			\item Spiel zurückschicken
+		\end{enumerate}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
+		\cellcolor{testblau}	
+		Das Spiel geht zurück zum anderen Spieler und dieser kann nun von den neuen Vorschlägen auswählen.
+	\end{longtabu}
+\end{center}
+\begin{center}
+	\tabulinesep = 1mm
+	\begin{longtabu} to \linewidth [m]{|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}	
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE2.05}}  &   
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Broadcast Spiel erstellen}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+		\cellcolor{testblau}{Der Spieler erstellt ein Broadcast Spiel für das Racketsportzentrum}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+		\cellcolor{testblau} 1.0
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
+		\cellcolor{testblau} 
+		 REQ2.05 --- Broadcast Spiele erstellen
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
+		\cellcolor{testblau}
+		\begin{enumerate}
+		\itemsep -0.4em
+			\item Navigieren zur Spieleseite (webserver/matches)
+			\item Wählt die Erstellung eines Broadcast Spiels
+			\item Füllt das Formular aus
+			\item Sendet Spiel ab
+		\end{enumerate}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
+		\cellcolor{testblau}	
+		Spieler im gleichen Racketsportzentrum sehen das Spiel.
+	\end{longtabu}
+\end{center}
+\begin{center}
+	\tabulinesep = 1mm
+	\begin{longtabu} to \linewidth [m]{|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}	
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE2.06}}  &   
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Ergebnisse des Spiels eintragen}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+		\cellcolor{testblau}{Sobald das Spiel beendet wurde, kann das Ergebnis eingetragen werden}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+		\cellcolor{testblau} 1.0
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
+		\cellcolor{testblau} 
+		 REQ2.07 --- Ergebnisse des Spiels eintragen
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
+		\cellcolor{testblau}
+		\begin{enumerate}
+		\itemsep -0.4em
+			\item Navigieren zur Spieleseite (webserver/matches)
+			\item Ein offenes Spiel wählen
+			\item Spiel in den Status In Progress setzen
+			\item Ergebnisse eintragen
+		\end{enumerate}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
+		\cellcolor{testblau}	
+		 Der zweite Spieler sieht das Spiel und kann die Ergebnisse bestätigen
+	\end{longtabu}
+\end{center}
+\begin{center}
+	\tabulinesep = 1mm
+	\begin{longtabu} to \linewidth [m]{|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}	
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE2.07}}  &   
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Ergebnisse des Spiels eintragen}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+		\cellcolor{testblau}{Sobald das Spiel beendet wurde, kann das Ergebnis eingetragen werden}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+		\cellcolor{testblau} 1.0
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
+		\cellcolor{testblau} 
+		 REQ2.08 --- Bestätigung des Spiels eintragen
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
+		\cellcolor{testblau}
+		\begin{enumerate}
+		\itemsep -0.4em
+			\item Navigieren zur Spieleseite (webserver/matches)
+			\item Ein Spiel auswählen, welches beendet wurde
+			\item Ergebnisse bestätigen
+		\end{enumerate}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
+		\cellcolor{testblau}	
+		 Spiel ist nun für beide Spieler unter Archiv ersichtlich.
+	\end{longtabu}
+\end{center}
+\begin{center}
+	\tabulinesep = 1mm
+	\begin{longtabu} to \linewidth [m]{|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}	
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE2.08}}  &   
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Spiel Workflow End-To-End Test}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+		\cellcolor{testblau}{Zwei Spieler spielen den ganzen Spiel Workflow durch}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+		\cellcolor{testblau} 1.0
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
+		\cellcolor{testblau} 
+		\begin{tabular}[x]{@{}l@{}}
+		 REQ2.01 - Spiel erstellen  \\
+		 REQ2.02 - Spiel Terminvorschläge erstellen\\
+		 REQ2.03 - Spiel Terminvorschläge annehmen und ablehnen\\
+		 REQ2.04 - Wiederkehrende Spiele erstellen\\
+		 REQ2.05 - Broadcast Spiele erstellen\\
+		 REQ2.06 - Privatsphäreeinstellungen berücksichtigen\\
+		 REQ2.07 - Ergebnisse des Spiels Eintragen\\
+		 REQ2.08 - Bestätigung des Spiels eintragen
+		 \end{tabular}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
+		\cellcolor{testblau}
+		\begin{enumerate}
+		\itemsep -0.4em
+			\item Spieler 1: Erstellt Spiel mit Terminvorschläge
+			\item Spieler 2: Bestätigt ein Terminvorschlag
+			\item Spieler 1: Bestätigt Bestätigung des Terminvorschlag
+			\item Spieler 1: Eröffnet Spiel
+			\item Spieler 2: Trägt Resultat ein
+			\item Spieler 1: Bestätigt Resultat
+			\item Spieler 1 und 2: Findet Spiel in Archiv
+		\end{enumerate}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
+		\cellcolor{testblau}	
+			Beide Spieler finden Spiel in archiv
+	\end{longtabu}
+\end{center}
+
+\begin{center}
+	\tabulinesep = 1mm
+	\begin{longtabu} to \linewidth [m]{|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}	
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE3.01}}  &   
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erfolgreich ein Court erstellen}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+		\cellcolor{testblau}{Sobald das Spiel beendet wurde, kann das Ergebnis eingetragen werden}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+		\cellcolor{testblau} 1.0
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
+		\cellcolor{testblau} 
+		 REQ3.01 --- Courts erstellen
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
+		\cellcolor{testblau}
+		\begin{enumerate}
+		\itemsep -0.4em
+			\item Navigieren zur Courtseite (webserver/courts)
+			\item Ein neues Court erstellen
+		\end{enumerate}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
+		\cellcolor{testblau}	
+		Die eingegebenen Details in der Court Detail Seite ersichtlich.
+	\end{longtabu}
+\end{center}
+\begin{center}
+	\tabulinesep = 1mm
+	\begin{longtabu} to \linewidth [m]{|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}	
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE3.02}}  &   
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erfolglos ein Court erstellen}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+		\cellcolor{testblau}{Koordinaten für das Court sind obligatorisch, wenn eine Koordinate fehlt, das Court sollte nicht erstellt werden, dafür ein Fehler kommen. }
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+		\cellcolor{testblau} 1.0
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
+		\cellcolor{testblau} 
+		 REQ3.01 --- Courts erstellen
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
+		\cellcolor{testblau}
+		\begin{enumerate}
+		\itemsep -0.4em
+			\item Navigieren zur Courtseite (webserver/courts)
+			\item Ein neues Court erstellen
+			\item Adresse nicht ausfüllen
+		\end{enumerate}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
+		\cellcolor{testblau}	
+		Ein Fehler sollte erscheinen.
+	\end{longtabu}
+\end{center}
+
+\begin{center}
+	\tabulinesep = 1mm
+	\begin{longtabu} to \linewidth [m]{|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}	
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE3.03}}  &   
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Spieler können sich in Court eintragen}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+		\cellcolor{testblau}{Spieler kann sich bei Court registrieren, und anschliessend de registrieren }
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+		\cellcolor{testblau} 1.0
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
+		\cellcolor{testblau} 
+		 REQ3.02 --- Spieler können sich in Courts eintragen
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
+		\cellcolor{testblau}
+		\begin{enumerate}
+		\itemsep -0.4em
+			\item Navigieren zur Courtseite (webserver/courts)
+			\item Courtdetails öffnen
+			\item Sich in Court einschreiben
+			\item Sichin Court ausschreiben
+		\end{enumerate}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
+		\cellcolor{testblau}	
+		Nach 3. Schritt sollte der User in der Liste der Spieler vom Court auftauchen, nach Schritt 4 sollte er wieder verschwunden sein.
+	\end{longtabu}
+	\end{center}
+\begin{center}
+	\tabulinesep = 1mm
+	\begin{longtabu} to \linewidth [m]{|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
+		\arrayrulecolor{white}	
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE4.01}}  &   
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erfolgreich eine Liga erstellen}}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+		\cellcolor{testblau}{Der Spieler kann eine eigene Liga erstellen bei Eingabe von validen Informationen in das Formular }
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+		\cellcolor{testblau} 1.0
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
+		\cellcolor{testblau} 
+		 REQ4.01 --- Liga erstellen
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
+		\cellcolor{testblau}
+		\begin{enumerate}
+		\itemsep -0.4em
+			\item Navigieren zur Liga (webserver/leagues)
+			\item Neue Liga erstellen
+			\item Formular Ausfüllen
+		\end{enumerate}
+		\tabularnewline
+		\tabucline[2pt]{-}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
+		\cellcolor{testblau}	
+		Liga sollte nun in der Übersicht ersichtlich sein.
+	\end{longtabu}
+	\end{center}
+	\begin{center}
+		\tabulinesep = 1mm
+		\begin{longtabu} to \linewidth [m]{|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
+			\arrayrulecolor{white}	
+			\tabucline[2pt]{-}
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}TE4.02}}  &   
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}Erfolglos eine Liga erstellen}}
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+			\cellcolor{testblau}{Der Spieler kann eine eigene Liga erstellen bei Eingabe von validen Informationen in das Formular }
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+			\cellcolor{testblau} 1.0
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
+			\cellcolor{testblau} 
+			 REQ4.01 --- Liga erstellen
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
+			\cellcolor{testblau}
+			\begin{enumerate}
+			\itemsep -0.4em
+				\item Navigieren zur Ligaseite (webserver/leagues)
+				\item Neues Court erstellen
+				\item Sportart nicht ausfüllen
+
+			\end{enumerate}
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
+			\cellcolor{testblau}	
+			Ein Fehler sollte auftauchen der verlangt, dass das Feld ausgefüllt wird.
+		\end{longtabu}
+		\end{center}
+	\begin{center}
+		\tabulinesep = 1mm
+		\begin{longtabu} to \linewidth [m]{|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
+			\arrayrulecolor{white}	
+			\tabucline[2pt]{-}
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}TE4.03}}  &   
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}Spieler können sich in die Liga eintragen}}
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+			\cellcolor{testblau}{Spieler kann sich bei Liga registrieren, und anschliessend de registrieren  }
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+			\cellcolor{testblau} 1.0
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
+			\cellcolor{testblau} 
+			 REQ4.01 --- Liga erstellen
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
+			\cellcolor{testblau}
+			\begin{enumerate}
+			\itemsep -0.4em
+			\item Navigieren zur Ligaseite (webserver/league)
+			\item Ligadetails öffnen
+			\item Sich in Liga einschreiben
+			\item Sich in Liga ausschreiben
+			\end{enumerate}
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
+			\cellcolor{testblau}	
+			Nach Schritt 3 sollte man in der Liste der Liga sein, nach Schritt 4 nicht mehr.
+		\end{longtabu}
+		\end{center}
+	\begin{center}
+		\tabulinesep = 1mm
+		\begin{longtabu} to \linewidth [m]{|[2pt]p{3cm}|[2pt]X[1, m , l]|[2pt]}
+			\arrayrulecolor{white}	
+			\tabucline[2pt]{-}
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}TE4.04}}  &   
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}Rangliste durch Spiele aktualisieren}}
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
+			\cellcolor{testblau}{Bei Abschluss eines Spiels wird die Rangliste der Liga aktualisiert}
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
+			\cellcolor{testblau} 1.0
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
+			\cellcolor{testblau} 
+			 REQ4.01 --- Liga erstellen
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
+			\cellcolor{testblau}
+			\begin{enumerate}
+			\itemsep -0.4em
+			\item Spiel erstellen und an vorhandene Liga kuppeln (Drop-Down in Formular)
+			\item Spielworkflow durchspielen
+			\item Spiel abschliessen
+			\item Punkte in Rangliste überprüfen
+			\end{enumerate}
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
+			\cellcolor{testblau}	
+			Punkte für den Gewinner müssen aktualisiert sein.
+		\end{longtabu}
+		\end{center}
+\subsection{Testresultate}
+\begin{center}
+		\tabulinesep = 1mm
+		\begin{longtabu} to \linewidth {p{1.5cm}|[2pt]X[1, m , l]|[2pt]X[1, m , l]|[2pt]p{1.5cm}}
+			\arrayrulecolor{white}	
+			\tabucline[2pt]{-}
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}ID}}  &   
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}}&
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}Tatsächliches Resultat}}&
+			\textcolor{white}{\textbf{\cellcolor{airforceblue}(N)OK}}    
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\cellcolor{testblau} TE0.01 &
+			\cellcolor{testblau}Erfolgreicher Login, Weiterleitung zur Startseite.&
+			\cellcolor{testblau} Erfolgreicher Login, Weiterleitung zur Startseite.&
+			\cellcolor{testblau} OK
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\cellcolor{testblau} TE0.02 &
+			\cellcolor{testblau}Fehlgeschlagener Login, Fehlermeldung (z.B. Wrong Username/Password)&
+			\cellcolor{testblau} Fehlgeschlagener Login, Fehlermeldung : Unknown user or invalid password&
+			\cellcolor{testblau} OK
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\cellcolor{testblau} TE0.03 &
+			\cellcolor{testblau}Erfolgreicher Login, Weiterleitung zur Startseite.&
+			\cellcolor{testblau} Erfolgreicher Login, Weiterleitung zur Startseite.&
+			\cellcolor{testblau} OK
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\cellcolor{testblau} TE0.04 &
+			\cellcolor{testblau}Erfolgreiche Registrierung, Weiterleitung zur Profil oder Startseite.&
+			\cellcolor{testblau}Erfolgreiche Registrierung, Weiterleitung zur Profilseite.&
+			\cellcolor{testblau} OK
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\cellcolor{testblau} TE0.05 &
+			\cellcolor{testblau}Fehlermeldung, der User ist vorhanden&
+			\cellcolor{testblau}Fehlermeldung: Username already exists&
+			\cellcolor{testblau} OK
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\cellcolor{testblau} TE01.01 &
+			\cellcolor{testblau}Nach Schritt 3 muss der User in der Liste des Racketsportzentrums
+auftauchen. Nach Schritt 4 muss der User aus der Liste verschwinden&
+			\cellcolor{testblau}Nach Schritt 3 ist der User in der liste, nach Schritt 4 nicht mehr.&
+			\cellcolor{testblau} OK 
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\cellcolor{testblau} TE01.02 &
+			\cellcolor{testblau}Informationen nach einem Reload immer noch auf der Profilseite
+vorhanden.&
+			\cellcolor{testblau}Informationen nach einem Reload immer noch auf der Profilseite
+vorhanden.&
+			\cellcolor{testblau} OK 
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\cellcolor{testblau} TE01.03 &
+			\cellcolor{testblau}Spieler 2 sieht eine Einladung von Spieler 1&
+			\cellcolor{testblau}Spieler 2 sieht eine Einladung von Spieler 1&
+			\cellcolor{testblau} OK 
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\cellcolor{testblau} TE01.04 &
+			\cellcolor{testblau}Beide sehen sich als Freunde auf der Freundeseite.&
+			\cellcolor{testblau}Beide sehen sich als Freunde auf der Freundeseite.&
+			\cellcolor{testblau} OK 
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\cellcolor{testblau} TE01.05 &
+			\cellcolor{testblau}Beide sehen sich nicht als Freunde auf der Freundeseite.&
+			\cellcolor{testblau}Beide sehen sich nicht als Freunde auf der Freundeseite.&
+			\cellcolor{testblau} OK
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\cellcolor{testblau} TE01.06 &
+			\cellcolor{testblau}Ein Fehler wird zurückgegeben, das der User nicht gefunden wurde.&
+			\cellcolor{testblau}Fehler: User not found&
+			\cellcolor{testblau} OK
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\cellcolor{testblau} TE02.01 &
+			\cellcolor{testblau}Spieler 2 sollte nun das Spiel sehen&
+			\cellcolor{testblau}Spieler 2 sieht das Spiel in Herausforderungen&
+			\cellcolor{testblau} OK
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\cellcolor{notokay} TE02.02 &
+			\cellcolor{notokay}Bei abschicken sollte ein Fehler erscheinen das das Spiel nicht
+vollständig ausgefüllt wurde.&
+			\cellcolor{notokay}Spiel wird abgeschickt&
+			\cellcolor{notokay} NOK
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\cellcolor{testblau} TE02.03 &
+			\cellcolor{testblau}Der User sieht das Spiel nicht mehr, der andere Spieler kann nun den Vorschlag bestätigen&
+			\cellcolor{testblau}Der User sieht das Spiel nicht mehr, der andere Spieler kann nun den Vorschlag bestätigen&
+			\cellcolor{testblau} OK
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\cellcolor{testblau} TE02.04 &
+			\cellcolor{testblau}Das Spiel geht zurück zum anderen Spieler und dieser kann nun von
+den neuen Vorschlagen auswählen&
+			\cellcolor{testblau}Das Spiel geht zurück zum anderen Spieler und dieser kann nun von
+den neuen Vorschlagen auswählen&
+			\cellcolor{testblau} OK
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\cellcolor{testblau} TE02.05 &
+			\cellcolor{testblau}Spieler im gleichen Racketsportzentrum sehen das Spiel.&
+			\cellcolor{testblau}Spieler im gleichen Racketsportzentrum sehen das Spiel.&
+			\cellcolor{testblau} OK
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\cellcolor{testblau} TE02.06 &
+			\cellcolor{testblau}Der zweite Spieler sieht das Spiel und kann die Ergebnisse bestätigen&
+			\cellcolor{testblau}Der zweite Spieler sieht das Spiel und kann die Ergebnisse bestätigen&
+			\cellcolor{testblau} OK
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\cellcolor{testblau} TE02.07 &
+			\cellcolor{testblau}Spiel ist nun für beide Spieler unter Archiv ersichtlich&
+			\cellcolor{testblau}Spiel ist nun für beide Spieler unter Archiv ersichtlich&
+			\cellcolor{testblau} OK
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\cellcolor{testblau} TE02.08 &
+			\cellcolor{testblau}Beide Spieler finden Spiel in Archiv&
+			\cellcolor{testblau}Beide Spieler finden Spiel in Archiv&
+			\cellcolor{testblau} OK
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\cellcolor{testblau} TE03.01 &
+			\cellcolor{testblau}Die eingegebenen Details in der Court Detail Seite ersichtlich.&
+			\cellcolor{testblau}Court Details ersichtlich wie eingegeben.&
+			\cellcolor{testblau} OK
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\cellcolor{testblau} TE03.02 &
+			\cellcolor{testblau}Ein Fehler sollte erscheinen.&
+			\cellcolor{testblau}Fehler: Please fill in a correct address (select it from the dropdown) &
+			\cellcolor{testblau} OK
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\cellcolor{testblau} TE03.03 &
+			\cellcolor{testblau}Nach 3. Schritt sollte der User in der Liste der Spieler vom Court auftauchen, nach Schritt 4 sollte er wieder verschwunden sein.&
+			\cellcolor{testblau}Nach Schritt 3 wird der User angezeigt, nach Schritt 4 ist er wieder verschwunden. &
+			\cellcolor{testblau} OK
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\cellcolor{testblau} TE04.01 &
+			\cellcolor{testblau}Liga sollte nun in der Übersicht ersichtlich sein.&
+			\cellcolor{testblau}Liga ist in der Übersicht ersichtlich &
+			\cellcolor{testblau} OK
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\cellcolor{testblau} TE04.02 &
+			\cellcolor{testblau}Ein Fehler sollte auftauchen der verlangt, dass das Feld ausgefüllt wird.&
+			\cellcolor{testblau}Fehler: Please fill out the sport type &
+			\cellcolor{testblau} OK
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\cellcolor{testblau} TE04.03 &
+			\cellcolor{testblau}Nach Schritt 3 sollte man in der Liste der Liga sein, nach Schritt 4 nicht mehr.&
+			\cellcolor{testblau}Nach Schritt 3 ist der Spieler in der Liga registriert, nach Schritt 4 nicht mehr&
+			\cellcolor{testblau} OK
+			\tabularnewline
+			\tabucline[2pt]{-}
+			\cellcolor{testblau} TE04.04 &
+			\cellcolor{testblau}Punkte für den Gewinner müssen aktualisiert sein.&
+			\cellcolor{testblau}Punkte für den Gewinner müssen aktualisiert sein.&
+			\cellcolor{testblau} OK
+		\end{longtabu}
+		\end{center}
+Der Test TE02.02 wurde nicht erfolgreich abgeschlossen. Analysen haben ergeben, dass das Feld Sport nicht als Erforderlich getagt wurde. Dies wurde geändert. der Test ist nun erfolgreich.

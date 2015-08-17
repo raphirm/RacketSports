@@ -3,7 +3,7 @@
 \section{Unit Tests}
 Der MEAN Stack bietet ein Framework direkt an. Es wird unterschieden zwischen dem Client Test Framework und dem Server Test Framework.
 
-Als Client Test Framework wird Karma - ein Framework um AngularJS zu testen - verwendet. Für jeden Controller werden die verschiedenen Methoden getestet.  Als Beispiel testet dieser Test, ob die find() Methode gewünscht funktioniert:
+Als Client Test Framework wird Karma --- ein Framework, um AngularJS zu testen --- verwendet. Für jeden Controller werden die verschiedenen Methoden getestet.  Als Beispiel testet dieser Test, ob die find()-Methode gewünscht funktioniert:
 \begin{lstlisting}
 it('$scope.find() should create an array with at least one Court object fetched from XHR', inject(function(Courts) {
 	// Create sample Court using the Courts service
@@ -26,11 +26,11 @@ it('$scope.find() should create an array with at least one Court object fetched 
 }));
 \end{lstlisting}
 
-Zuerst wird ein Beispiel-Court Objekt erstellt (Zeile 3-5). Auf Zeile 11 wird ein Mock-Objekt erstellt, das den API Call /courts abfängt, und das Beispiel-Court zurücksendet. Anschliessend wird (Zeile 14) die Methode aufgerufen und auf Zeile 18 die Antwort mit dem Anfang verglichen. Sind die Daten gleich, ist der Test für die Methode geglückt.
+Zuerst wird ein Beispiel-Court-Objekt erstellt (Zeile 3--5). Auf Zeile 11 wird ein Mock-Objekt erstellt, das den API Call /courts abfängt, und das Beispiel-Court zurücksendet. Anschliessend wird (Zeile 14) die Methode aufgerufen und auf Zeile 18 die Antwort mit dem Anfang verglichen. Sind die Daten gleich, ist der Test für die Methode geglückt.
 
-Als Server Test Framework wird Mocha - eins NodeJS/ExpressJS Testsquite verwendet. Models sowie Controller werden hier getestet. 
+Als Server Test Framework wird Mocha --- eine NodeJS/ExpressJS Testsuite verwendet. Models sowie Controller werden hier getestet. 
 
-Als Beispiel testet dieser Code, ob die Datenfelder richtig spezifiziert sind, und verschiedene Save-Funktionen funktionieren, oder einen Fehler zurückgeben:
+Als Beispiel testet dieser Code, ob die Datenfelder richtig spezifiziert sind, und verschiedene Save-Funktionen funktionieren oder einen Fehler zurückgeben:
 \begin{lstlisting}
 describe('Method Save', function() {
 	it('should be able to save without problems', function(done) {
@@ -58,7 +58,7 @@ describe('Method Save', function() {
 	});
 });
 \end{lstlisting}
-Der erste Test prüft, ob ein valides (zuvor erstelltes) Court-Objekt  problemlos gespeichert werden kann. Dafür wird die court.save() Funktion aufgerufen und geprüft ob es ein Error gibt.
+Der erste Test prüft, ob ein valides (zuvor erstelltes) Court-Objekt  problemlos gespeichert werden kann. Dafür wird die court.save() Funktion aufgerufen und geprüft, ob es einen Error gibt.
 
 Anschliessend (ab Zeile 9) wird der Name oder die Koordinaten (ab Zeile 17) gelöscht, was nicht zulässig ist. Das Resultat bei dem Speichern des Objekt sollte ein Error sein. Ist dem so, ist der Test erfolgreich.
 
@@ -102,7 +102,7 @@ it('should not be able to save Court instance if not logged in', function(done) 
 In diesem Beispiel wird versucht ein Court anzulegen, ohne vorher einzuloggen. Ein Access Denied Fehler muss von der API zurückgesendet werden (siehe Zeile 4).
 
 \section{System Tests}
-Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe eines Systemtests. Zuerst werden Testfälle für Anforderungen erstellt, diese Ausgeführt und das erwartete mit dem tatsächlichem Ergebnis verglichen. 
+Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe eines Systemtests. Zuerst werden Testfälle für Anforderungen erstellt, diese ausgeführt und das erwartete Ergebnis mit dem tatsächlichen verglichen. 
 \newpage
 \subsection{Testfälle}
 \begin{center}
@@ -115,7 +115,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
-		\cellcolor{testblau}{Dieser Test prüft ob eine Anmeldung an das System funktioniert mit gültigen Anmeldedaten. }
+		\cellcolor{testblau}{Dieser Test prüft, ob eine Anmeldung an das System funktioniert mit gültigen Anmeldedaten. }
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
@@ -123,7 +123,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
-		\cellcolor{testblau} REQ0.01 - Anmeldung an das System
+		\cellcolor{testblau} REQ0.01 --- Anmeldung an das System
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
@@ -150,7 +150,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
-		\cellcolor{testblau}{Dieser Test prüft ob eine Anmeldung an das System fehlschlägt mit falschen Anmeldedaten }
+		\cellcolor{testblau}{Dieser Test prüft, ob eine Anmeldung an das System fehlschlägt mit falschen Anmeldedaten }
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
@@ -158,7 +158,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
-		\cellcolor{testblau} REQ0.01 - Anmeldung an das System
+		\cellcolor{testblau} REQ0.01 --- Anmeldung an das System
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
@@ -185,7 +185,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
-		\cellcolor{testblau}{Dieser Test prüft ob eine Anmeldung an das System mit OAuth funktioniert. }
+		\cellcolor{testblau}{Dieser Test prüft, ob eine Anmeldung an das System mit OAuth funktioniert. }
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
@@ -193,7 +193,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
-		\cellcolor{testblau} REQ0.03 - Authentisierung über OAuth
+		\cellcolor{testblau} REQ0.03 --- Authentisierung über OAuth
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
@@ -202,7 +202,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\itemsep -0.4em
 			\item Navigieren zur Anmeldeseite (webserver/signin)
 			\item Auf das OAuth Symbol von Google klicken
-			\item Bei Google Anmelden
+			\item Bei Google anmelden
 			\item Autorisierung (wenn noch nicht gemacht) freigeben
 		\end{enumerate}
 		\tabularnewline
@@ -230,7 +230,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
-		\cellcolor{testblau} REQ0.02 - Registrierung eines Users mit dem System
+		\cellcolor{testblau} REQ0.02 --- Registrierung eines Users mit dem System
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
@@ -245,7 +245,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
 		\cellcolor{testblau}	
-		Erfolgreiche Registrierung, Weiterleitung zur Profil oder Startseite.
+		Erfolgreiche Registrierung, Weiterleitung zur Profil- oder Startseite.
 	\end{longtabu}
 \end{center}
 \begin{center}
@@ -254,11 +254,11 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\arrayrulecolor{white}	
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE0.05}}  &   
-		\textcolor{white}{\textbf{\cellcolor{airforceblue}Gleiche e-Mail bei Registrierung}}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Gleiche E-Mail bei Registrierung}}
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
-		\cellcolor{testblau}{Dieser Test prüft, ob die Registrierung mit einem schon User  einen Fehler gibt }
+		\cellcolor{testblau}{Dieser Test prüft, ob die Registrierung mit einem schon existierenden User  einen Fehler gibt }
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
@@ -274,8 +274,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\begin{enumerate}
 		\itemsep -0.4em
 			\item Navigieren zur Registrierungsseite (webserver/signup)
-			\item Einen existierenden User mit gleicher e-Mail registrieren
-
+			\item Einen existierenden User mit gleicher E-Mail registrieren
 		\end{enumerate}
 		\tabularnewline
 		\tabucline[2pt]{-}
@@ -290,11 +289,11 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\arrayrulecolor{white}	
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE1.01}}  &   
-		\textcolor{white}{\textbf{\cellcolor{airforceblue}User registriert und de registriert sich in Racketsportzentrum}}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}User registriert sich und verlässt  Racket-Sportzentrum}}
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
-		\cellcolor{testblau}{Der User wählt ein Racketsportzentrum aus und registriert sich in das Racketsportzentrum }
+		\cellcolor{testblau}{Der User wählt ein Racket-Sportzentrum aus und registriert sich darin }
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
@@ -302,7 +301,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
-		\cellcolor{testblau} REQ0.02 - Registrierung eines Users mit dem System
+		\cellcolor{testblau} REQ0.02 --- Registrierung eines Users mit dem System
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
@@ -310,15 +309,15 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\begin{enumerate}
 		\itemsep -0.4em
 			\item Navigieren zur Courtsite (webserver/courts)
-			\item Ein Racketsportzentrum auswählen.
-			\item Auf Ich will mitspielen drücken, um sich mit dem Racketsportzentrum zu registrieren.
-			\item Auf ich will nicht mehr mitspielen drücken, um sich auszutragen.
+			\item Ein Racket-Sportzentrum auswählen.
+			\item Auf  \guillemotleft Ich will mitspielen\guillemotright {} drücken, um sich mit dem Racket-Sportzentrum zu registrieren.
+			\item Auf \guillemotleft Ich will nicht mehr mitspielen\guillemotright {}  drücken, um sich auszutragen.
 		\end{enumerate}
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
 		\cellcolor{testblau}	
-		Nach Schritt 3 muss der User in der Liste des Racketsportzentrums auftauchen. Nach Schritt 4 muss der User aus der Liste verschwinden
+		Nach Schritt 3 muss der User in der Liste des Racket-Sportzentrums auftauchen. Nach Schritt 4 muss der User aus der Liste verschwinden
 	\end{longtabu}
 \end{center}
 \begin{center}
@@ -339,7 +338,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
-		\cellcolor{testblau} REQ1.01 - Zuteilung von User zu Racketsportzentren
+		\cellcolor{testblau} REQ1.01 --- Zuteilung von User zu Racket-Sportzentren
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
@@ -368,7 +367,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
-		\cellcolor{testblau}{Spieler 1 lädt Spieler 2 ein, einen Freund zu werden. Spieler 2 sieht die Einladung und kann sie annehmen oder ablehnen}
+		\cellcolor{testblau}{Spieler 1 lädt Spieler 2 ein, ein Freund zu werden. Spieler 2 sieht die Einladung und kann sie annehmen oder ablehnen.}
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
@@ -376,7 +375,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
-		\cellcolor{testblau} REQ1.03 - Friend System
+		\cellcolor{testblau} REQ1.03 --- Friend System
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
@@ -400,7 +399,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\arrayrulecolor{white}	
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE1.04}}  &   
-		\textcolor{white}{\textbf{\cellcolor{airforceblue}Friend System - Einladung annehmen}}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Friend System --- Einladung annehmen}}
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
@@ -412,7 +411,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
-		\cellcolor{testblau} REQ1.03 - Friend System
+		\cellcolor{testblau} REQ1.03 --- Friend System
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
@@ -435,7 +434,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\arrayrulecolor{white}	
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE1.05}}  &   
-		\textcolor{white}{\textbf{\cellcolor{airforceblue}Friend System - Einladung ablehnen}}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Friend System --- Einladung ablehnen}}
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
@@ -447,7 +446,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
-		\cellcolor{testblau} REQ1.03 - Friend System
+		\cellcolor{testblau} REQ1.03 --- Friend System
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
@@ -470,7 +469,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\arrayrulecolor{white}	
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE1.06}}  &   
-		\textcolor{white}{\textbf{\cellcolor{airforceblue}Friend System - nicht vorhandenen User einladen}}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Friend System --- nicht vorhandenen User einladen}}
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
@@ -482,7 +481,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
-		\cellcolor{testblau} REQ1.03 - Friend System
+		\cellcolor{testblau} REQ1.03 --- Friend System
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
@@ -496,7 +495,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
 		\cellcolor{testblau}	
-		Ein Fehler wird zurückgegeben, das der User nicht gefunden wurde.
+		Ein Fehler wird zurückgegeben, dass der User nicht gefunden wurde.
 	\end{longtabu}
 \end{center}
 \begin{center}
@@ -509,7 +508,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
-		\cellcolor{testblau}{Ein Spieler erstellt ein Spiel}
+		\cellcolor{testblau}{Ein Spieler erstellt ein Spiel.}
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
@@ -519,9 +518,9 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
 		\cellcolor{testblau} 
 		\begin{itemize}
-		\item REQ2.01 - Spiel erstellen
-		\item REQ2.02 - Spiel Terminvorschläge erstellen
-		\end{itemize}REQ2.01 - Spiel erstellen
+		\item REQ2.01 --- Spiel erstellen
+		\item REQ2.02 --- Spiel Terminvorschläge erstellen
+		\end{itemize}
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
@@ -560,8 +559,8 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
 		\cellcolor{testblau} 
 		\begin{itemize}
-		\item REQ2.01 - Spiel erstellen
-		\item REQ2.02 - Spiel Terminvorschläge erstellen
+		\item REQ2.01 --- Spiel erstellen
+		\item REQ2.02 --- Spiel Terminvorschläge erstellen
 		\end{itemize}
 		\tabularnewline
 		\tabucline[2pt]{-}
@@ -578,7 +577,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
 		\cellcolor{testblau}	
-		Bei abschicken sollte ein Fehler erscheinen das das Spiel nicht vollständig ausgefüllt wurde.
+		Beim abschicken sollte ein Fehler erscheinen, dass das Spiel nicht vollständig ausgefüllt wurde.
 	\end{longtabu}
 \end{center}
 
@@ -601,7 +600,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
 		\cellcolor{testblau} 
-		 REQ2.03 - Spiel Terminvorschläge annehmen und ablehnen
+		 REQ2.03 --- Spiel Terminvorschläge annehmen und ablehnen
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
@@ -609,8 +608,8 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\begin{enumerate}
 		\itemsep -0.4em
 			\item Navigieren zur Spieleseite (webserver/matches)
-			\item Ein Spielvorschlag auswählen
-			\item Ein Terminvorschlag wählen
+			\item Einen Spielvorschlag auswählen
+			\item Einen Terminvorschlag wählen
 			\item Spiel abschicken
 		\end{enumerate}
 		\tabularnewline
@@ -639,7 +638,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Getestete Anforderung}} &
 		\cellcolor{testblau} 
-		 REQ2.03 - Spiel Terminvorschläge annehmen und ablehnen
+		 REQ2.03 --- Spiel Terminvorschläge annehmen und ablehnen
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Testschritte }} &
@@ -647,7 +646,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\begin{enumerate}
 		\itemsep -0.4em
 			\item Navigieren zur Spieleseite (webserver/matches)
-			\item Ein Spielvorschlag auswählen
+			\item Einen Spielvorschlag auswählen
 			\item Neue Termine auswählen drücken
 			\item Neue Termine auswählen
 			\item Spiel zurückschicken
@@ -669,7 +668,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
-		\cellcolor{testblau}{Der Spieler erstellt ein Broadcast Spiel für das Racketsportzentrum}
+		\cellcolor{testblau}{Der Spieler erstellt ein Broadcast Spiel für das Racket-Sportzentrum}
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
@@ -694,7 +693,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
 		\cellcolor{testblau}	
-		Spieler im gleichen Racketsportzentrum sehen das Spiel.
+		Spieler im gleichen Racket-Sportzentrum sehen das Spiel.
 	\end{longtabu}
 \end{center}
 \begin{center}
@@ -725,7 +724,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\itemsep -0.4em
 			\item Navigieren zur Spieleseite (webserver/matches)
 			\item Ein offenes Spiel wählen
-			\item Spiel in den Status In Progress setzen
+			\item Spiel in den Status \guillemotleft In Progress\guillemotright {} setzen
 			\item Ergebnisse eintragen
 		\end{enumerate}
 		\tabularnewline
@@ -778,7 +777,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\arrayrulecolor{white}	
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE2.08}}  &   
-		\textcolor{white}{\textbf{\cellcolor{airforceblue}Spiel Workflow End-To-End Test}}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Spiel-Workflow End-To-End Test}}
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
@@ -793,12 +792,12 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\cellcolor{testblau} 
 		\begin{tabular}[x]{@{}l@{}}
 		 REQ2.01 - Spiel erstellen  \\
-		 REQ2.02 - Spiel Terminvorschläge erstellen\\
-		 REQ2.03 - Spiel Terminvorschläge annehmen und ablehnen\\
+		 REQ2.02 - Spiel-Terminvorschläge erstellen\\
+		 REQ2.03 - Spiel-Terminvorschläge annehmen und ablehnen\\
 		 REQ2.04 - Wiederkehrende Spiele erstellen\\
 		 REQ2.05 - Broadcast Spiele erstellen\\
 		 REQ2.06 - Privatsphäreeinstellungen berücksichtigen\\
-		 REQ2.07 - Ergebnisse des Spiels Eintragen\\
+		 REQ2.07 - Ergebnisse des Spiels eintragen\\
 		 REQ2.08 - Bestätigung des Spiels eintragen
 		 \end{tabular}
 		\tabularnewline
@@ -807,19 +806,19 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\cellcolor{testblau}
 		\begin{enumerate}
 		\itemsep -0.4em
-			\item Spieler 1: Erstellt Spiel mit Terminvorschläge
+			\item Spieler 1: Erstellt Spiel mit Terminvorschlägen
 			\item Spieler 2: Bestätigt ein Terminvorschlag
-			\item Spieler 1: Bestätigt Bestätigung des Terminvorschlag
+			\item Spieler 1: Bestätigt den Terminvorschlag
 			\item Spieler 1: Eröffnet Spiel
 			\item Spieler 2: Trägt Resultat ein
 			\item Spieler 1: Bestätigt Resultat
-			\item Spieler 1 und 2: Findet Spiel in Archiv
+			\item Spieler 1 und 2: Findet Spiel im Archiv
 		\end{enumerate}
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
 		\cellcolor{testblau}	
-			Beide Spieler finden Spiel in archiv
+			Beide Spieler finden Spiel im Archiv
 	\end{longtabu}
 \end{center}
 
@@ -829,7 +828,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\arrayrulecolor{white}	
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE3.01}}  &   
-		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erfolgreich ein Court erstellen}}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erfolgreich einen Court erstellen}}
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
@@ -850,13 +849,13 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\begin{enumerate}
 		\itemsep -0.4em
 			\item Navigieren zur Courtseite (webserver/courts)
-			\item Ein neues Court erstellen
+			\item Einen neuen Court erstellen
 		\end{enumerate}
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
 		\cellcolor{testblau}	
-		Die eingegebenen Details in der Court Detail Seite ersichtlich.
+		Die eingegebenen Details sind in der Court Detail Seite ersichtlich.
 	\end{longtabu}
 \end{center}
 \begin{center}
@@ -865,11 +864,11 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\arrayrulecolor{white}	
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE3.02}}  &   
-		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erfolglos ein Court erstellen}}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erfolglos einen Court erstellen}}
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
-		\cellcolor{testblau}{Koordinaten für das Court sind obligatorisch, wenn eine Koordinate fehlt, das Court sollte nicht erstellt werden, dafür ein Fehler kommen. }
+		\cellcolor{testblau}{Koordinaten für den Court sind obligatorisch, wenn eine Koordinate fehlt, den Court sollte nicht erstellt werden, dafür ein Fehler kommen. }
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
@@ -886,7 +885,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\begin{enumerate}
 		\itemsep -0.4em
 			\item Navigieren zur Courtseite (webserver/courts)
-			\item Ein neues Court erstellen
+			\item Einen neuen Court erstellen
 			\item Adresse nicht ausfüllen
 		\end{enumerate}
 		\tabularnewline
@@ -903,11 +902,11 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\arrayrulecolor{white}	
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}TE3.03}}  &   
-		\textcolor{white}{\textbf{\cellcolor{airforceblue}Spieler können sich in Court eintragen}}
+		\textcolor{white}{\textbf{\cellcolor{airforceblue}Spieler können sich im Court eintragen}}
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
-		\cellcolor{testblau}{Spieler kann sich bei Court registrieren, und anschliessend de registrieren }
+		\cellcolor{testblau}{Spieler kann sich bei Court registrieren, und anschliessend die Registration annullieren }
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
@@ -926,13 +925,13 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 			\item Navigieren zur Courtseite (webserver/courts)
 			\item Courtdetails öffnen
 			\item Sich in Court einschreiben
-			\item Sichin Court ausschreiben
+			\item Sich in Court ausschreiben
 		\end{enumerate}
 		\tabularnewline
 		\tabucline[2pt]{-}
 		\textcolor{white}{\textbf{\cellcolor{airforceblue}Erwartetes Resultat}} &
 		\cellcolor{testblau}	
-		Nach 3. Schritt sollte der User in der Liste der Spieler vom Court auftauchen, nach Schritt 4 sollte er wieder verschwunden sein.
+		Nach dem 3. Schritt sollte der User in der Liste der Spieler vom Court auftauchen, nach Schritt 4 sollte er wieder verschwunden sein.
 	\end{longtabu}
 	\end{center}
 \begin{center}
@@ -963,7 +962,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 		\itemsep -0.4em
 			\item Navigieren zur Liga (webserver/leagues)
 			\item Neue Liga erstellen
-			\item Formular Ausfüllen
+			\item Formular ausfüllen
 		\end{enumerate}
 		\tabularnewline
 		\tabucline[2pt]{-}
@@ -999,7 +998,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 			\begin{enumerate}
 			\itemsep -0.4em
 				\item Navigieren zur Ligaseite (webserver/leagues)
-				\item Neues Court erstellen
+				\item Neuen Court erstellen
 				\item Sportart nicht ausfüllen
 
 			\end{enumerate}
@@ -1020,7 +1019,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 			\tabularnewline
 			\tabucline[2pt]{-}
 			\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
-			\cellcolor{testblau}{Spieler kann sich bei Liga registrieren, und anschliessend de registrieren  }
+			\cellcolor{testblau}{Spieler kann sich bei Liga registrieren, und anschliessend ausschrieben  }
 			\tabularnewline
 			\tabucline[2pt]{-}
 			\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
@@ -1058,7 +1057,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 			\tabularnewline
 			\tabucline[2pt]{-}
 			\textcolor{white}{\textbf{\cellcolor{airforceblue}Beschreibung}} &  
-			\cellcolor{testblau}{Bei Abschluss eines Spiels wird die Rangliste der Liga aktualisiert}
+			\cellcolor{testblau}{Beim Abschluss eines Spiels wird die Rangliste der Liga aktualisiert}
 			\tabularnewline
 			\tabucline[2pt]{-}
 			\textcolor{white}{\textbf{\cellcolor{airforceblue}Version}} &
@@ -1129,7 +1128,7 @@ Zusätzlich zu den Unit Tests werden die Anforderungen manuell getestet mithilfe 
 			\tabularnewline
 			\tabucline[2pt]{-}
 			\cellcolor{testblau} TE01.01 &
-			\cellcolor{testblau}Nach Schritt 3 muss der User in der Liste des Racketsportzentrums
+			\cellcolor{testblau}Nach Schritt 3 muss der User in der Liste des Racket-Sportzentrums
 auftauchen. Nach Schritt 4 muss der User aus der Liste verschwinden&
 			\cellcolor{testblau}Nach Schritt 3 ist der User in der liste, nach Schritt 4 nicht mehr.&
 			\cellcolor{testblau} OK 
@@ -1162,7 +1161,7 @@ vorhanden.&
 			\tabularnewline
 			\tabucline[2pt]{-}
 			\cellcolor{testblau} TE01.06 &
-			\cellcolor{testblau}Ein Fehler wird zurückgegeben, das der User nicht gefunden wurde.&
+			\cellcolor{testblau}Ein Fehler wird zurückgegeben, dass der User nicht gefunden wurde.&
 			\cellcolor{testblau}Fehler: User not found&
 			\cellcolor{testblau} OK
 			\tabularnewline
@@ -1174,7 +1173,7 @@ vorhanden.&
 			\tabularnewline
 			\tabucline[2pt]{-}
 			\cellcolor{notokay} TE02.02 &
-			\cellcolor{notokay}Bei abschicken sollte ein Fehler erscheinen das das Spiel nicht
+			\cellcolor{notokay}Bei abschicken sollte ein Fehler erscheinen, dass das Spiel nicht
 vollständig ausgefüllt wurde.&
 			\cellcolor{notokay}Spiel wird abgeschickt&
 			\cellcolor{notokay} NOK
@@ -1195,8 +1194,8 @@ den neuen Vorschlagen auswählen&
 			\tabularnewline
 			\tabucline[2pt]{-}
 			\cellcolor{testblau} TE02.05 &
-			\cellcolor{testblau}Spieler im gleichen Racketsportzentrum sehen das Spiel.&
-			\cellcolor{testblau}Spieler im gleichen Racketsportzentrum sehen das Spiel.&
+			\cellcolor{testblau}Spieler im gleichen Racket-Sportzentrum sehen das Spiel.&
+			\cellcolor{testblau}Spieler im gleichen Racket-Sportzentrum sehen das Spiel.&
 			\cellcolor{testblau} OK
 			\tabularnewline
 			\tabucline[2pt]{-}
@@ -1213,13 +1212,13 @@ den neuen Vorschlagen auswählen&
 			\tabularnewline
 			\tabucline[2pt]{-}
 			\cellcolor{testblau} TE02.08 &
-			\cellcolor{testblau}Beide Spieler finden Spiel in Archiv&
-			\cellcolor{testblau}Beide Spieler finden Spiel in Archiv&
+			\cellcolor{testblau}Beide Spieler finden Spiel im Archiv&
+			\cellcolor{testblau}Beide Spieler finden Spiel im Archiv&
 			\cellcolor{testblau} OK
 			\tabularnewline
 			\tabucline[2pt]{-}
 			\cellcolor{testblau} TE03.01 &
-			\cellcolor{testblau}Die eingegebenen Details in der Court Detail Seite ersichtlich.&
+			\cellcolor{testblau}Die eingegebenen Details sind in der Court Detail Seite ersichtlich.&
 			\cellcolor{testblau}Court Details ersichtlich wie eingegeben.&
 			\cellcolor{testblau} OK
 			\tabularnewline
@@ -1231,7 +1230,7 @@ den neuen Vorschlagen auswählen&
 			\tabularnewline
 			\tabucline[2pt]{-}
 			\cellcolor{testblau} TE03.03 &
-			\cellcolor{testblau}Nach 3. Schritt sollte der User in der Liste der Spieler vom Court auftauchen, nach Schritt 4 sollte er wieder verschwunden sein.&
+			\cellcolor{testblau}Nach dem 3. Schritt sollte der User in der Liste der Spieler vom Court auftauchen, nach Schritt 4 sollte er wieder verschwunden sein.&
 			\cellcolor{testblau}Nach Schritt 3 wird der User angezeigt, nach Schritt 4 ist er wieder verschwunden. &
 			\cellcolor{testblau} OK
 			\tabularnewline
@@ -1260,4 +1259,4 @@ den neuen Vorschlagen auswählen&
 			\cellcolor{testblau} OK
 		\end{longtabu}
 		\end{center}
-Der Test TE02.02 wurde nicht erfolgreich abgeschlossen. Analysen haben ergeben, dass das Feld Sport nicht als Erforderlich getagt wurde. Dies wurde geändert. der Test ist nun erfolgreich.
+Der Test TE02.02 wurde nicht erfolgreich abgeschlossen. Analysen haben ergeben, dass das Feld Sport nicht als erforderlich getagt wurde. Dies wurde geändert. Der Test ist nun erfolgreich.

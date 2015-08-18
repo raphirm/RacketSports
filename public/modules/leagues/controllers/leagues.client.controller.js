@@ -75,7 +75,6 @@ angular.module('leagues').controller('LeaguesController', ['$http', '$resource' 
 
 
 		$scope.joinLeague = function (league) {
-			league = $scope.league;
 			$http.get('/leagues/' + league._id + '/join');
 			location.reload();
 		};
@@ -96,7 +95,10 @@ angular.module('leagues').controller('LeaguesController', ['$http', '$resource' 
 			}
 			return existing;
 		};
-
+		$scope.declineRequest = function(league){
+			$http.get("/leagues/" + league._id + "/decline");
+			location.reload();
+		}
 		// Update existing League
 		$scope.update = function () {
 			var league = $scope.league;

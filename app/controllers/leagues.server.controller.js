@@ -195,12 +195,19 @@ exports.join = function (req, res) {
 
     var league = req.league;
     var user = req.user;
+    console.log(user);
+    var leaguereq= user.leaguerequests.indexOf(league._id);
+    if(leaguereq>-1){
+        user.leaguerequests.splice(leaguereq, 1);
+        user.save();
+    }
+
     var userToPoints = new UserToPoints();
     userToPoints.user = req.user;
     userToPoints.save();
 
     league.users.push(userToPoints);
-    user.leagues.push(league)
+    user.leagues.push(league);
 
     console.log(league);
     league.save(function (err) {
@@ -253,6 +260,14 @@ exports.leave = function (req, res) {
             });
         }
     });
+};
+exports.decline = function (req, res) {
+    var league = req.league;
+    var user = req.user;
+    var leaguereq= user.leaguerequests.indexOf(league._id);
+    user.leaguerequests.splice(leaguereq, 1);
+    user.save();
+
 };
 exports.invite = function (req, res) {
     var username = req.body.user;

@@ -13,9 +13,12 @@
 <br>
     <h4>Einladungen</h4>
     <div class="list-group">
-        <a data-ng-repeat="league in listRequests" data-ng-href="#!/leagues/{{league._id}}" class="list-group-item " >
+        <a data-ng-repeat="league in listRequests"  class="list-group-item " >
+            <div class="row">
+                <div class="col-md-11" data-ng-href="#!/leagues/{{league._id}}"><h4 class="list-group-item-heading " data-ng-href="#!/leagues/{{league._id}}" data-ng-bind="league.name"> </h4></div>
+                <div class="col-md-1"> <span class="glyphicon glyphicon-ok" ng-click="joinLeague(league)"></span><span class="glyphicon glyphicon-remove" ng-click="declineRequest(league)"></span></div>
+            </div>
 
-            <h4 class="list-group-item-heading " data-ng-bind="league.name"></h4>
         </a>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!leagues.$resolved || leagues.length">

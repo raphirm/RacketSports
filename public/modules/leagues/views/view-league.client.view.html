@@ -1,9 +1,9 @@
 <section data-ng-controller="LeaguesController" data-ng-init="findOne()">
 	<div class="pull-right">
-		<a data-ng-show="!joinStatus(league)" class="btn btn-primary" ng-click="joinLeague()">
+		<a data-ng-show="!joinStatus(league)" class="btn btn-primary" ng-click="joinLeague(league)">
 			<i class="glyphicon glyphicon-ok"></i>
 		</a>
-		<a data-ng-show="joinStatus(league)" class="btn btn-primary" ng-click="leaveLeague()">
+		<a data-ng-show="joinStatus(league)" class="btn btn-primary" ng-click="leaveLeague(league)">
 			<i class="glyphicon glyphicon-remove"></i>
 		</a>
 		<a class="btn btn-primary" href="/#!/leagues/{{league._id}}/edit">

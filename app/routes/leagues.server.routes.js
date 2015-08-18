@@ -20,6 +20,8 @@ module.exports = function(app) {
 		.get(users.requiresLogin, leagues.hasAuthorization, leagues.join);
 	app.route('/leagues/:leagueId/leave')
 		.get(users.requiresLogin, leagues.hasAuthorization, leagues.leave);
+	app.route('/leagues/:leagueId/decline')
+		.get(users.requiresLogin, leagues.hasAuthorization, leagues.decline);
 	app.route('/leagues/:leagueId/invite')
 		.post(users.requiresLogin, leagues.hasAuthorization, leagues.invite);
 	// Finish by binding the League middleware

@@ -55,6 +55,7 @@ var MatchSchema = new Schema({
 	},
 	sport: {
 		type: String,
+		required: true,
 		enum: ['Squash', 'Tennis', 'Badminton', 'Tabletennis']
 	},
 	time: {

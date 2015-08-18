@@ -84,7 +84,7 @@ angular.module('matches').controller('MatchesController', ['$scope', '$statePara
             }
             // Redirect after save
             match.$save(function (response) {
-                $location.path('matches/');
+                $location.path('matches');
 
                 // Clear form fields
                 $scope.name = '';

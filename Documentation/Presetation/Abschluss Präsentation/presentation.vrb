@@ -1,0 +1,23 @@
+\frametitle{Web Applikation}
+
+\begin{itemize}
+\item JavaScript MVC Framework
+\item JavaScript bezieht Models über API und stellt sie dar
+\end{itemize}
+\begin{lstlisting}
+<section data-ng-controller="CourtsController" data-ng-init="find()">
+    ....
+        <table id="courtslist" class="table">
+            <tr>
+                <th>Name</th><th>Adresse</th><th>Verfügbare Sportarten</th>
+            </tr>
+
+            <tr data-ng-repeat="court in courts" id="{{court._id}}" ng-click="go(court)"  onMouseover="this.bgColor='#DDDDDD'" onMouseout="this.bgColor='#FFFFFF'">
+                <td data-ng-bind="court.name"></td>
+                <td data-ng-bind="court.address"></td>
+                <td data-ng-bind="court.sports"></td>
+            </tr>
+        </table>
+....
+\end{lstlisting}
+

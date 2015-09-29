@@ -1,0 +1,26 @@
+\usepackage{ngerman}				% Anpassung an deutsche Sprache
+
+\usepackage[T1]{fontenc}			% Dadurch ist auch sichergestellt, dass in einem PDF Umlaute gefunden werden.
+\usepackage[ansinew]{inputenc}		% UnterstÃ¼tzung erweiterter ZeichensÃ¤tze mit
+									% unterschiedlichen Kodierungen
+									% (z. B. Ä, Ö, Ü usw.)
+
+\input{conf/rgbcolor}				% eigene RGB Farben Definition
+\input{conf/code}					% Eigene Ausgabeformatierungen für Quellcode
+
+%------------------------------------HERVORHEBEN VON ZITATEN------------------------------
+\newcommand*\openquote{\makebox(25,-22){\scalebox{5}{``}}}
+\newcommand*\closequote{\makebox(25,-22){\scalebox{5}{''}}}
+\colorlet{shadecolor}{Gainsboro}
+
+\usepackage{libertine}
+\usepackage{framed}
+\makeatletter
+\newif\if@right
+\def\shadequote{\@righttrue\shadequote@i}
+\def\shadequote@i{\begin{snugshade}\begin{quote}\openquote}
+\def\endshadequote{%
+  \if@right\hfill\fi\closequote\end{quote}\end{snugshade}}
+\@namedef{shadequote*}{\@rightfalse\shadequote@i}
+\@namedef{endshadequote*}{\endshadequote}
+\makeatother
